@@ -1,6 +1,7 @@
 package com.yuan.lee.controller.box;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yuan.lee.common.PageBean;
@@ -24,6 +26,7 @@ import com.yuan.lee.entity.Users;
 import com.yuan.lee.service.box.emer.EmerTypeService;
 import com.yuan.lee.service.box.emer.EmergencyService;
 import com.yuan.lee.service.box.emer.UeRelationService;
+import com.yuan.lee.service.box.users.UsersService;
 import com.yuan.lee.util.Identities;
 
 @Controller
@@ -38,29 +41,37 @@ public class EmergencyInfoController {
 	EmergencyService emergencyService;
 	@Autowired
 	UeRelationService ueRelationService;
+	@Autowired
+	UsersService usersService;
 	
 	@Autowired
 	UERelation ueRelation;
 	
 	
 	private List<EmerType> emerTypelist2;
+	private List<EmerType> emerTypelist;
+	private Emergency emergency;
+	private EmerType emertype;
 	
 	@RequestMapping("/gotoAddEmergency")
 	public String gotoAddEmergency(ModelMap modelmap){
 		List<EmerType> list= emerTypeService.selectAll();
 		List<String>emertypenames=new ArrayList<String>();
-		List<String>emertypedescribes=new ArrayList<String>();
 		List<EmerType> emerTypelist=new ArrayList<EmerType>();
 		List<EmerType> emerTypelist2=new ArrayList<EmerType>();
 		for (EmerType emertype : list) {
 			if (!emertypenames.contains(emertype.getEmertypename())) {
-				emertypenames.add(emertype.getEmertypename());	
+				emertypenames.add(emertype.getEmertypename());
 			}
-			if(!emertypedescribes.contains(emertype.getDescribe()))
-			{
-				emertypedescribes.add(emertype.getDescribe());
-				emerTypelist2.add(emertype);
-				emerTypelist.add(emertype);
+			if(emertype.getEmertypename().equals(emertypenames.get(0) )){
+				if (!emertypenames.get(0).equals("") && emertypenames.get(0) != null)
+						emerTypelist.add(emertype);
+			}
+			 String emertypeid=emerTypelist.get(0).getEmertypeid();
+			if(emertype.getEmertypeid().equals(emertypeid)){
+				if(!emertypeid.equals("") && emertypeid !=null){
+					emerTypelist2.add(emertype);	
+				}
 			}
 		}
 		this.emerTypelist2= emerTypelist2;
@@ -71,7 +82,6 @@ public class EmergencyInfoController {
 	}
 	@RequestMapping("/saveEmergency")
 	public String saveEmergency(Emergency emergency,String emertypeid){
-		Emergency test=new Emergency();
 		Users user=(Users)request.getSession().getAttribute("user");
 		emergency.setEmerid(Identities.uuid2());
 		emergencyService.insert(emergency);
@@ -86,7 +96,9 @@ public class EmergencyInfoController {
 	@ResponseBody
 	@RequestMapping("/findDescribe")
 	public void findDescribe(ModelMap modelmap,String emerTypeId) throws IOException{
-		List<EmerType> emerTypelist2=this.emerTypelist2;
+		EmerType emertype= emerTypeService.selectByPrimaryKey(emerTypeId);
+		List<EmerType> emerTypelist2=new ArrayList<EmerType>();
+		emerTypelist2.add(emertype);
 		String cSelect="";
 	 	emerTypeId=URLDecoder.decode(emerTypeId, "UTF-8");
 	 	request.setCharacterEncoding("utf-8");
@@ -103,7 +115,7 @@ public class EmergencyInfoController {
 		response.getWriter().write(cSelect);
 	}
 	@RequestMapping("/GotoSearchEmergency")
-	public String gotoSearchEmergency(ModelMap modelmap,Emergency emergency,String page){
+	public String gotoSearchEmergency(ModelMap modelmap,Emergency emergency,String page,EmerType emertype){
 		Users user=(Users)request.getSession().getAttribute("user");
 		String userid=user.getUserid();
 		String usertype=user.getUsertype();
@@ -113,6 +125,32 @@ public class EmergencyInfoController {
 		StringBuffer url=new StringBuffer();
 		//把action跳转的地址存在url中
 		url.append(request.getContextPath()+"/GotoSearchEmergency?method=GotoSearchEmergency");
+		
+		//查询所有的emertype
+		List<EmerType> list= emerTypeService.selectAll();
+		List<String>emertypenames=new ArrayList<String>();
+		List<EmerType> emerTypelist=new ArrayList<EmerType>();
+		EmerType emtype=null;
+		if(emertype.getEmertypeid() != null)
+		{
+			emtype=emerTypeService.selectByPrimaryKey(emertype.getEmertypeid());
+		}
+		else{
+			 emtype=emerTypeService.selectByPrimaryKey("1");
+		}
+		for (EmerType emertype1 : list) {
+			if (!emertypenames.contains(emertype1.getEmertypename())) {
+				emertypenames.add(emertype1.getEmertypename());	
+			}
+			if(emertype1.getEmertypename().equals(emtype.getEmertypename())){
+				emerTypelist.add(emertype1);
+			}
+				
+		}
+		modelmap.put("emerTypeName", emertypenames);
+		modelmap.put("emerTypelist", emerTypelist);
+		this.emerTypelist=emerTypelist;
+		
 		int current=1;
 		if (page != null && !page.trim().equals("")) {
 			current=Integer.parseInt(page);
@@ -154,4 +192,283 @@ public class EmergencyInfoController {
 		}
 		
 	}
+	@ResponseBody
+	@RequestMapping("/findLevel")
+	public void findLevel(ModelMap modelmap,String emerTypeName) throws IOException{
+
+		emerTypeName=URLDecoder.decode(emerTypeName, "UTF-8");
+		//查询所有的emertype
+		List<EmerType> list= emerTypeService.selectAll();
+		List<EmerType> emerTypelist=new ArrayList<EmerType>();
+		for (EmerType emertype1 : list) {
+			if(emertype1.getEmertypename().equals(emerTypeName)){
+				emerTypelist.add(emertype1);
+			}
+				
+		}
+		
+		String cSelect="";
+	 	request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		if (emerTypelist != null && emerTypelist.size() > 0) {
+			for (int i = 0; i < emerTypelist.size(); i++) {
+				EmerType type = emerTypelist.get(i);
+				cSelect += "<option value=" + type.getEmertypeid()
+						+ ">" + type.getLevel() + "</option>";
+			}
+		} else {
+			cSelect += "<option value=\"0\">无该灾害事件类型</option>";
+		}	
+		response.getWriter().write(cSelect);
+		
+	}
+	
+	@RequestMapping(value="/SearchEmergencyget",method=RequestMethod.GET)
+	public String  test(ModelMap modelmap,Emergency emergency,String page,EmerType emertype){
+		emergency=this.emergency; 
+		emertype=this.emertype;
+		Users user=(Users)request.getSession().getAttribute("user");
+		String userid=user.getUserid();
+		String usertype=user.getUsertype();
+		
+		String emerno=emergency.getEmerno();
+		String emername=emergency.getEmername();
+		StringBuffer url=new StringBuffer();
+		//把action跳转的地址存在url中
+		url.append(request.getContextPath()+"/SearchEmergencyget?method=SearchEmergencyget");
+		
+		//查询所有的emertype
+		List<EmerType> list= emerTypeService.selectAll();
+		List<String>emertypenames=new ArrayList<String>();
+		List<EmerType> emerTypelist=new ArrayList<EmerType>();
+		EmerType emtype=null;
+		if(emertype.getEmertypeid() != null)
+		{
+			emtype=emerTypeService.selectByPrimaryKey(emertype.getEmertypeid());
+		}
+		else{
+			 emtype=emerTypeService.selectByPrimaryKey("1");
+		}
+		for (EmerType emertype1 : list) {
+			if (!emertypenames.contains(emertype1.getEmertypename())) {
+				emertypenames.add(emertype1.getEmertypename());	
+			}
+			if(emertype1.getEmertypename().equals(emtype.getEmertypename())){
+				emerTypelist.add(emertype1);
+			}
+				
+		}
+		modelmap.put("emerTypeName", emertypenames);
+		modelmap.put("emerTypelist", emerTypelist);
+		
+		
+		int current=1;
+		if (page != null && !page.trim().equals("")) {
+			current=Integer.parseInt(page);
+		}
+		try {
+			int first=0;
+			int pageSize=Integer.parseInt(String.valueOf(PageBean.pagecount));
+			if(current!=0){
+				first=(current-1)*pageSize;
+			}
+			int startNum = first;
+			Map<String, Object> params=new HashMap<String, Object>();
+			params.put("sortName", "emerid");
+	        params.put("pageSize", pageSize);
+		    params.put("startNum", startNum);
+		    if(emerno != null && !"".equals(emerno))
+	    	 {
+	    		params.put("emerno", "%"+emerno+"%"); 
+	    		 url.append("&emerno="+emerno);
+	    	 }
+			 if(emername != null && !"".equals(emername))
+	    	 {
+				 params.put("emername", "%"+emername+"%");
+	    		 url.append("&emername="+emername);
+	    	 }
+			params.put("userid", userid);
+			params.put("usertype", usertype);
+			params.put("emertypeid", emergency.getEmertypeid());
+			if(emergency.getEmername().length()>0)
+				params.put("emername", emergency.getEmername());
+			if(emergency.getEmerno().length()>0)
+				params.put("emerno", emergency.getEmerno());
+			
+			int num=emergencyService.findByParamsCount(params);
+			List<Emergency> listEmergency=emergencyService.findByParams(params);
+			PageBean PageBean=new PageBean(current,pageSize,num,listEmergency); 
+			PageBean.setUrl(url.toString());
+			modelmap.put("pageBean", PageBean);
+			modelmap.put("Pagelist", PageBean.getList());
+			return "WebRoot/Emergency/listEmergency";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error/404";
+		}
+	}
+	
+	@RequestMapping("/SearchEmergency")
+	public String searchEmergency(ModelMap modelmap,Emergency emergency,String page,EmerType emertype ){
+		this.emergency=emergency;
+		this.emertype=emertype;
+		Users user=(Users)request.getSession().getAttribute("user");
+		String userid=user.getUserid();
+		String usertype=user.getUsertype();
+		
+		String emerno=emergency.getEmerno();
+		String emername=emergency.getEmername();
+		StringBuffer url=new StringBuffer();
+		//把action跳转的地址存在url中
+		url.append(request.getContextPath()+"/SearchEmergencyget?method=SearchEmergencyget");
+		
+		//查询所有的emertype
+		List<EmerType> list= emerTypeService.selectAll();
+		List<String>emertypenames=new ArrayList<String>();
+		List<EmerType> emerTypelist=new ArrayList<EmerType>();
+		EmerType emtype=null;
+		if(emertype.getEmertypeid() != null)
+		{
+			emtype=emerTypeService.selectByPrimaryKey(emertype.getEmertypeid());
+		}
+		else{
+			 emtype=emerTypeService.selectByPrimaryKey("1");
+		}
+		for (EmerType emertype1 : list) {
+			if (!emertypenames.contains(emertype1.getEmertypename())) {
+				emertypenames.add(emertype1.getEmertypename());	
+			}
+			if(emertype1.getEmertypename().equals(emtype.getEmertypename())){
+				emerTypelist.add(emertype1);
+			}
+				
+		}
+		modelmap.put("emerTypeName", emertypenames);
+		modelmap.put("emerTypelist", emerTypelist);
+		
+		
+		int current=1;
+		if (page != null && !page.trim().equals("")) {
+			current=Integer.parseInt(page);
+		}
+		try {
+			int first=0;
+			int pageSize=Integer.parseInt(String.valueOf(PageBean.pagecount));
+			if(current!=0){
+				first=(current-1)*pageSize;
+			}
+			int startNum = first;
+			Map<String, Object> params=new HashMap<String, Object>();
+			params.put("sortName", "emerid");
+	        params.put("pageSize", pageSize);
+		    params.put("startNum", startNum);
+		    if(emerno != null && !"".equals(emerno))
+	    	 {
+	    		params.put("emerno", "%"+emerno+"%"); 
+	    		 url.append("&emerno="+emerno);
+	    	 }
+			 if(emername != null && !"".equals(emername))
+	    	 {
+				 params.put("emername", "%"+emername+"%");
+	    		 url.append("&emername="+emername);
+	    	 }
+			params.put("userid", userid);
+			params.put("usertype", usertype);
+			params.put("emertypeid", emergency.getEmertypeid());
+			if(emergency.getEmername().length()>0)
+				params.put("emername", emergency.getEmername());
+			if(emergency.getEmerno().length()>0)
+				params.put("emerno", emergency.getEmerno());
+			
+			int num=emergencyService.findByParamsCount(params);
+			List<Emergency> listEmergency=emergencyService.findByParams(params);
+			PageBean PageBean=new PageBean(current,pageSize,num,listEmergency); 
+			PageBean.setUrl(url.toString());
+			modelmap.put("pageBean", PageBean);
+			modelmap.put("Pagelist", PageBean.getList());
+			return "WebRoot/Emergency/listEmergency";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error/404";
+		}
+	}
+	
+	@RequestMapping("/EditEmergency")
+	public String editEmergency(ModelMap modelmap, String emerid){
+		List<EmerType> list= emerTypeService.selectAll();
+		List<String>emertypenames=new ArrayList<String>();
+		List<EmerType> emerTypelist=new ArrayList<EmerType>();
+		List<EmerType> emerTypelist2=new ArrayList<EmerType>();
+		for (EmerType emertype : list) {
+			if (!emertypenames.contains(emertype.getEmertypename())) {
+				emertypenames.add(emertype.getEmertypename());
+			}
+			if(emertype.getEmertypename().equals(emertypenames.get(0) )){
+				if (!emertypenames.get(0).equals("") && emertypenames.get(0) != null)
+						emerTypelist.add(emertype);
+			}
+			 String emertypeid=emerTypelist.get(0).getEmertypeid();
+			if(emertype.getEmertypeid().equals(emertypeid)){
+				if(!emertypeid.equals("") && emertypeid !=null){
+					emerTypelist2.add(emertype);	
+				}
+			}
+		}
+		Emergency emergency=emergencyService.selectByPrimaryKey(emerid);
+		modelmap.put("emergency", emergency);
+		modelmap.put("emerTypeName",emertypenames);
+		modelmap.put("emerTypelist",emerTypelist);
+		modelmap.put("emerTypelist2",emerTypelist2 );
+		return "WebRoot/Emergency/editEmergency";
+	}
+	@RequestMapping("/UpdateEmergency")
+	public String updateEmergency(Emergency emergency) throws IOException{
+		int resault=emergencyService.updateByPrimaryKey(emergency);
+		if(resault>0)
+			return "redirect:GotoSearchEmergency";
+		else {
+			return "error/404";
+		}
+	}
+	@RequestMapping("/DeleteEmergency")
+	public String deleteEmergency(String emerid){
+		int resault=emergencyService.deleteByPrimaryKey(emerid);
+		if(resault >0)
+			return "redirect:GotoSearchEmergency";
+		else {
+			return "error/404";
+		}
+	}
+	
+	@RequestMapping("/gotoAuthorize")
+	public String gotoAuthorize(ModelMap modelmap){
+		Users user=(Users)request.getSession().getAttribute("user");
+		List<Emergency> emergencylist=null;
+		
+		if(user.getUsertype().equals("1")){
+			 emergencylist=emergencyService.selectAll();
+		}else {
+			emergencylist=emergencyService.selectByUserid(user.getUserid());
+		}
+		modelmap.put("emergencylist", emergencylist);
+		return "WebRoot/Emergency/reAuthorize";
+	}
+	@RequestMapping("/reAuthorize")
+	public String reAuthorize(ModelMap modelmap, String emerid,Users userN){
+		Emergency emergency=emergencyService.selectByPrimaryKey(emerid);
+		Map<String , Object> params=new HashMap<String, Object>();
+		params.put("username", userN.getUsername());
+		params.put("certicobe", userN.getCerticobe());
+		params.put("logname", userN.getLogname());
+		params.put("logpwd", userN.getLogpwd());
+		List<Users> users=usersService.findByParams(params);
+		//将用户与灾害事件匹配起来
+		ueRelation.setUerelationid(Identities.uuid2());
+		ueRelation.setEmerid(emergency.getEmerid());
+		ueRelation.setUserid(users.get(0).getUserid());
+		ueRelation.setState("0");   //是自己创建的，而不是被别人授权的
+		ueRelationService.insert(ueRelation);
+		return "forward:gotoAuthorize";
+	}
+	
 }

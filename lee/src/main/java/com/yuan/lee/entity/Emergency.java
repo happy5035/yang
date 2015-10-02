@@ -1,6 +1,7 @@
 package com.yuan.lee.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
@@ -23,12 +24,17 @@ public class Emergency implements Serializable {
     private String emertypeid;
     
     private EmerType emertype;
+    
+    private String happentimeS;
 
     private static final long serialVersionUID = 1L;
     
     
-    	
-    public EmerType getEmertype() {
+    public String getHappentimeS() {
+		return happentimeS;
+	}
+
+	public EmerType getEmertype() {
 		return emertype;
 	}
 
@@ -65,6 +71,9 @@ public class Emergency implements Serializable {
     }
 
     public void setHappentime(Date happentime) {
+    	SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+    	String dateString=format.format(happentime);
+        this.happentimeS=dateString;
         this.happentime = happentime;
     }
 

@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.ENRelation;
-
-public interface ENRelationMapper {
+@MyBatisRepository
+public interface ENRelationMapper extends BaseMapper<ENRelation> {
     int deleteByPrimaryKey(String enrelationid);
 
     int insert(ENRelation record);

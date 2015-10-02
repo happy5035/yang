@@ -1,0 +1,123 @@
+package com.yuan.lee.controller.box;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.yuan.lee.entity.DisasterNode;
+import com.yuan.lee.entity.ENRelation;
+import com.yuan.lee.entity.EmerType;
+import com.yuan.lee.entity.Emergency;
+import com.yuan.lee.entity.Nodes;
+import com.yuan.lee.entity.UERelation;
+import com.yuan.lee.entity.Users;
+import com.yuan.lee.service.box.disaster.DisasterNodesService;
+import com.yuan.lee.service.box.disaster.ENrelationService;
+import com.yuan.lee.service.box.disaster.NodesService;
+import com.yuan.lee.service.box.emer.EmerTypeService;
+import com.yuan.lee.service.box.emer.EmergencyService;
+import com.yuan.lee.service.box.emer.UeRelationService;
+import com.yuan.lee.util.Identities;
+
+@Controller
+public class QuickCreatController {
+	@Autowired
+	EmerTypeService emerTypeService;
+	@Autowired
+	NodesService nodesService;
+	@Autowired
+	DisasterNodesService disasterNodesService;
+	@Autowired
+	ENrelationService enRelationService;
+	@Autowired
+	HttpServletRequest request;
+	@Autowired
+	EmergencyService emergencyService;
+	@Autowired
+	UeRelationService ueRelationService;
+
+	@Autowired
+	UERelation ueRelation;
+	
+	@Autowired
+	Nodes nodes;
+	@Autowired
+	DisasterNode disasterNode;
+	@Autowired
+	ENRelation enRelation;
+	
+	@RequestMapping("/gotoAddExample")
+	public String gotoAddExample(ModelMap modelmap){
+		List<EmerType> list= emerTypeService.selectAll();
+		List<String>emertypenames=new ArrayList<String>();
+		List<EmerType> emerTypelist=new ArrayList<EmerType>();
+		List<EmerType> emerTypelist2=new ArrayList<EmerType>();
+		for (EmerType emertype : list) {
+			if (!emertypenames.contains(emertype.getEmertypename())) {
+				emertypenames.add(emertype.getEmertypename());
+			}
+			if(emertype.getEmertypename().equals(emertypenames.get(0) )){
+				if (!emertypenames.get(0).equals("") && emertypenames.get(0) != null)
+						emerTypelist.add(emertype);
+			}
+			 String emertypeid=emerTypelist.get(0).getEmertypeid();
+			if(emertype.getEmertypeid().equals(emertypeid)){
+				if(!emertypeid.equals("") && emertypeid !=null){
+					emerTypelist2.add(emertype);	
+				}
+			}
+		}
+		modelmap.put("emerTypeName",emertypenames);
+		modelmap.put("emerTypelist",emerTypelist);
+		modelmap.put("emerTypelist2",emerTypelist2 );
+		modelmap.put("number", "0");
+		return "WebRoot/QuicklyCreate/addExample";
+	}
+	@RequestMapping("/saveEmergency2")
+	public String saveEmergency2(Emergency emergency,String emertypeid){
+		Users user=(Users)request.getSession().getAttribute("user");
+		emergency.setEmerid(Identities.uuid2());
+		emergencyService.insert(emergency);
+		request.getSession().setAttribute("emergency", emergency);
+		//将用户与灾害事件匹配起来
+		ueRelation.setUerelationid(Identities.uuid2());
+		ueRelation.setEmerid(emergency.getEmerid());
+		ueRelation.setUserid(user.getUserid());
+		ueRelation.setState("1");   //是自己创建的，而不是被别人授权的
+		ueRelationService.insert(ueRelation);
+		return "forward:gotoAddExample";
+	}
+	@RequestMapping("/saveDisasterNode2")
+	public String saveDisasterNode2(ModelMap modelmap,String length1){
+		int length=Integer.parseInt(length1);
+		for (int i = 0; i < length; i++) {
+			String nodeid=Identities.uuid2();
+			nodes.setNodeid(nodeid);
+			nodes.setNodetype("D");
+			nodes.setNodename(request.getParameter("disastername"+i));
+			nodesService.insertSelective(nodes);
+			//保存灾害点
+			disasterNode.setDnodeid(nodeid);
+			disasterNode.setDisastername(request.getParameter("disastername"+i));
+			disasterNode.setDisasterno(request.getParameter("disasterno"+i));
+			disasterNode.setPrincipal(request.getParameter("principal"+i));
+			disasterNode.setPhone(request.getParameter("phone"+i));
+			disasterNode.setDisasterlevel(request.getParameter("disasterLevel"+i));
+			disasterNodesService.insertSelective(disasterNode);
+			
+			//以下是为了填节点与灾害事件关系表
+			Emergency emergency=(Emergency)request.getSession().getAttribute("emergency");
+			enRelation.setEnrelationid(Identities.uuid2());
+			enRelation.setEmerid(emergency.getEmerid());
+			enRelation.setNodeid(nodeid);
+			enRelationService.insertSelective(enRelation);
+		}
+		return "forward:gotoAddExample";
+	}
+}

@@ -1,7 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,14 +10,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>´´½¨ÔÖº¦ÊÂ¼şÊµÀı</title>    
+    <title>åˆ›å»ºç¾å®³äº‹ä»¶å®ä¾‹</title>    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.2.js"></script>
-     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+	<script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.5.2.js"/>"></script>
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
      <script type="text/javascript"> 
 function cbt_res()
 {
@@ -30,7 +29,7 @@ function cbt_res()
 		    $( "#emerTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findLevel.action?emerTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findLevel?emerTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -38,7 +37,7 @@ function cbt_res()
 		    	}});
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findDescribe.action?emerTypeId="+$("#emerTypeId").val()+"&amt=" + Math.random(),
+		    	url: "findDescribe?emerTypeId="+$("#emerTypeId").val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -51,7 +50,7 @@ function cbt_res()
 		    $( "#emerTypeId" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findDescribe.action?emerTypeId="+encodeURI(encodeURI($(this).val())),
+		    	url: "findDescribe?emerTypeId="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -65,25 +64,25 @@ function cbt_res()
 
 
 
-   //ÔÖº¦µã 
+   //ç¾å®³ç‚¹ 
    var  i=0;
    function addRow(TabId){  
-   //alert("ÔÖº¦µã"+disasterName[i-1]);
-   //»ñÈ¡Òª²åÈëĞĞµÄ±í¸ñ
+   //alert("ç¾å®³ç‚¹"+disasterName[i-1]);
+   //è·å–è¦æ’å…¥è¡Œçš„è¡¨æ ¼
    var table = document.getElementById(TabId);
-   //ÔÚ×îºóÒ»ĞĞ²åÈëÒ»ĞĞ
+   //åœ¨æœ€åä¸€è¡Œæ’å…¥ä¸€è¡Œ
    var newRow = table.insertRow(table.rows.length);
-   //ÔÚ¸ÃĞĞ²åÈëµ¥Ôª¸ñ
+   //åœ¨è¯¥è¡Œæ’å…¥å•å…ƒæ ¼
    var newCel1 = newRow.insertCell(0);
    var newCel2 = newRow.insertCell(1);
    var newCel3 = newRow.insertCell(2);
    var newCel4 = newRow.insertCell(3);
    var newCel5 = newRow.insertCell(4);
-   newCel1.innerHTML = "<input type=\"text\" name=\"disasterName"+i+"\" id=\"disasterName"+i+"\" title=\"disasterName"+i+"\">";
-   newCel2.innerHTML = "<input type=\"text\" name=\"disasterNo"+i+"\" id=\"disasterNo"+i+"\" title=\"disasterNo"+i+"\">";
+   newCel1.innerHTML = "<input type=\"text\" name=\"disastername"+i+"\" id=\"disasterName"+i+"\" title=\"disasterName"+i+"\">";
+   newCel2.innerHTML = "<input type=\"text\" name=\"disasterno"+i+"\" id=\"disasterNo"+i+"\" title=\"disasterNo"+i+"\">";
    newCel3.innerHTML = "<input type=\"text\" name=\"principal"+i+"\" id=\"principal"+i+"\" title=\"principal"+i+"\">";
    newCel4.innerHTML = "<input type=\"text\" name=\"phone"+i+"\" id=\"phone"+i+"\" title=\"phone"+i+"\">";
-   newCel5.innerHTML = "<input type=\"radio\" name=\"disasterLevel"+i+"\" id=\"disasterLevel"+i+"\" title=\"disasterLevel"+i+"\" value=\"C\">ÊĞ<input type=\"radio\" name=\"disasterLevel"+i+"\" id=\"disasterLevel"+i+"\" title=\"disasterLevel"+i+"\" value=\"D\">ÏØ/Çø<input type=\"radio\" name=\"disasterLevel"+i+"\" id=\"disasterLevel"+i+"\" title=\"disasterLevel"+i+"\" value=\"T\">Õò/½ÖµÀ<input type=\"radio\" name=\"disasterLevel"+i+"\" id=\"disasterLevel"+i+"\" title=\"disasterLevel"+i+"\" value=\"V\">´å";
+   newCel5.innerHTML = "<input type=\"radio\" name=\"disasterLevel"+i+"\" id=\"disasterLevel"+i+"\" title=\"disasterLevel"+i+"\" value=\"C\">å¸‚<input type=\"radio\" name=\"disasterLevel"+i+"\" id=\"disasterLevel"+i+"\" title=\"disasterLevel"+i+"\" value=\"D\">å¿/åŒº<input type=\"radio\" name=\"disasterLevel"+i+"\" id=\"disasterLevel"+i+"\" title=\"disasterLevel"+i+"\" value=\"T\">é•‡/è¡—é“<input type=\"radio\" name=\"disasterLevel"+i+"\" id=\"disasterLevel"+i+"\" title=\"disasterLevel"+i+"\" value=\"V\">æ‘";
    i++;
    document.getElementById("length1").value = i;
    }  
@@ -92,14 +91,14 @@ function cbt_res()
    var ls_t=document.all("Tab1");
    ls_t.deleteRow() ;
    }
-   //²Ö¿âµã
+   //ä»“åº“ç‚¹
    var  j=0;
    function addRow2(TabId){  
-   //»ñÈ¡Òª²åÈëĞĞµÄ±í¸ñ
+   //è·å–è¦æ’å…¥è¡Œçš„è¡¨æ ¼
    var table = document.getElementById(TabId);
-   //ÔÚ×îºóÒ»ĞĞ²åÈëÒ»ĞĞ
+   //åœ¨æœ€åä¸€è¡Œæ’å…¥ä¸€è¡Œ
    var newRow = table.insertRow(table.rows.length);
-   //ÔÚ¸ÃĞĞ²åÈëµ¥Ôª¸ñ
+   //åœ¨è¯¥è¡Œæ’å…¥å•å…ƒæ ¼
    var newCel1 = newRow.insertCell(0);
    var newCel2 = newRow.insertCell(1);
    var newCel3 = newRow.insertCell(2);
@@ -110,9 +109,9 @@ function cbt_res()
    var newCel8 = newRow.insertCell(7);
    newCel1.innerHTML = "<input type=\"text\" name=\"wareHouseName"+j+"\" id=\"wareHouseName"+j+"\" title=\"wareHouseName"+j+"\">";
    newCel2.innerHTML = "<input type=\"text\" name=\"wareHouseNo"+j+"\" id=\"wareHouseNo"+j+"\" title=\"wareHouseNo"+j+"\">";
-   newCel3.innerHTML = "<input type=\"radio\" name=\"wareHouseLevel"+j+"\" id=\"wareHouseLevel"+j+"\" title=\"wareHouseLevel"+j+"\" value=\"P\">Ê¡<input type=\"radio\" name=\"wareHouseLevel"+j+"\" id=\"wareHouseLevel"+j+"\" title=\"wareHouseLevel"+j+"\" value=\"C\">ÊĞ<input type=\"radio\" name=\"wareHouseLevel"+j+"\" id=\"wareHouseLevel"+j+"\" title=\"wareHouseLevel"+j+"\" value=\"D\">ÏØ/Çø";
+   newCel3.innerHTML = "<input type=\"radio\" name=\"wareHouseLevel"+j+"\" id=\"wareHouseLevel"+j+"\" title=\"wareHouseLevel"+j+"\" value=\"P\">çœ<input type=\"radio\" name=\"wareHouseLevel"+j+"\" id=\"wareHouseLevel"+j+"\" title=\"wareHouseLevel"+j+"\" value=\"C\">å¸‚<input type=\"radio\" name=\"wareHouseLevel"+j+"\" id=\"wareHouseLevel"+j+"\" title=\"wareHouseLevel"+j+"\" value=\"D\">å¿/åŒº";
    newCel4.innerHTML = "<input type=\"text\" name=\"dimensions"+j+"\" id=\"dimensions"+j+"\" title=\"dimensions"+j+"\">";
-   newCel5.innerHTML = "<input type=\"radio\" name=\"property"+j+"\" id=\"property"+j+"\" title=\"property"+j+"\" value=\"C\">¹úÓĞ<input type=\"radio\" name=\"property"+j+"\" id=\"property"+j+"\" title=\"property"+j+"\" value=\"L\">µØ·½ËùÓĞ<input type=\"radio\" name=\"property"+j+"\" id=\"property"+j+"\" title=\"property"+j+"\" value=\"S\">¸öÈË";
+   newCel5.innerHTML = "<input type=\"radio\" name=\"property"+j+"\" id=\"property"+j+"\" title=\"property"+j+"\" value=\"C\">å›½æœ‰<input type=\"radio\" name=\"property"+j+"\" id=\"property"+j+"\" title=\"property"+j+"\" value=\"L\">åœ°æ–¹æ‰€æœ‰<input type=\"radio\" name=\"property"+j+"\" id=\"property"+j+"\" title=\"property"+j+"\" value=\"S\">ä¸ªäºº";
    newCel6.innerHTML = "<input type=\"text\" name=\"capacity"+j+"\" id=\"capacity"+j+"\" title=\"capacity"+j+"\">";
    newCel7.innerHTML = "<input type=\"text\" name=\"administrator"+j+"\" id=\"administrator"+j+"\" title=\"administrator"+j+"\">";
    newCel8.innerHTML = "<input type=\"text\" name=\"phone"+j+"\" id=\"phone"+j+"\" title=\"phone"+j+"\">";
@@ -132,27 +131,27 @@ function cbt_res()
 				async: true,
 				success: function(data){
 				   $.each(data,function(idx,item){   				   
-					    addEdge(item);//½«±ßÌí¼ÓÔÚµØÍ¼ÉÏ
+					    addEdge(item);//å°†è¾¹æ·»åŠ åœ¨åœ°å›¾ä¸Š
 					})					
 				}			
 			});
 		}
 </script>
-     <script type="text/javascript" src="<%=path %>/js/My97DatePicker/WdatePicker.js"></script>  
+    <script type="text/javascript" src="<c:url value="/static/js/js/My97DatePicker/WdatePicker.js"/>"></script>
 
   </head>
   
   <body>
-<form id="EmergencyForm" method="post"  name="EmergencyForm" action="saveEmergency2.action">
+<form id="EmergencyForm" method="post"  name="EmergencyForm" action="saveEmergency2">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">ÔÖº¦ÊÂ¼ş¹ÜÀí&gt;&gt;Ìí¼ÓÔÖº¦ÊÂ¼ş</td>
+					<td width="100%" class="f3">ç¾å®³äº‹ä»¶ç®¡ç†&gt;&gt;æ·»åŠ ç¾å®³äº‹ä»¶</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -165,51 +164,51 @@ function cbt_res()
 		<td align="center" class="tr4"> 
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">
 			<tr class="tr2">
-				<td  class="tr1" align="right">ÔÖº¦ÊÂ¼şÃû³Æ:</td>
-				<td><input type="text" name="emerName" ></td>	
-				<td  class="tr1" align="right">ÔÖº¦ÊÂ¼ş±àÂë:</td>
-				<td><input type="text" name="emerNo" ></td>	
+				<td  class="tr1" align="right">ç¾å®³äº‹ä»¶åç§°:</td>
+				<td><input type="text" name="emername" ></td>	
+				<td  class="tr1" align="right">ç¾å®³äº‹ä»¶ç¼–ç :</td>
+				<td><input type="text" name="emerno" ></td>	
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">ÔÖº¦ÊÂ¼şÀàĞÍ:</td>									
+					<td  class="tr1" align="right">ç¾å®³äº‹ä»¶ç±»å‹:</td>									
 					<td>
-					<select id="emerTypeName" name="emerTypeName">
+					<select id="emerTypeName" name="emertypename">
 						<c:forEach var="item" items="${emerTypeName}">
 							<option value="${item}">${item}</option>
 						</c:forEach>
 					</select>
 					</td>		
-					<td  class="tr1" align="right" >ÔÖº¦µÈ¼¶:</td>
+					<td  class="tr1" align="right" >ç¾å®³ç­‰çº§:</td>
 					<td>
-					<select id="emerTypeId" name="emerTypeId">
+					<select id="emerTypeId" name="emertypeid">
 						<c:forEach var="item" items="${emerTypelist}">
-							<option value="${item.emerTypeId}">${item.level}</option>
+							<option value="${item.emertypeid}">${item.level}</option>
 						</c:forEach>
 					</select>
 					<select id="describe" name="describe">
 						<c:forEach var="item" items="${emerTypelist2}">
-							<option value="${item.emerTypeId}">${item.describe}</option>
+							<option value="${item.emertypeid}">${item.describe}</option>
 						</c:forEach>
 					</select>
 				    </td>								
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">ÔÖº¦·¢ÉúÊ±¼ä:</td>
-					<td><input class="Wdate" type="text" name="happenTime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"><font color=red>&lt;- µã»÷Ñ¡ÔñÈÕÆÚ</font></td>
-					<td  class="tr1" align="right">ÔÖº¦ÃèÊö:</td>
-					<td><input type="text" name="emerDescribe" ></td>				
+					<td  class="tr1" align="right">ç¾å®³å‘ç”Ÿæ—¶é—´:</td>
+					<td><input class="Wdate" type="text" name="happentime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"><font color=red>&lt;- ç‚¹å‡»é€‰æ‹©æ—¥æœŸ</font></td>
+					<td  class="tr1" align="right">ç¾å®³æè¿°:</td>
+					<td><input type="text" name="emerdescribe" ></td>				
 				</tr>
 			<tr class="tr2">
-                    <td  class="tr1" align="right">¸²¸ÇµØÇø:</td>
-					<td><input type="text" name="inAddress" ></td>
-					<td  class="tr1" align="right" >±¸×¢:</td>
+                    <td  class="tr1" align="right">è¦†ç›–åœ°åŒº:</td>
+					<td><input type="text" name="inaddress" ></td>
+					<td  class="tr1" align="right" >å¤‡æ³¨:</td>
 					<td><input type="text" name="note" ></td>				
 				</tr>				
 			<tr class="tr10">
     	  			<td align="center" colspan="4">
     	  				 &nbsp;&nbsp;
-    	  				 <input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
-                         <input type="image" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">	   					
+    	  				 <input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
+                         <input type="image" src="/lee/static/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">	   					
 	  				</td>
   			</tr>
 			</table>
@@ -218,16 +217,16 @@ function cbt_res()
 </table>
 </form> 
 
-<form id="DisasterNodeForm" method="post"  name="DisasterNodeForm" action="saveDisasterNode2.action">
+<form id="DisasterNodeForm" method="post"  name="DisasterNodeForm" action="saveDisasterNode2">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">ÔÖº¦ÊÂ¼ş¹ÜÀí&gt;&gt;Ìí¼ÓÔÖº¦µã</td>
+					<td width="100%" class="f3">ç¾å®³äº‹ä»¶ç®¡ç†&gt;&gt;æ·»åŠ ç¾å®³ç‚¹</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -238,29 +237,29 @@ function cbt_res()
 <center>
    <table id="Tab1" border="0" cellspacing="1" cellpadding="3">
      <tr class="tr2">
-        <td class="tr1" align="middle">ÔÖº¦µãÃû³Æ</td>
-        <td class="tr1" align="middle">ÔÖº¦µã±àÂë</td>
-        <td class="tr1" align="middle">ÔÖÇø¸ºÔğÈË</td>
-        <td class="tr1" align="middle">ÁªÏµµç»°</td>
-        <td class="tr1" align="middle">ÔÖº¦µãµÈ¼¶</td>
+        <td class="tr1" align="middle">ç¾å®³ç‚¹åç§°</td>
+        <td class="tr1" align="middle">ç¾å®³ç‚¹ç¼–ç </td>
+        <td class="tr1" align="middle">ç¾åŒºè´Ÿè´£äºº</td>
+        <td class="tr1" align="middle">è”ç³»ç”µè¯</td>
+        <td class="tr1" align="middle">ç¾å®³ç‚¹ç­‰çº§</td>
    </table>
-   <input type="button" onclick="addRow('Tab1');" value="Ôö¼ÓÔÖº¦µã"/>
-   <input type=button value="É¾³ıÔÖº¦µã" onclick="tb_delete()" >
-   <input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">    <!-- "ÒªÌîĞ´¸ÃÌø×ªµÄµØ·½£¡£¡£¡£¡" -->
+   <input type="button" onclick="addRow('Tab1');"  value="å¢åŠ ç¾å®³ç‚¹"/>
+   <input type=button value="åˆ é™¤ç¾å®³ç‚¹"  onclick="tb_delete()" >
+   <input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" align="middle" style="cursor:hand;border:0px ;a" ;  onClick="return cbt_local();  return false;">    <!-- "è¦å¡«å†™è¯¥è·³è½¬çš„åœ°æ–¹ï¼ï¼ï¼ï¼" -->
    <input type="hidden" id="length1"  name="length1" >
    </center>   
 </form>
 
-<form id="WareHouseNodeForm" method="post"  name="WareHouseNodeForm" action="saveWareHouse2.action">
+<form id="WareHouseNodeForm" method="post"  name="WareHouseNodeForm" action="saveWareHouse2">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">ÔÖº¦ÊÂ¼ş¹ÜÀí&gt;&gt;Ìí¼Ó²Ö¿âµã</td>
+					<td width="100%" class="f3">ç¾å®³äº‹ä»¶ç®¡ç†&gt;&gt;æ·»åŠ ä»“åº“ç‚¹</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -271,32 +270,32 @@ function cbt_res()
 <center>
    <table id="Tab2" border="0" cellspacing="1" cellpadding="3">
      <tr class="tr2">
-        <td class="tr1" align="middle">²Ö¿âµãÃû³Æ</td>
-        <td class="tr1" align="middle">²Ö¿âµã±àÂë</td>
-        <td class="tr1" align="middle">²Ö¿âµãµÈ¼¶</td>        
-        <td class="tr1" align="middle">²Ö¿â¹æÄ£</td>
-        <td class="tr1" align="middle">²Ö¿âĞÔÖÊ</td>
-        <td class="tr1" align="middle">²Ö¿âÈİÁ¿</td>
-        <td class="tr1" align="middle">²Ö¿â¹ÜÀíÔ±</td>
-        <td class="tr1" align="middle">ÁªÏµµç»°</td>
+        <td class="tr1" align="middle">ä»“åº“ç‚¹åç§°</td>
+        <td class="tr1" align="middle">ä»“åº“ç‚¹ç¼–ç </td>
+        <td class="tr1" align="middle">ä»“åº“ç‚¹ç­‰çº§</td>        
+        <td class="tr1" align="middle">ä»“åº“è§„æ¨¡</td>
+        <td class="tr1" align="middle">ä»“åº“æ€§è´¨</td>
+        <td class="tr1" align="middle">ä»“åº“å®¹é‡</td>
+        <td class="tr1" align="middle">ä»“åº“ç®¡ç†å‘˜</td>
+        <td class="tr1" align="middle">è”ç³»ç”µè¯</td>
    </table>
-   <br><input type="button" onclick="addRow2('Tab2');" value="Ôö¼Ó²Ö¿âµã"/>
-   <input type=button value="É¾³ı²Ö¿âµã" onclick="tb_delete2()" >
-   <input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">    <!-- "ÒªÌîĞ´¸ÃÌø×ªµÄµØ·½£¡£¡£¡£¡" -->
+   <br><input type="button" onclick="addRow2('Tab2');" value="å¢åŠ ä»“åº“ç‚¹"/>
+   <input type=button value="åˆ é™¤ä»“åº“ç‚¹" onclick="tb_delete2()" >
+   <input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" align="middle" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">    <!-- "è¦å¡«å†™è¯¥è·³è½¬çš„åœ°æ–¹ï¼ï¼ï¼ï¼" -->
    <input type="hidden" id="length2"  name="length2" >
    </center>
 </form>
 
-<form id="GoodsRelForm" method="post"  name="GoodsRelForm" action="openGoodsRelDetail.action">
+<form id="GoodsRelForm" method="post"  name="GoodsRelForm" action="openGoodsRelDetail">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">ÔÖº¦ÊÂ¼ş¹ÜÀí&gt;&gt;Ìí¼ÓÎï×ÊĞèÇó¹ØÏµ</td>
+					<td width="100%" class="f3">ç¾å®³äº‹ä»¶ç®¡ç†&gt;&gt;æ·»åŠ ç‰©èµ„éœ€æ±‚å…³ç³»</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -307,11 +306,11 @@ function cbt_res()
 <center>
    <table id="Tab3" border="0" cellspacing="1" cellpadding="3" style="display:block">
      <tr class="tr2">
-        <td class="tr1" align="middle">½Úµã/Îï×ÊÃû³Æ</td>
+        <td class="tr1" align="middle">èŠ‚ç‚¹/ç‰©èµ„åç§°</td>
      <%
      Object m=request.getAttribute("number");      
-     int b =Integer.valueOf(String.valueOf(m));
-     System.out.println("²é¿´"+b);
+     int b = Integer.valueOf(String.valueOf(m));
+     System.out.println("æŸ¥çœ‹"+b);
      
      //for(Nodes node : nodelist){
      //out.println("<li>" + node.getNodeName() + "</li>");
@@ -326,8 +325,8 @@ function cbt_res()
      </tr>
      
    </table>
-   <br><input type="button" onclick="openDetail();" value="Õ¹¿ªÏêÇé"/>
-   <input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">    <!-- "ÒªÌîĞ´¸ÃÌø×ªµÄµØ·½£¡£¡£¡£¡" -->
+   <br><input type="button" onclick="openDetail();" value="å±•å¼€è¯¦æƒ…"/>
+   <input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" align="middle" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">    <!-- "è¦å¡«å†™è¯¥è·³è½¬çš„åœ°æ–¹ï¼ï¼ï¼ï¼" -->
    </center>
 </form>
 

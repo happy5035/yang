@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $( "#emerTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findLevel.action?emerTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findLevel?emerTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -62,13 +62,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td><input type="text" name="emerno" value=${emerNo}></td>
 					<td  class="tr1" align="right">*灾害事件类型:</td>									
 					<td>
-					<select id="emerTypeName" name="emerTypeName">
+					<select id="emerTypeName" name="emertypename">
 					    <!--   <option value=""></option>  -->
                         <c:forEach var="item" items="${emerTypeName}">
 							<option value="${item}" <c:if test="${item eq emerType.emertypename}">selected</c:if>>${item}</option>
 						</c:forEach>
      				</select>										
-					<select id="emerTypeId" name="emerTypeId">
+					<select id="emerTypeId" name="emertypeid">
 					    <!--   <option value=""></option>  -->
 						<c:forEach var="item" items="${emerTypelist}">
 							<option value="${item.emertypeid}" <c:if test="${item.emertypeid eq emerType.emertypeid}">selected</c:if>>${item.level}</option>
@@ -130,8 +130,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<td>${item.emerdescribe}</td>
 	        	<td>${item.inaddress}</td>	        	
 	        	<td>${item.note}</td>                
-	    		<td><a href="EditEmergency.action?emerId=${item.emerid}">修改</a></td>
-	    		<td><a href="DeleteEmergency.action?emerId=${item.emerid}&emerName=${emerName}&emerNo=${emerNo}&emerTypeId=${emerTypeId}">删除</a></td>	
+	    		<td><a href="EditEmergency?emerid=${item.emerid}">修改</a></td>
+	    		<td><a href="DeleteEmergency?emerid=${item.emerid}&emerName=${emerName}&emerNo=${emerNo}&emerTypeId=${emerTypeId}">删除</a></td>	
 	    	</tr>
 		</c:forEach>
       </table>    
@@ -139,6 +139,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </tr>
 </table>
 </form>
-<div align="right""><%@ include file="../page.jsp"%></div> 
+<div align="right"><%@ include file="../page.jsp"%></div> 
 </body>
 </html>

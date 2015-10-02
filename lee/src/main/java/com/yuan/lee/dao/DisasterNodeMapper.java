@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.DisasterNode;
-
-public interface DisasterNodeMapper {
+@MyBatisRepository
+public interface DisasterNodeMapper extends BaseMapper<DisasterNode>{
     int deleteByPrimaryKey(String dnodeid);
 
     int insert(DisasterNode record);
