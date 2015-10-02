@@ -10,6 +10,13 @@
     <result column="inaddress" property="inaddress" jdbcType="VARCHAR" />
     <result column="note" property="note" jdbcType="VARCHAR" />
     <result column="emertypeid" property="emertypeid" jdbcType="VARCHAR" />
+    <association property="emertype" javaType="com.yuan.lee.entity.EmerType">
+	    <id column="emertypeid" property="emertypeid" jdbcType="VARCHAR" />
+	    <result column="emertypename" property="emertypename" jdbcType="VARCHAR" />
+	    <result column="level" property="level" jdbcType="VARCHAR" />
+	    <result column="describe" property="describe" jdbcType="VARCHAR" />
+	    <result column="note" property="note" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
     emerid, emername, emerno, happentime, emerdescribe, inaddress, note, emertypeid
@@ -137,9 +144,36 @@
     </if>
   </select>
   <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
-    select
-    <include refid="Base_Column_List" />
-    from emergency
+    select e.*
+    ,et.emertypename ,et.level,et.describe,et.note 
+    from emergency  e ,emertype et
+    <where>
+     <if test="emername != null" >
+       and e.emername like #{emername,jdbcType=VARCHAR}
+      </if>
+      <if test="emerno != null" >
+      and  e.emerno like #{emerno,jdbcType=VARCHAR}
+      </if>
+      <if test="happentime != null" >
+      and  e.happentime like #{happentime,jdbcType=DATE}
+      </if>
+      <if test="emerdescribe != null" >
+      and  e.emerdescribe like #{emerdescribe,jdbcType=VARCHAR}
+      </if>
+      <if test="inaddress != null" >
+      and  e.inaddress like #{inaddress,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+      and  e.note like #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="emertypeid != null" >
+      and  e.emertypeid like #{emertypeid,jdbcType=VARCHAR}
+      </if>
+      and e.emertypeid=et.emertypeid
+      <if test="usertype != null and user != '' "  >
+      and e.emerid in (select u.emerid from uerelation u where u.userid =#{userid ,jdbcType=VARCHAR} )
+      </if>
+    </where>
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -151,6 +185,34 @@
     </if>
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
-    select count(*) from emergency
+    select count(*) 
+    from emergency  e ,emertype et
+     <where>
+     <if test="emername != null" >
+       and e.emername like #{emername,jdbcType=VARCHAR}
+      </if>
+      <if test="emerno != null" >
+      and  e.emerno like #{emerno,jdbcType=VARCHAR}
+      </if>
+      <if test="happentime != null" >
+      and  e.happentime like #{happentime,jdbcType=DATE}
+      </if>
+      <if test="emerdescribe != null" >
+      and  e.emerdescribe like #{emerdescribe,jdbcType=VARCHAR}
+      </if>
+      <if test="inaddress != null" >
+      and  e.inaddress like #{inaddress,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+      and  e.note like #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="emertypeid != null" >
+      and  e.emertypeid like #{emertypeid,jdbcType=VARCHAR}
+      </if>
+      and e.emertypeid=et.emertypeid
+      <if test="usertype != null and user != '' "  >
+      and e.emerid in (select u.emerid from uerelation u where u.userid =#{userid ,jdbcType=VARCHAR} )
+      </if>
+    </where>
   </select>
 </mapper>

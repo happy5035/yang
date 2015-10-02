@@ -21,10 +21,22 @@ public class Emergency implements Serializable {
     private String note;
 
     private String emertypeid;
+    
+    private EmerType emertype;
 
     private static final long serialVersionUID = 1L;
+    
+    
+    	
+    public EmerType getEmertype() {
+		return emertype;
+	}
 
-    public String getEmerid() {
+	public void setEmertype(EmerType emertype) {
+		this.emertype = emertype;
+	}
+
+	public String getEmerid() {
         return emerid;
     }
 
