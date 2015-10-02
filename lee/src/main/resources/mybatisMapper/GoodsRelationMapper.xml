@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yuan.lee.dao.GoodsRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.yuan.lee.entity.GoodsRelation" >
+    <id column="goodsreid" property="goodsreid" jdbcType="VARCHAR" />
+    <result column="Time" property="time" jdbcType="DATE" />
+    <result column="saveornot" property="saveornot" jdbcType="VARCHAR" />
+    <result column="demandnum" property="demandnum" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="VARCHAR" />
+    <result column="goodsid" property="goodsid" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="nodeid" property="nodeid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsreid, Time, saveornot, demandnum, priority, goodsid, note, nodeid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodsrelation
+    where goodsreid = #{goodsreid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goodsrelation
+    where goodsreid = #{goodsreid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yuan.lee.entity.GoodsRelation" >
+    insert into goodsrelation (goodsreid, Time, saveornot, 
+      demandnum, priority, goodsid, 
+      note, nodeid)
+    values (#{goodsreid,jdbcType=VARCHAR}, #{time,jdbcType=DATE}, #{saveornot,jdbcType=VARCHAR}, 
+      #{demandnum,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR}, #{goodsid,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{nodeid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yuan.lee.entity.GoodsRelation" >
+    insert into goodsrelation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsreid != null" >
+        goodsreid,
+      </if>
+      <if test="time != null" >
+        Time,
+      </if>
+      <if test="saveornot != null" >
+        saveornot,
+      </if>
+      <if test="demandnum != null" >
+        demandnum,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="goodsid != null" >
+        goodsid,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="nodeid != null" >
+        nodeid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsreid != null" >
+        #{goodsreid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="saveornot != null" >
+        #{saveornot,jdbcType=VARCHAR},
+      </if>
+      <if test="demandnum != null" >
+        #{demandnum,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeid != null" >
+        #{nodeid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yuan.lee.entity.GoodsRelation" >
+    update goodsrelation
+    <set >
+      <if test="time != null" >
+        Time = #{time,jdbcType=DATE},
+      </if>
+      <if test="saveornot != null" >
+        saveornot = #{saveornot,jdbcType=VARCHAR},
+      </if>
+      <if test="demandnum != null" >
+        demandnum = #{demandnum,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        goodsid = #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeid != null" >
+        nodeid = #{nodeid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goodsreid = #{goodsreid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yuan.lee.entity.GoodsRelation" >
+    update goodsrelation
+    set Time = #{time,jdbcType=DATE},
+      saveornot = #{saveornot,jdbcType=VARCHAR},
+      demandnum = #{demandnum,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=VARCHAR},
+      goodsid = #{goodsid,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      nodeid = #{nodeid,jdbcType=VARCHAR}
+    where goodsreid = #{goodsreid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from goodsrelation
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+  </select>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from goodsrelation
+    <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  <select id="findByParamsCount" resultType="int" parameterType="map" >
+    select count(*) from goodsrelation
+  </select>
+</mapper>
