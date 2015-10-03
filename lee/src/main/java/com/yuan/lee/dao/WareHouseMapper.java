@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.WareHouse;
-
-public interface WareHouseMapper {
+@MyBatisRepository
+public interface WareHouseMapper extends BaseMapper<WareHouse> {
     int deleteByPrimaryKey(String wnodeid);
 
     int insert(WareHouse record);

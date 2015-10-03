@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.Gene;
-
-public interface GeneMapper {
+@MyBatisRepository
+public interface GeneMapper extends BaseMapper<Gene>{
     int deleteByPrimaryKey(String geneid);
 
     int insert(Gene record);

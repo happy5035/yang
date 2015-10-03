@@ -17,9 +17,11 @@ import com.yuan.lee.entity.Emergency;
 import com.yuan.lee.entity.Nodes;
 import com.yuan.lee.entity.UERelation;
 import com.yuan.lee.entity.Users;
+import com.yuan.lee.entity.WareHouse;
 import com.yuan.lee.service.box.disaster.DisasterNodesService;
 import com.yuan.lee.service.box.disaster.ENrelationService;
 import com.yuan.lee.service.box.disaster.NodesService;
+import com.yuan.lee.service.box.disaster.WareHouseService;
 import com.yuan.lee.service.box.emer.EmerTypeService;
 import com.yuan.lee.service.box.emer.EmergencyService;
 import com.yuan.lee.service.box.emer.UeRelationService;
@@ -33,6 +35,8 @@ public class QuickCreatController {
 	NodesService nodesService;
 	@Autowired
 	DisasterNodesService disasterNodesService;
+	@Autowired
+	WareHouseService wareHouseService;
 	@Autowired
 	ENrelationService enRelationService;
 	@Autowired
@@ -51,6 +55,8 @@ public class QuickCreatController {
 	DisasterNode disasterNode;
 	@Autowired
 	ENRelation enRelation;
+	@Autowired
+	WareHouse wareHouse;
 	
 	@RequestMapping("/gotoAddExample")
 	public String gotoAddExample(ModelMap modelmap){
@@ -113,10 +119,46 @@ public class QuickCreatController {
 			
 			//以下是为了填节点与灾害事件关系表
 			Emergency emergency=(Emergency)request.getSession().getAttribute("emergency");
-			enRelation.setEnrelationid(Identities.uuid2());
-			enRelation.setEmerid(emergency.getEmerid());
-			enRelation.setNodeid(nodeid);
-			enRelationService.insertSelective(enRelation);
+			if(emergency!=null){
+				enRelation.setEnrelationid(Identities.uuid2());
+				enRelation.setEmerid(emergency.getEmerid());
+				enRelation.setNodeid(nodeid);
+				enRelationService.insertSelective(enRelation);
+			}
+			
+		}
+		return "forward:gotoAddExample";
+	}
+	@RequestMapping("/saveWareHouse2")
+	public String saveWareHouse2(ModelMap modelmap,String length2){
+		int length=Integer.parseInt(length2);
+		for (int i = 0; i < length; i++) {
+			String nodeid=Identities.uuid2();
+			nodes.setNodeid(nodeid);
+			nodes.setNodetype("W");
+			nodes.setNodename(request.getParameter("wareHouseName"+i));
+//			待完善
+//			nodesService.insertSelective(nodes);
+			//保存仓库点
+			wareHouse.setWnodeid(nodeid);
+			wareHouse.setWarehousename(request.getParameter("wareHouseName"+i));
+			wareHouse.setWarehouseno(request.getParameter("wareHouseNo"+i));
+			wareHouse.setWarehouselevel(request.getParameter("wareHouseLevel"+i));
+			wareHouse.setProperty(request.getParameter("property"+i));
+			wareHouse.setDimensions(request.getParameter("dimensions"+i));
+			wareHouse.setCapacity(request.getParameter("capacity"+i));
+			wareHouse.setAdministrator(request.getParameter("administrator"+i));
+			wareHouse.setPhone(request.getParameter("phone"+i));
+//			wareHouseService.insertSelective(wareHouse);
+			
+			//以下是为了填节点与灾害事件关系表
+			Emergency emergency=(Emergency)request.getSession().getAttribute("emergency");
+			if(emergency!=null){
+				enRelation.setEnrelationid(Identities.uuid2());
+				enRelation.setEmerid(emergency.getEmerid());
+				enRelation.setNodeid(nodeid);
+//				enRelationService.insertSelective(enRelation);
+			}
 		}
 		return "forward:gotoAddExample";
 	}

@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.ProducRelation;
-
-public interface ProducRelationMapper {
+@MyBatisRepository
+public interface ProducRelationMapper extends BaseMapper<ProducRelation>{
     int deleteByPrimaryKey(String producrelationid);
 
     int insert(ProducRelation record);

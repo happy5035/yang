@@ -2,6 +2,8 @@ package com.yuan.lee.entity;
 
 import java.io.Serializable;
 
+import org.springframework.stereotype.Component;
+@Component
 public class Gene implements Serializable {
     private String geneid;
 

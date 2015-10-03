@@ -2,6 +2,8 @@ package com.yuan.lee.entity;
 
 import java.io.Serializable;
 
+import org.springframework.stereotype.Component;
+@Component
 public class Goods implements Serializable {
     private String goodsid;
 

@@ -87,9 +87,12 @@ function cbt_res()
    document.getElementById("length1").value = i;
    }  
    function tb_delete(){
-   i--;
    var ls_t=document.all("Tab1");
-   ls_t.deleteRow() ;
+   
+   ls_t.deleteRow(i) ;
+
+   i--;
+  
    }
    //仓库点
    var  j=0;
@@ -119,9 +122,9 @@ function cbt_res()
    document.getElementById("length2").value = j;
    }  
    function tb_delete2(){
-   j--;
    var ls_t=document.all("Tab2");
-   ls_t.deleteRow() ;
+   ls_t.deleteRow(j) ;
+   j--;
    }
    
    function openDetail(){

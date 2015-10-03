@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.ColloRatioRel;
-
-public interface ColloRatioRelMapper {
+@MyBatisRepository
+public interface ColloRatioRelMapper extends BaseMapper<ColloRatioRel> {
     int deleteByPrimaryKey(String colloratiorelid);
 
     int insert(ColloRatioRel record);

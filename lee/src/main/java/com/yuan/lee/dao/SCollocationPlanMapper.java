@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.SCollocationPlan;
-
-public interface SCollocationPlanMapper {
+@MyBatisRepository
+public interface SCollocationPlanMapper extends BaseMapper<SCollocationPlan>{
     int deleteByPrimaryKey(String scollocationplanid);
 
     int insert(SCollocationPlan record);

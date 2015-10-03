@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.CrossEdge;
-
-public interface CrossEdgeMapper {
+@MyBatisRepository
+public interface CrossEdgeMapper extends BaseMapper<CrossEdge>{
     int deleteByPrimaryKey(String crossedgeid);
 
     int insert(CrossEdge record);

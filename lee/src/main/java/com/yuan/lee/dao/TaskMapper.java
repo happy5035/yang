@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.Task;
-
-public interface TaskMapper {
+@MyBatisRepository
+public interface TaskMapper extends BaseMapper<Task>{
     int deleteByPrimaryKey(String taskid);
 
     int insert(Task record);

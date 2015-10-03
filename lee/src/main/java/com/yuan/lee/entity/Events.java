@@ -3,6 +3,8 @@ package com.yuan.lee.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+@Component
 public class Events implements Serializable {
     private String eventid;
 

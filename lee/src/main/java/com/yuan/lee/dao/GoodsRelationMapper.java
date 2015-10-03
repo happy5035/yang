@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.GoodsRelation;
-
-public interface GoodsRelationMapper {
+@MyBatisRepository
+public interface GoodsRelationMapper extends BaseMapper<GoodsRelation> {
     int deleteByPrimaryKey(String goodsreid);
 
     int insert(GoodsRelation record);

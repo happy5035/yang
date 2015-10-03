@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.RealCollo;
-
-public interface RealColloMapper {
+@MyBatisRepository
+public interface RealColloMapper extends BaseMapper<RealCollo>{
     int deleteByPrimaryKey(String realcolloid);
 
     int insert(RealCollo record);

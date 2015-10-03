@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.Events;
-
-public interface EventsMapper {
+@MyBatisRepository
+public interface EventsMapper extends BaseMapper<Events>{
     int deleteByPrimaryKey(String eventid);
 
     int insert(Events record);

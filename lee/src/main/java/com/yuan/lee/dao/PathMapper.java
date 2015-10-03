@@ -1,8 +1,10 @@
 package com.yuan.lee.dao;
 
+import com.yuan.lee.common.BaseMapper;
+import com.yuan.lee.common.MyBatisRepository;
 import com.yuan.lee.entity.Path;
-
-public interface PathMapper {
+@MyBatisRepository
+public interface PathMapper extends BaseMapper<Path>{
     int deleteByPrimaryKey(String pathid);
 
     int insert(Path record);
