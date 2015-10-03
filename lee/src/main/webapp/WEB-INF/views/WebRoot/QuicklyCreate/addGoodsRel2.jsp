@@ -1,7 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,14 +10,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>´´½¨ÔÖº¦ÊÂ¼şÊµÀı</title>    
+    <title>åˆ›å»ºç¾å®³äº‹ä»¶å®ä¾‹</title>    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.2.js"></script>
-     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+	<script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.5.2.js"/>"></script>
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
      <script type="text/javascript"> 
 function cbt_res()
 {
@@ -26,21 +25,21 @@ function cbt_res()
 	return false;
 }
 </script>
-     <script type="text/javascript" src="<%=path %>/js/My97DatePicker/WdatePicker.js"></script>  
+    <script type="text/javascript" src="<c:url value="/static/js/js/My97DatePicker/WdatePicker.js"/>"></script>
 
   </head>
   
   <body>
-<form id="GoodsRelForm" method="post"  name="GoodsRelForm" action="saveGoodsRel2.action">
+<form id="GoodsRelForm" method="post"  name="GoodsRelForm" action="saveGoodsRel2">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">ÔÖº¦ÊÂ¼ş¹ÜÀí&gt;&gt;Ìí¼ÓÎï×ÊĞèÇó¹ØÏµ</td>
+					<td width="100%" class="f3">ç¾å®³äº‹ä»¶ç®¡ç†&gt;&gt;æ·»åŠ ç‰©èµ„éœ€æ±‚å…³ç³»</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -51,12 +50,12 @@ function cbt_res()
 <center>
    <table id="Tab3" border="0" cellspacing="1" cellpadding="3" style="display:block">
      <%
-     Object m=request.getAttribute("number");  //ÔÖº¦µãµÄÊıÄ¿    
+     Object m=request.getAttribute("number");  //ç¾å®³ç‚¹çš„æ•°ç›®    
      int a =Integer.valueOf(String.valueOf(m));
-     Object n=request.getAttribute("num");      //Îï×ÊµÄÖÖÀà
+     Object n=request.getAttribute("num");      //ç‰©èµ„çš„ç§ç±»
      int b =Integer.valueOf(String.valueOf(n));%>
      <tr class="tr2">
-        <td class="tr1" align="middle">ÔÖº¦µã/Îï×ÊÃû³Æ</td>
+        <td class="tr1" align="middle">ç¾å®³ç‚¹/ç‰©èµ„åç§°</td>
      <%
      for(int i=0;i<a;i++){
      pageContext.setAttribute("i",i);
@@ -65,7 +64,7 @@ function cbt_res()
      <% } %>
      </tr>
      
-     <%  //µÚ¶şĞĞ¼°ÒÔºóÆäËü¸÷ĞĞ
+     <%  //ç¬¬äºŒè¡ŒåŠä»¥åå…¶å®ƒå„è¡Œ
      for(int j=0;j<b;j++){
      pageContext.setAttribute("j",j);
       %>
@@ -76,7 +75,7 @@ function cbt_res()
       String cc="results"+j+","+k;
       pageContext.setAttribute("cc", cc); 
       %>
-      <td class="tr8">ĞèÇóÁ¿<input type="text" name="${cc}" >(${measureUnits[j]})</td>
+      <td class="tr8">éœ€æ±‚é‡<input type="text" name="${cc}" >(${measureUnits[j]})</td>
       <% } %>
       </tr>
       <% } %>
@@ -85,10 +84,10 @@ function cbt_res()
    <br/>
    <table id="Tab3" border="0" cellspacing="1" cellpadding="3" style="display:block">
      <%
-     Object mm=request.getAttribute("number2");  //½ÚµãµÄÊıÄ¿    
+     Object mm=request.getAttribute("number2");  //èŠ‚ç‚¹çš„æ•°ç›®    
      int aa =Integer.valueOf(String.valueOf(mm));%>
      <tr class="tr2">
-        <td class="tr1" align="middle">²Ö¿âµã/Îï×ÊÃû³Æ</td>
+        <td class="tr1" align="middle">ä»“åº“ç‚¹/ç‰©èµ„åç§°</td>
      <%
      for(int i=0;i<aa;i++){
      pageContext.setAttribute("i",i);
@@ -97,7 +96,7 @@ function cbt_res()
      <% } %>
      </tr>
      
-     <%  //µÚ¶şĞĞ¼°ÒÔºóÆäËü¸÷ĞĞ
+     <%  //ç¬¬äºŒè¡ŒåŠä»¥åå…¶å®ƒå„è¡Œ
      for(int j=0;j<b;j++){
      pageContext.setAttribute("j",j);
       %>
@@ -108,12 +107,12 @@ function cbt_res()
       String cc="results2"+j+","+k;
       pageContext.setAttribute("cc", cc); 
       %>
-      <td class="tr8">¹©Ó¦Á¿<input type="text" name="${cc}" >(${measureUnits[j]})</td>
+      <td class="tr8">ä¾›åº”é‡<input type="text" name="${cc}" >(${measureUnits[j]})</td>
       <% } %>
       </tr>
       <% } %>
    </table>
-   <input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">    <!-- "ÒªÌîĞ´¸ÃÌø×ªµÄµØ·½£¡£¡£¡£¡" -->
+   <input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">    <!-- "è¦å¡«å†™è¯¥è·³è½¬çš„åœ°æ–¹ï¼ï¼ï¼ï¼" -->
    </center>
    <input type="hidden" id="length1"  name="length1" value="${number}">
    <input type="hidden" id="length2"  name="length2" value="${num}">

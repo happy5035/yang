@@ -22,13 +22,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
    <body>
-<form method="post" action="addLogicCabinet.action">
+<form method="post" action="addLogicCabinet">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
 					<td width="100%" class="f3">Âß¼­¹ñ¹ÜÀí>>Ìí¼ÓÂß¼­¹ñÊ§°Ü</td>
@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</td>
     </tr>
     <tr>
-		<td align="center" class="tr4"><a href="addLogicCabinet.action">·µ»Ø</a></td> 
+		<td align="center" class="tr4"><a href="addLogicCabinet">·µ»Ø</a></td> 
 	</tr>
 </table>
   

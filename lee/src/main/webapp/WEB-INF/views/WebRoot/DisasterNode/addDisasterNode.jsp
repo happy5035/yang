@@ -1,6 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,20 +10,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>Ìí¼ÓÔÖº¦µã</title>    
+    <title>æ·»åŠ ç¾å®³ç‚¹</title>    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
      <script type="text/javascript"> 
  
                $(document).ready(function(){  
         	$( "#areaid" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findArea.action?areaid="+$(this).val()+"&amt=" + Math.random(),
+		    	url: "findArea?areaid="+$(this).val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	}});
 		     $.ajax({
 		    	type: "POST",
-		    	url: "findStreet.action?streetid="+$("#streetid").val()+"&amt=" + Math.random(),
+		    	url: "findStreet?streetid="+$("#streetid").val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $( "#streetid" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findStreet.action?streetid="+$(this).val()+"&amt=" + Math.random(),
+		    	url: "findStreet?streetid="+$(this).val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $( "#emerTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findEmergency.action?emerTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findEmergency?emerTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 function cbt_local()
 {
 if(document.forms[0].logiccabinetno.value =='')
-{alert("Âß¼­¹ñ±àºÅ²»ÄÜÎª¿Õ");document.forms[0].logiccabinetno.focus(); return false;}
+{alert("é€»è¾‘æŸœç¼–å·ä¸èƒ½ä¸ºç©º");document.forms[0].logiccabinetno.focus(); return false;}
 }
 function cbt_res()
 {
@@ -77,7 +77,7 @@ function cbt_res()
 }
 function OpenWindow(){ 
 
-	window.open("getAllArea.action?showinfoFlag=1&emerId="+document.getElementById("emerId").value); //¼Ç×¡ÊÇÔÚÄÄ¸öÔÖº¦ÊÂ¼şÖĞÌí¼Óµã»òÕß±ßµÄ	
+	window.open("getAllArea?showinfoFlag=1&emerId="+document.getElementById("emerId").value); //è®°ä½æ˜¯åœ¨å“ªä¸ªç¾å®³äº‹ä»¶ä¸­æ·»åŠ ç‚¹æˆ–è€…è¾¹çš„	
 	} 
 	function setValue(lngValue,latValue)   
 	{ 
@@ -88,21 +88,21 @@ function OpenWindow(){
 
 </script>
 
-     <script type="text/javascript" src="<%=path %>/js/My97DatePicker/WdatePicker.js"></script>  
+    <script type="text/javascript" src="<c:url value="/static/js/js/My97DatePicker/WdatePicker.js"/>"></script>
 
   </head>
   
   <body>
-<form id="DisasterNodeForm" method="post"  name="DisasterNodeForm" action="saveDisasterNode.action">
+<form id="DisasterNodeForm" method="post"  name="DisasterNodeForm" action="saveDisasterNode">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">ÔÖº¦µãĞÅÏ¢¹ÜÀí&gt;&gt;Ìí¼ÓÔÖº¦µã</td>
+					<td width="100%" class="f3">ç¾å®³ç‚¹ä¿¡æ¯ç®¡ç†&gt;&gt;æ·»åŠ ç¾å®³ç‚¹</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -115,13 +115,13 @@ function OpenWindow(){
 		<td align="center" class="tr4"> 
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">
 			<tr class="tr2">
-					<td  class="tr1" align="right" >*ÔÖº¦µãÃû³Æ:</td>
-					<td><input type="text" name="disasterName" ></td>	
-					<td  class="tr1" align="right" >*ÔÖº¦µã±àÂë:</td>
-					<td><input type="text" name="disasterNo" ></td>				
+					<td  class="tr1" align="right" >*ç¾å®³ç‚¹åç§°:</td>
+					<td><input type="text" name="disastername" ></td>	
+					<td  class="tr1" align="right" >*ç¾å®³ç‚¹ç¼–ç :</td>
+					<td><input type="text" name="disasterno" ></td>				
 				</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼şÀàĞÍ:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶ç±»å‹:</td>
 					<td>
 					<select id="emerTypeName" name="emerTypeName">
 						<c:forEach var="item" items="${emerTypeName}">
@@ -129,64 +129,62 @@ function OpenWindow(){
 						</c:forEach>
 					</select>
 					</td>
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼ş:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶:</td>
 					<td>
 					<select id="emerId" name="emerId">
 						<c:forEach var="item" items="${emergencylist}">
-							<option value="${item.emerId}">${item.emerName}</option>
+							<option value="${item.emerid}">${item.emername}</option>
 						</c:forEach>
 					</select>
                     </td>				
 				</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*ÔÖÇø¸ºÔğÈË:</td>
+					<td  class="tr1" align="right">*ç¾åŒºè´Ÿè´£äºº:</td>
 					<td><input type="text" name="principal" ></td>
-					<td  class="tr1" align="right">*ÁªÏµµç»°:</td>
+					<td  class="tr1" align="right">*è”ç³»ç”µè¯:</td>
 					<td><input type="text" name="phone" ></td>				
 				</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*ÔÖº¦µãµÈ¼¶:</td>
-					<td><input type="radio" name="disasterLevel" value="C">ÊĞ <input type="radio" name="disasterLevel" value="D">ÏØ/Çø <input type="radio" name="disasterLevel" value="T">Õò/½ÖµÀ <input type="radio" name="disasterLevel" value="V">´å</td>
-					<td  class="tr1" align="right">*ËùÔÚµØÇø:</td>
+					<td  class="tr1" align="right">*ç¾å®³ç‚¹ç­‰çº§:</td>
+					<td><input type="radio" name="disasterLevel" value="C">å¸‚ <input type="radio" name="disasterLevel" value="D">å¿/åŒº <input type="radio" name="disasterLevel" value="T">é•‡/è¡—é“ <input type="radio" name="disasterLevel" value="V">æ‘</td>
+					<td  class="tr1" align="right">*æ‰€åœ¨åœ°åŒº:</td>
 					<td >
 						<select id="areaid"  name="areaid"  >
 							<c:forEach var="item" items="${areas}">
-								<option value="${item.areaId}">${item.areaName}</option>
+								<option value="${item.areaid}">${item.areaname}</option>
 							</c:forEach>
 						</select>
 						<select   id="streetid" name="streetid" style="width:100;"  >
-							<!--	<option value="${street.areaId}">${street.areaName}</option>    -->
 							<c:forEach var="item" items="${streetlist}">
-								<option value="${item.areaId}">${item.areaName}</option>
+								<option value="${item.areaid}">${item.areaname}</option>
 							</c:forEach>
 						</select>
 					 	<select name="roadid" id="roadid" style="width:100;" > 
-						<!--  		<option value="${road.areaId}">${road.areaName}</option>   -->
 						<c:forEach var="item" items="${roadlist}">
-							<option value ="${item.areaId}">${item.areaName}</option>	
+							<option value ="${item.areaid}">${item.areaname}</option>	
 						</c:forEach> 
 						</select>
 				</td>
 				</tr>
 			<tr class="tr2">
-				<td  class="tr1" align="right">X×ø±ê:</td>
+				<td  class="tr1" align="right">Xåæ ‡:</td>
 				<td><input type="text" id="longitude" onclick="OpenWindow()" name="longitude" >  
 				</td>
-				<td  class="tr1" align="right">Y×ø±ê:</td>
+				<td  class="tr1" align="right">Yåæ ‡:</td>
 				<td><input type="text" id="latitude" onclick="OpenWindow()"  name="latitude" >        
 				</td>
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">ÏêÏ¸µØÖ·:</td>
+					<td  class="tr1" align="right">è¯¦ç»†åœ°å€:</td>
 					<td><input type="text" name="address" ></td>
-					<td  class="tr1" align="right">±¸×¢:</td>
+					<td  class="tr1" align="right">å¤‡æ³¨:</td>
 					<td><input type="text" name="note" ></td>
 					</tr>
 			<tr class="tr10">
     	  			<td align="center" colspan="4">
     	  				 &nbsp;&nbsp;
-    	  				 <input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
-                         <input type="image" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">	   					
+    	  				 <input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
+                         <input type="image" src="/lee/static/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">	   					
 	  				</td>
   			</tr>
 			</table>

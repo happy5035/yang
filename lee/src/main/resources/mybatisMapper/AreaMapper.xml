@@ -115,9 +115,26 @@
     </if>
   </select>
   <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
-    select
+    select 
     <include refid="Base_Column_List" />
     from area
+    <where>
+    <if test="parareaid != null" >
+      and  parareaid like #{parareaid,jdbcType=VARCHAR}
+      </if>
+      <if test="areaname != null" >
+       and areaname like #{areaname,jdbcType=VARCHAR}
+      </if>
+      <if test="arealevel != null" >
+       and arealevel like #{arealevel,jdbcType=VARCHAR}
+      </if>
+      <if test="postalcode != null" >
+       and postalcode like #{postalcode,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -130,5 +147,22 @@
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
     select count(*) from area
+    <where>
+    <if test="parareaid != null" >
+      and  parareaid like #{parareaid,jdbcType=VARCHAR}
+      </if>
+      <if test="areaname != null" >
+       and areaname like #{areaname,jdbcType=VARCHAR}
+      </if>
+      <if test="arealevel != null" >
+       and arealevel like #{arealevel,jdbcType=VARCHAR}
+      </if>
+      <if test="postalcode != null" >
+       and postalcode like #{postalcode,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>

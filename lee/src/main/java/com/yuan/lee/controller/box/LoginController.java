@@ -21,7 +21,6 @@ import com.yuan.lee.entity.Popedem;
 import com.yuan.lee.entity.Roles;
 import com.yuan.lee.entity.UserRole;
 import com.yuan.lee.entity.Users;
-import com.yuan.lee.service.box.AreaService;
 import com.yuan.lee.service.box.users.PopedemService;
 import com.yuan.lee.service.box.users.RolesService;
 import com.yuan.lee.service.box.users.UserRoleService;

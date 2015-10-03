@@ -1,5 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>Ìí¼ÓÔÖº¦µã³É¹¦</title>    
+    <title>æ·»åŠ ç¾å®³ç‚¹æˆåŠŸ</title>    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -33,10 +34,10 @@ function cbt_local()
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>           
-					<td width="100%" class="f3">ÔÖº¦µãÐÅÏ¢¹ÜÀí&gt;&gt;Ìí¼ÓÔÖº¦µã³É¹¦</td>
+					<td width="100%" class="f3">ç¾å®³ç‚¹ä¿¡æ¯ç®¡ç†&gt;&gt;æ·»åŠ ç¾å®³ç‚¹æˆåŠŸ</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -49,13 +50,13 @@ function cbt_local()
 		<td align="center" class="tr4"> 
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">
 				<tr class="tr2">
-					<td  class="tr1" align="center">Ìí¼ÓÔÖº¦µã³É¹¦</td>
+					<td  class="tr1" align="center">æ·»åŠ ç¾å®³ç‚¹æˆåŠŸ</td>
 				</tr>
 			</table>
 		</td>
     </tr>
     <tr>
-		<td align="center" class="tr4"><a href="gotoAddDisaster.action">·µ»Ø</a></td> 
+		<td align="center" class="tr4"><a href="gotoAddDisaster.action">è¿”å›ž</a></td> 
 	</tr>
 </table>
 </form> 

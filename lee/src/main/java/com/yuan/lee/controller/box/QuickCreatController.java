@@ -162,4 +162,18 @@ public class QuickCreatController {
 		}
 		return "forward:gotoAddExample";
 	}
+	
+	@RequestMapping("/openGoodsRelDetail")
+	public String openGoodsRelDetail(ModelMap modelmap){
+		modelmap.put("number", "1");
+		modelmap.put("number2", "1");
+		modelmap.put("num", "1");
+		return "WebRoot/QuicklyCreate/addGoodsRel2";
+	}
+	@RequestMapping("/openEdgeDetail")
+	public String openEdgeDetail(ModelMap modelmap ){
+		modelmap.put("number", "1");
+
+		return "WebRoot/QuicklyCreate/addEdge2";
+	}
 }

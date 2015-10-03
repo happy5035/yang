@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -12,16 +11,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <head>
     
 <title>查看灾害点</title>
-<link href="<%=request.getContextPath()%>/style/gov_style_10.css" rel="stylesheet" type="text/css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <link href="/BDplatformWeb/style/gov_style_10.css" rel="stylesheet" type="text/css">   
-<script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
 <script type="text/javascript"> 
 
             $(document).ready(function(){          	
 		    $( "#emerTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findEmergency.action?emerTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findEmergency?emerTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -34,13 +33,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </head>
   
  <body>
-<form id="DisasterNodeForm" name="DisasterNodeForm" method="post" theme="simple"  namespace="/" action="SearchDisasterNode.action">
+<form id="DisasterNodeForm" name="DisasterNodeForm" method="post" theme="simple"  namespace="/" action="SearchDisasterNode">
 <table border="0" width="70%" cellspacing="0" cellpadding="0" align="center">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
 					<td width="100%" class="f3">灾害点信息管理>>按条件查询灾害点</td>
@@ -63,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 					<select id="emerTypeName" name="emerTypeName">
 						<c:forEach var="item" items="${emerTypeName}">
-							<option value="${item}" <c:if test="${item eq emergency.emerType.emerTypeName}">selected</c:if>>${item}</option>
+							<option value="${item}" >${item}</option>
 						</c:forEach>
 					</select>
 					</td>
@@ -71,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 					<select id="emerId" name="emerId">
 						<c:forEach var="item" items="${emergencylist}">
-							<option value="${item.emerId}" <c:if test="${item.emerId eq emergency.emerId}">selected</c:if>>${item.emerName}</option>
+							<option value="${item.emerid}" >${item.emername}</option>
 						</c:forEach>
 					</select>
                     </td>	
@@ -91,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			<tr class="tr10">
     	  			<td align="center" colspan="6">
-	   					<input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_search.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;					
+	   					<input type=image src="/lee/static/images/pub/lzoa_pub_search.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;					
 	  				</td>
   				</tr>
 			</table>
@@ -103,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
 					<td width="100%" class="f3">灾害点信息管理>>查看所有灾害点</td>
@@ -134,16 +133,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
        <c:forEach var="item" items="${Pagelist}" varStatus="status">
         	<tr class="tr2" align="center">
-	        	<td>${item.nodes.nodeName}</td>
-	        	<td><a href="DetailDisasterNode.action?dnodeId=${item.nodes.nodeId}">灾害点详情</a></td>
-	        	<td>${item.emergency.emerType.emerTypeName}</td>	        	
-	        	<td>${item.emergency.emerName}</td>        	
+	        	<td>${item.nodes.nodename}</td>
+	        	<td><a href="DetailDisasterNode?dnodeId=${item.nodes.nodeid}">灾害点详情</a></td>
+	        	<td>${item.emertype.emertypename}</td>	        	
+	        	<td>${item.emergency.emername}</td>        	
 	        	<td>${item.nodes.longitude}</td> 
 	        	<td>${item.nodes.latitude}</td>
 	        	<td>${item.nodes.address}</td>
 	        	<td>${item.nodes.notes}</td>                  
-	    		<td><a href="EditDisasterNode.action?nodeId=${item.nodes.nodeId}&enrelationId=${item.enrelationId}">修改</a></td>
-	    		<td><a href="DeleteDisasterNode.action?nodeId=${item.nodes.nodeId}&disasterName=${disasterName}&disasterNo=${disasterNo}&emerId=${emerId}&disasterLevel=${disasterLevel}&principal=${principal}&enrelationId=${item.enrelationId}">删除</a></td>	
+	    		<td><a href="EditDisasterNode.?nodeId=${item.nodes.nodeid}&enrelationId=${item.enrelationid}">修改</a></td>
+	    		<td><a href="DeleteDisasterNode?nodeId=${item.nodes.nodeid}&disasterName=${disastername}&disasterNo=${disasterNo}&emerId=${emerId}&disasterLevel=${disasterLevel}&principal=${principal}&enrelationId=${item.enrelationid}">删除</a></td>	
 	    	</tr>
 		</c:forEach>
       </table>    
@@ -151,6 +150,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </tr>
 </table>
 </form>
-<div align="center""><%@ include file="../page.jsp"%></div> 
+<div align="center"><%@ include file="../page.jsp"%></div> 
 </body>
 </html>

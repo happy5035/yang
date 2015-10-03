@@ -5,6 +5,33 @@
     <id column="enrelationid" property="enrelationid" jdbcType="VARCHAR" />
     <result column="nodeid" property="nodeid" jdbcType="VARCHAR" />
     <result column="emerid" property="emerid" jdbcType="VARCHAR" />
+    <association property="emergency" javaType="com.yuan.lee.entity.Emergency">
+    <id column="emerid" property="emerid" jdbcType="VARCHAR" />
+    <result column="emername" property="emername" jdbcType="VARCHAR" />
+    <result column="emerno" property="emerno" jdbcType="VARCHAR" />
+    <result column="happentime" property="happentime" jdbcType="DATE" />
+    <result column="emerdescribe" property="emerdescribe" jdbcType="VARCHAR" />
+    <result column="inaddress" property="inaddress" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="emertypeid" property="emertypeid" jdbcType="VARCHAR" />
+    </association>
+    <association property="nodes" javaType="com.yuan.lee.entity.Nodes">
+    <id column="nodeid" property="nodeid" jdbcType="VARCHAR" />
+    <result column="nodename" property="nodename" jdbcType="VARCHAR" />
+    <result column="nodetype" property="nodetype" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="areaid" property="areaid" jdbcType="VARCHAR" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    </association>
+    <association property="emertype" javaType="com.yuan.lee.entity.EmerType">
+	    <id column="emertypeid" property="emertypeid" jdbcType="VARCHAR" />
+	    <result column="emertypename" property="emertypename" jdbcType="VARCHAR" />
+	    <result column="level" property="level" jdbcType="VARCHAR" />
+	    <result column="describe" property="describe" jdbcType="VARCHAR" />
+	    <result column="note" property="note" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
     enrelationid, nodeid, emerid
@@ -80,9 +107,18 @@
     </if>
   </select>
   <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
-    select
-    <include refid="Base_Column_List" />
-    from enrelation
+    select en.enrelationid, em.* ,no.*,t.emertypename  
+     from enrelation en ,emergency em ,nodes no ,emertype t
+    <where>
+    en.nodeid=no.nodeid and en.emerid=em.emerid and em.emertypeid=t.emertypeid 
+    and no.nodetype='D'
+     <if test="nodeid != null" >
+      and  en.nodeid like #{nodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="emerid != null" >
+       and en.emerid like #{emerid,jdbcType=VARCHAR}
+      </if>
+    </where>
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -94,6 +130,17 @@
     </if>
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
-    select count(*) from enrelation
+    select count(*) from enrelation en ,emergency em ,nodes no ,emertype t
+    
+    <where>
+     en.nodeid=no.nodeid and en.emerid=em.emerid and em.emertypeid=t.emertypeid
+    and no.nodetype='D'
+     <if test="nodeid != null" >
+      and  en.nodeid like #{nodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="emerid != null" >
+       and en.emerid like #{emerid,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>

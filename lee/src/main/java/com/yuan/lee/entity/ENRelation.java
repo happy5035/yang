@@ -13,7 +13,35 @@ public class ENRelation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getEnrelationid() {
+    private Emergency emergency;
+	private Nodes nodes;
+	private EmerType emertype;
+	
+    public EmerType getEmertype() {
+		return emertype;
+	}
+
+	public void setEmertype(EmerType emertype) {
+		this.emertype = emertype;
+	}
+
+	public Emergency getEmergency() {
+		return emergency;
+	}
+
+	public void setEmergency(Emergency emergency) {
+		this.emergency = emergency;
+	}
+
+	public Nodes getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(Nodes nodes) {
+		this.nodes = nodes;
+	}
+
+	public String getEnrelationid() {
         return enrelationid;
     }
 

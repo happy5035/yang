@@ -129,6 +129,26 @@
     select
     <include refid="Base_Column_List" />
     from disasternode
+    <where>
+    <if test="disasterno != null" >
+      and  disasterno like #{disasterno,jdbcType=VARCHAR}
+      </if>
+      <if test="disastername != null" >
+      and  disastername like #{disastername,jdbcType=VARCHAR}
+      </if>
+      <if test="disasterlevel != null" >
+      and  disasterlevel like #{disasterlevel,jdbcType=VARCHAR}
+      </if>
+      <if test="principal != null" >
+      and  principal like #{principal,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+       and phone like #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+      and  note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -141,5 +161,25 @@
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
     select count(*) from disasternode
+    <where>
+    <if test="disasterno != null" >
+      and  disasterno like #{disasterno,jdbcType=VARCHAR}
+      </if>
+      <if test="disastername != null" >
+      and  disastername like #{disastername,jdbcType=VARCHAR}
+      </if>
+      <if test="disasterlevel != null" >
+      and  disasterlevel like #{disasterlevel,jdbcType=VARCHAR}
+      </if>
+      <if test="principal != null" >
+      and  principal like #{principal,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+       and phone like #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+      and  note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>
