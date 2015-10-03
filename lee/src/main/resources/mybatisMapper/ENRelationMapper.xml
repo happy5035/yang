@@ -108,15 +108,39 @@
   </select>
   <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
     select en.enrelationid, em.* ,no.*,t.emertypename  
-     from enrelation en ,emergency em ,nodes no ,emertype t
+     from enrelation en ,emergency em ,nodes no ,emertype t ,disasternode d
     <where>
-    en.nodeid=no.nodeid and en.emerid=em.emerid and em.emertypeid=t.emertypeid 
+    en.nodeid=no.nodeid 
+    and en.emerid=em.emerid
+     and em.emertypeid=t.emertypeid 
     and no.nodetype='D'
+    and d.dnodeid=no.nodeid
      <if test="nodeid != null" >
       and  en.nodeid like #{nodeid,jdbcType=VARCHAR}
       </if>
       <if test="emerid != null" >
        and en.emerid like #{emerid,jdbcType=VARCHAR}
+      </if>
+      <if test="emername != null" >
+       and em.emername like #{emername,jdbcType=VARCHAR}
+      </if>
+      <if test="disasterno != null" >
+      and d.disasterno like #{disasterno,jdbcType=VARCHAR}
+      </if>
+      <if test="disastername != null" >
+      and  d.disastername like #{disastername,jdbcType=VARCHAR}
+      </if>
+      <if test="disasterlevel != null" >
+      and  d.disasterlevel like #{disasterlevel,jdbcType=VARCHAR}
+      </if>
+      <if test="principal != null" >
+      and  d.principal like #{principal,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+       and d.phone like #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+      and d.note like #{note,jdbcType=VARCHAR}
       </if>
     </where>
     <if test="sortName != null" >
@@ -130,16 +154,37 @@
     </if>
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
-    select count(*) from enrelation en ,emergency em ,nodes no ,emertype t
+    select count(*) from enrelation en ,emergency em ,nodes no ,emertype t, disasternode d
     
     <where>
-     en.nodeid=no.nodeid and en.emerid=em.emerid and em.emertypeid=t.emertypeid
-    and no.nodetype='D'
+     en.nodeid=no.nodeid
+     and en.emerid=em.emerid
+     and em.emertypeid=t.emertypeid
+   	 and no.nodetype='D'
+   	 and d.dnodeid=no.nodeid
      <if test="nodeid != null" >
       and  en.nodeid like #{nodeid,jdbcType=VARCHAR}
       </if>
       <if test="emerid != null" >
        and en.emerid like #{emerid,jdbcType=VARCHAR}
+      </if>
+     <if test="disasterno != null" >
+      and d.disasterno like #{disasterno,jdbcType=VARCHAR}
+      </if>
+      <if test="disastername != null" >
+      and  d.disastername like #{disastername,jdbcType=VARCHAR}
+      </if>
+      <if test="disasterlevel != null" >
+      and  d.disasterlevel like #{disasterlevel,jdbcType=VARCHAR}
+      </if>
+      <if test="principal != null" >
+      and  d.principal like #{principal,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+       and d.phone like #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+      and d.note like #{note,jdbcType=VARCHAR}
       </if>
     </where>
   </select>

@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
  <head>
     
-<title>²é¿´ÔÖº¦µã</title>
+<title>æŸ¥çœ‹ç¾å®³ç‚¹</title>
 <link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <link href="/BDplatformWeb/style/gov_style_10.css" rel="stylesheet" type="text/css">   
    <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">ÔÖº¦µãĞÅÏ¢¹ÜÀí>>°´Ìõ¼ş²éÑ¯ÔÖº¦µã</td>
+					<td width="100%" class="f3">ç¾å®³ç‚¹ä¿¡æ¯ç®¡ç†>>æŒ‰æ¡ä»¶æŸ¥è¯¢ç¾å®³ç‚¹</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -56,9 +56,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">
 
 				<tr class="tr2">
-					<td  class="tr1" align="right">ÔÖº¦µãÃû³Æ:</td>
+					<td  class="tr1" align="right">ç¾å®³ç‚¹åç§°:</td>
 					<td><input type="text" name="disasterName" value=${disasterName}></td>
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼şÀàĞÍ:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶ç±»å‹:</td>
 					<td>
 					<select id="emerTypeName" name="emerTypeName">
 						<c:forEach var="item" items="${emerTypeName}">
@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</c:forEach>
 					</select>
 					</td>
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼ş:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶:</td>
 					<td>
 					<select id="emerId" name="emerId">
 						<c:forEach var="item" items="${emergencylist}">
@@ -76,15 +76,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </td>	
                     </tr>					
 			<tr class="tr2">
-					<td  class="tr1" align="right">ÔÖº¦µã±àºÅ:</td>
+					<td  class="tr1" align="right">ç¾å®³ç‚¹ç¼–å·:</td>
 					<td><input type="text" name="disasterNo" value=${disasterNo}></td>
-					<td  class="tr1" align="right">*ÔÖÇø¸ºÔğÈË:</td>
+					<td  class="tr1" align="right">*ç¾åŒºè´Ÿè´£äºº:</td>
 					<td><input type="text" name="principal" value=${principal}></td>
-                    <td  class="tr1" align="right">*ÔÖº¦µãµÈ¼¶:</td>
-					<td><input type="radio" name="disasterLevel" value="C" <c:if test="${fn:contains(disasterLevel, 'C')}">checked</c:if>>ÊĞ
-					    <input type="radio" name="disasterLevel" value="D" <c:if test="${fn:contains(disasterLevel, 'D')}">checked</c:if>>ÏØ/Çø
-					    <input type="radio" name="disasterLevel" value="T" <c:if test="${fn:contains(disasterLevel, 'T')}">checked</c:if>>Õò/½ÖµÀ 
-					    <input type="radio" name="disasterLevel" value="V" <c:if test="${fn:contains(disasterLevel, 'V')}">checked</c:if>>´å
+                    <td  class="tr1" align="right">*ç¾å®³ç‚¹ç­‰çº§:</td>
+					<td><input type="radio" name="disasterLevel" value="C" <c:if test="${fn:contains(disasterLevel, 'C')}">checked</c:if>>å¸‚
+					    <input type="radio" name="disasterLevel" value="D" <c:if test="${fn:contains(disasterLevel, 'D')}">checked</c:if>>å¿/åŒº
+					    <input type="radio" name="disasterLevel" value="T" <c:if test="${fn:contains(disasterLevel, 'T')}">checked</c:if>>é•‡/è¡—é“ 
+					    <input type="radio" name="disasterLevel" value="V" <c:if test="${fn:contains(disasterLevel, 'V')}">checked</c:if>>æ‘
 					</td>
 																	
 				</tr>
@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">ÔÖº¦µãĞÅÏ¢¹ÜÀí>>²é¿´ËùÓĞÔÖº¦µã</td>
+					<td width="100%" class="f3">ç¾å®³ç‚¹ä¿¡æ¯ç®¡ç†>>æŸ¥çœ‹æ‰€æœ‰ç¾å®³ç‚¹</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -119,30 +119,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <td width="100%" align="center">
       <table width="800" cellspacing="1" border="0" class="table1" height="95">
         <tr class="tr1" align="center">
-          <td width="5%"><b>ÔÖº¦µãÃû³Æ</b></td>
-          <td width="5%"><b>ÔÖº¦µãÏêÇé</b></td>
-          <td width="5%"><b>ËùÊôÔÖº¦ÊÂ¼şÀàĞÍ</b></td>
-          <td width="5%"><b>ËùÊôÔÖº¦ÊÂ¼ş</b></td>
-          <td width="5%"><b>ËùÔÚ¾­¶È</b></td>
-          <td width="5%"><b>ËùÔÚÎ³¶È</b></td>
-          <td width="5%"><b>ÏêÏ¸µØÖ·</b></td>
-          <td width="5%"><b>±¸×¢</b></td>
-          <td width="3%"><b>ĞŞ¸Ä</b></td>
-          <td width="3%"><b>É¾³ı</b></td>
+          <td width="5%"><b>ç¾å®³ç‚¹åç§°</b></td>
+          <td width="5%"><b>ç¾å®³ç‚¹è¯¦æƒ…</b></td>
+          <td width="5%"><b>æ‰€å±ç¾å®³äº‹ä»¶ç±»å‹</b></td>
+          <td width="5%"><b>æ‰€å±ç¾å®³äº‹ä»¶</b></td>
+          <td width="5%"><b>æ‰€åœ¨ç»åº¦</b></td>
+          <td width="5%"><b>æ‰€åœ¨çº¬åº¦</b></td>
+          <td width="5%"><b>è¯¦ç»†åœ°å€</b></td>
+          <td width="5%"><b>å¤‡æ³¨</b></td>
+          <td width="3%"><b>ä¿®æ”¹</b></td>
+          <td width="3%"><b>åˆ é™¤</b></td>
         </tr>
 
        <c:forEach var="item" items="${Pagelist}" varStatus="status">
         	<tr class="tr2" align="center">
 	        	<td>${item.nodes.nodename}</td>
-	        	<td><a href="DetailDisasterNode?dnodeId=${item.nodes.nodeid}">ÔÖº¦µãÏêÇé</a></td>
+	        	<td><a href="DetailDisasterNode?dnodeId=${item.nodes.nodeid}">ç¾å®³ç‚¹è¯¦æƒ…</a></td>
 	        	<td>${item.emertype.emertypename}</td>	        	
 	        	<td>${item.emergency.emername}</td>        	
 	        	<td>${item.nodes.longitude}</td> 
 	        	<td>${item.nodes.latitude}</td>
 	        	<td>${item.nodes.address}</td>
 	        	<td>${item.nodes.notes}</td>                  
-	    		<td><a href="EditDisasterNode.?nodeId=${item.nodes.nodeid}&enrelationId=${item.enrelationid}">ĞŞ¸Ä</a></td>
-	    		<td><a href="DeleteDisasterNode?nodeId=${item.nodes.nodeid}&disasterName=${disastername}&disasterNo=${disasterNo}&emerId=${emerId}&disasterLevel=${disasterLevel}&principal=${principal}&enrelationId=${item.enrelationid}">É¾³ı</a></td>	
+	    		<td><a href="EditDisasterNode.?nodeId=${item.nodes.nodeid}&enrelationId=${item.enrelationid}">ä¿®æ”¹</a></td>
+	    		<td><a href="DeleteDisasterNode?nodeId=${item.nodes.nodeid}&disasterName=${disastername}&disasterNo=${disasterNo}&emerId=${emerId}&disasterLevel=${disasterLevel}&principal=${principal}&enrelationId=${item.enrelationid}">åˆ é™¤</a></td>	
 	    	</tr>
 		</c:forEach>
       </table>    

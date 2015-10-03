@@ -1,6 +1,7 @@
 package com.yuan.lee.controller.disaster;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +58,7 @@ public class DisasterNodeController {
 	HttpServletRequest request;
 	@Autowired
 	HttpServletResponse response;
+	
 	@RequestMapping("/gotoAddDisaster")
 	public String gotoAddDisaster(ModelMap modelmap,Area area,String nodeId){
 		Map<String, Object> params=new HashMap<String, Object>();
@@ -133,6 +135,7 @@ public class DisasterNodeController {
 		
 		return "WebRoot/DisasterNode/addDisasterNode";
 	}
+	
 	@RequestMapping("/saveDisasterNode")
 	public String saveDisasterNode(ModelMap modelmap,String emerTypeName,String emerId ,String disasterLevel,Nodes node
 			,String roadid,String disastername,String note,DisasterNode disasterNode){
@@ -157,6 +160,7 @@ public class DisasterNodeController {
 			return "WebRoot/DisasterNode/addfailed";
 		
 	}
+	
 	@RequestMapping("/GotoSearchDisasterNode")
 	public String GotoSearchDisasterNode(ModelMap modelmap){
 		List<EmerType> list= emerTypeService.selectAll();
@@ -194,10 +198,11 @@ public class DisasterNodeController {
 	 * @param disasterLevel
 	 * @param emerId
 	 * @return
+	 * @throws IOException 
 	 */
 	@RequestMapping("/SearchDisasterNode")
 	public String SearchDisasterNode(ModelMap modelmap,String page,String disasterName,
-			String disasterNo,String principal,String disasterLevel,String  emerId){
+			String disasterNo,String principal,String disasterLevel,String  emerId) throws IOException{
 		Users user=(Users)request.getSession().getAttribute("user");
 		String userid=user.getUserid();
 		StringBuffer url=new StringBuffer();
@@ -214,34 +219,37 @@ public class DisasterNodeController {
 			}
 			int startNum = first;
 			Map<String, Object> params=new HashMap<String, Object>();
-			Map<String, Object> params1=new HashMap<String, Object>();
-			params1.put("sortName", "emerid");
-	        params1.put("pageSize", pageSize);
-		    params1.put("startNum", startNum);
+			params.put("sortName", "emerid");
+	        params.put("pageSize", pageSize);
+		    params.put("startNum", startNum);
 		    if(disasterName != null && !"".equals(disasterName))
 	    	 {
+	    		disasterName=URLDecoder.decode(disasterName, "UTF-8");
 	    		params.put("disastername", "%"+disasterName+"%"); 
 	    		 url.append("&disasterName="+disasterName);
 	    	 }
 		    if(disasterNo != null && !"".equals(disasterNo))
 	    	 {
+		    	disasterNo=URLDecoder.decode(disasterNo, "UTF-8");
 	    		params.put("disasterno", "%"+disasterNo+"%"); 
 	    		 url.append("&disasterNo="+disasterNo);
 	    	 } 
 		    if(principal != null && !"".equals(principal))
 	    	 {
+		    	principal=URLDecoder.decode(principal, "UTF-8");
 	    		params.put("principal", "%"+principal+"%"); 
 	    		 url.append("&principal="+principal);
 	    	 }
 		    if(disasterLevel != null && !"".equals(disasterLevel))
 	    	 {
+		    	disasterLevel=URLDecoder.decode(disasterLevel, "UTF-8");
 	    		params.put("disasterlevel", "%"+disasterLevel+"%"); 
 	    		 url.append("&disasterLevel="+disasterLevel);
 	    	 }
 		    
 		    if(emerId != null && !"".equals(emerId))
 	    	 {        
-		    	params1.put("emerid", emerId);
+		    	params.put("emerid", emerId);
 	    		 url.append("&emerId="+emerId);  //翻页的时候用的，拼接url！
 	    	 }
 		    modelmap.put("disasterNo",disasterNo);
@@ -250,8 +258,7 @@ public class DisasterNodeController {
 		    Emergency emergency=emergencyService.selectByPrimaryKey(emerId);
 		    modelmap.put("emergency", emergency);
 			
-		    List<ENRelation> enRelationlist=enRelationService.findByParams(params1);
-		    List<DisasterNode> disasternodes=disasterNodesService.findByParams(params);
+		    List<ENRelation> enRelationlist=enRelationService.findByParams(params);
 		    int num=enRelationService.findByParamsCount(params);
 			PageBean PageBean=new PageBean(current,pageSize,num,enRelationlist); 
 			PageBean.setUrl(url.toString());
@@ -284,6 +291,7 @@ public class DisasterNodeController {
 		}			
 	response.getWriter().write(cSelect);
 	}
+	
 	@ResponseBody
 	@RequestMapping("/findArea")
 	public void findArea(String areaid) throws IOException{
@@ -318,6 +326,7 @@ public class DisasterNodeController {
 		response.getWriter().write(cSelect);
 		
 	}
+	
 	@ResponseBody
 	@RequestMapping("/findStreet")
 	public void findStreet(String streetid) throws IOException{
