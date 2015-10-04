@@ -118,6 +118,23 @@
     select
     <include refid="Base_Column_List" />
     from goodstype
+    <where>
+     <if test="goodstypeno != null" >
+       and goodstypeno like #{goodstypeno,jdbcType=VARCHAR}
+      </if>
+      <if test="goodstypename != null" >
+       and goodstypename like #{goodstypename,jdbcType=VARCHAR}
+      </if>
+      <if test="grade != null" >
+       and grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstypedescribe != null" >
+       and goodstypedescribe like #{goodstypedescribe,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -130,5 +147,22 @@
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
     select count(*) from goodstype
+    <where>
+     <if test="goodstypeno != null" >
+       and goodstypeno like #{goodstypeno,jdbcType=VARCHAR}
+      </if>
+      <if test="goodstypename != null" >
+       and goodstypename like #{goodstypename,jdbcType=VARCHAR}
+      </if>
+      <if test="grade != null" >
+       and grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstypedescribe != null" >
+       and goodstypedescribe like #{goodstypedescribe,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>

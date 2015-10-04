@@ -1,7 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,17 +10,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
  <head>
     
-<title>²é¿´²Ö¿âµã</title>
-<link href="<%=request.getContextPath()%>/style/gov_style_10.css" rel="stylesheet" type="text/css">
-<link href="/BDplatformWeb/style/gov_style_10.css" rel="stylesheet" type="text/css">   
-<script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+<title>æŸ¥çœ‹ä»“åº“ç‚¹</title>
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
 <script type="text/javascript"> 
 
             $(document).ready(function(){          	
 		    $( "#emerTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findEmergency.action?emerTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findEmergency?emerTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -34,16 +32,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </head>
   
  <body>
-<form id="DisasterNodeForm" name="DisasterNodeForm" method="post" theme="simple"  namespace="/" action="SearchWareHouse.action">
+<form id="DisasterNodeForm" name="DisasterNodeForm" method="post" theme="simple"  namespace="/" action="SearchWareHouse">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">²Ö¿âµãĞÅÏ¢¹ÜÀí>>°´Ìõ¼ş²éÑ¯²Ö¿âµã</td>
+					<td width="100%" class="f3">ä»“åº“ç‚¹ä¿¡æ¯ç®¡ç†>>æŒ‰æ¡ä»¶æŸ¥è¯¢ä»“åº“ç‚¹</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -57,44 +55,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">
 
 				<tr class="tr2">
-					<td  class="tr1" align="right">²Ö¿âµãÃû³Æ:</td>
-					<td><input type="text" name="wareHouseName" value=${wareHouseName}></td>
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼şÀàĞÍ:</td>
+					<td  class="tr1" align="right">ä»“åº“ç‚¹åç§°:</td>
+					<td><input type="text" name="warehousename" value=${warehousename}></td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶ç±»å‹:</td>
 					<td>
-					<select id="emerTypeName" name="emerTypeName">
-						<c:forEach var="item" items="${emerTypeName}">
-							<option value="${item}" <c:if test="${item eq emergency.emerType.emerTypeName}">selected</c:if>>${item}</option>
+					<select id="emerTypeName" name="emertypename">
+						<c:forEach var="item" items="${emertypename}">
+							<option value="${item}" <c:if test="${item eq emertype.emertypename}">selected</c:if>>${item}</option>
 						</c:forEach>
 					</select>
 					</td>
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼ş:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶:</td>
 					<td>
-					<select id="emerId" name="emerId">
+					<select id="emerId" name="emerid">
 						<c:forEach var="item" items="${emergencylist}">
-							<option value="${item.emerId}" <c:if test="${item.emerId eq emergency.emerId}">selected</c:if>>${item.emerName}</option>
+							<option value="${item.emerid}" <c:if test="${item.emerid eq emergency.emerid}">selected</c:if>>${item.emername}</option>
 						</c:forEach>
 					</select>
                     </td>	
                     </tr>					
 			<tr class="tr10">
-					<td  class="tr1" align="right">²Ö¿âµã±àÂë:</td>
-					<td><input type="text" name="wareHouseNo" value=${wareHouseNo}></td>
-					<td  class="tr1" align="right">*²Ö¿âµãµÈ¼¶:</td>
+					<td  class="tr1" align="right">ä»“åº“ç‚¹ç¼–ç :</td>
+					<td><input type="text" name="warehouseno" value=${wareHouseNo}></td>
+					<td  class="tr1" align="right">*ä»“åº“ç‚¹ç­‰çº§:</td>
 					<td class="tr1">
-					    <input type="radio" name="wareHouseLevel" value="P" <c:if test="${fn:contains(wareHouseLevel, 'P')}">checked</c:if>>Ê¡
-					    <input type="radio" name="wareHouseLevel" value="C" <c:if test="${fn:contains(wareHouseLevel, 'C')}">checked</c:if>>ÊĞ 
-					    <input type="radio" name="wareHouseLevel" value="D" <c:if test="${fn:contains(wareHouseLevel, 'D')}">checked</c:if>>ÏØ/Çø
+					    <input type="radio" name="warehouselevel" value="P" <c:if test="${fn:contains(warehouselevel, 'P')}">checked</c:if>>çœ
+					    <input type="radio" name="warehouselevel" value="C" <c:if test="${fn:contains(warehouselevel, 'C')}">checked</c:if>>å¸‚ 
+					    <input type="radio" name="warehouselevel" value="D" <c:if test="${fn:contains(warehouselevel, 'D')}">checked</c:if>>å¿/åŒº
 					</td>
-					<td  class="tr1" align="right">*²Ö¿âĞÔÖÊ:</td>
+					<td  class="tr1" align="right">*ä»“åº“æ€§è´¨:</td>
 					<td class="tr1">
-					    <input type="radio" name="property" value="C" <c:if test="${fn:contains(property, 'P')}">checked</c:if>>¹úÓĞ
-					    <input type="radio" name="property" value="L" <c:if test="${fn:contains(property, 'P')}">checked</c:if>>µØ·½ËùÓĞ
-					    <input type="radio" name="property" value="S" <c:if test="${fn:contains(property, 'P')}">checked</c:if>>¸öÈË 
+					    <input type="radio" name="property" value="C" <c:if test="${fn:contains(property, 'C')}">checked</c:if>>å›½æœ‰
+					    <input type="radio" name="property" value="L" <c:if test="${fn:contains(property, 'L')}">checked</c:if>>åœ°æ–¹æ‰€æœ‰
+					    <input type="radio" name="property" value="S" <c:if test="${fn:contains(property, 'S')}">checked</c:if>>ä¸ªäºº 
 					</td>															
 				</tr>
 			<tr class="tr10">
     	  			<td align="center" colspan="6">
-	   					<input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_search.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;					
+	   					<input type=image src="/lee/static/images/pub/lzoa_pub_search.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;					
 	  				</td>
   				</tr>
 			</table>
@@ -106,10 +104,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">²Ö¿âµãĞÅÏ¢¹ÜÀí>>²é¿´ËùÓĞ²Ö¿âµã</td>
+					<td width="100%" class="f3">ä»“åº“ç‚¹ä¿¡æ¯ç®¡ç†>>æŸ¥çœ‹æ‰€æœ‰ä»“åº“ç‚¹</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -126,30 +124,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <td width="100%" align="center">
       <table width="800" cellspacing="1" border="0" class="table1" height="95">
         <tr class="tr1" align="center">
-          <td width="5%"><b>²Ö¿âµãÃû³Æ</b></td>
-          <td width="5%"><b>²Ö¿âµãÏêÇé</b></td>
-          <td width="5%"><b>ËùÊôÔÖº¦ÊÂ¼şÀàĞÍ</b></td>
-          <td width="5%"><b>ËùÊôÔÖº¦ÊÂ¼ş</b></td>
-          <td width="5%"><b>ËùÔÚ¾­¶È</b></td>
-          <td width="5%"><b>ËùÔÚÎ³¶È</b></td>
-          <td width="5%"><b>ÏêÏ¸µØÖ·</b></td>
-          <td width="5%"><b>±¸×¢</b></td>
-          <td width="3%"><b>ĞŞ¸Ä</b></td>
-          <td width="3%"><b>É¾³ı</b></td>
+          <td width="5%"><b>ä»“åº“ç‚¹åç§°</b></td>
+          <td width="5%"><b>ä»“åº“ç‚¹è¯¦æƒ…</b></td>
+          <td width="5%"><b>æ‰€å±ç¾å®³äº‹ä»¶ç±»å‹</b></td>
+          <td width="5%"><b>æ‰€å±ç¾å®³äº‹ä»¶</b></td>
+          <td width="5%"><b>æ‰€åœ¨ç»åº¦</b></td>
+          <td width="5%"><b>æ‰€åœ¨çº¬åº¦</b></td>
+          <td width="5%"><b>è¯¦ç»†åœ°å€</b></td>
+          <td width="5%"><b>å¤‡æ³¨</b></td>
+          <td width="3%"><b>ä¿®æ”¹</b></td>
+          <td width="3%"><b>åˆ é™¤</b></td>
         </tr>
 
        <c:forEach var="item" items="${Pagelist}" varStatus="status">
         	<tr class="tr2" align="center">
-	        	<td>${item.nodes.nodeName}</td>
-	        	<td><a href="DetailWareHouse.action?wnodeId=${item.nodes.nodeId}">²Ö¿âµãÏêÇé</a></td>
-	        	<td>${item.emergency.emerType.emerTypeName}</td>	        	
-	        	<td>${item.emergency.emerName}</td>        	
+	        	<td>${item.nodes.nodename}</td>
+	        	<td><a href="DetailWareHouse?wnodeid=${item.nodes.nodeid}">ä»“åº“ç‚¹è¯¦æƒ…</a></td>
+	        	<td>${item.emertype.emertypename}</td>	        	
+	        	<td>${item.emergency.emername}</td>        	
 	        	<td>${item.nodes.longitude}</td> 
 	        	<td>${item.nodes.latitude}</td>
 	        	<td>${item.nodes.address}</td>
 	        	<td>${item.nodes.notes}</td>                  
-	    		<td><a href="EditWareHouse.action?nodeId=${item.nodes.nodeId}&enrelationId=${item.enrelationId}">ĞŞ¸Ä</a></td>
-	    		<td><a href="DeleteWareHouse.action?nodeId=${item.nodes.nodeId}&wareHouseName=${wareHouseName}&wareHouseNo=${wareHouseNo}&emerId=${emerId}&wareHouseLevel=${wareHouseLevel}&property=${property}&enrelationId=${item.enrelationId}">É¾³ı</a></td>	
+	    		<td><a href="EditWareHouse?nodeid=${item.nodes.nodeid}&enrelationid=${item.enrelationid}">ä¿®æ”¹</a></td>
+	    		<td><a href="DeleteWareHouse?nodeid=${item.nodes.nodeid}&warehousename=${warehousename}&warehouseno=${warehouseno}&emerid=${emerid}&warehouselevel=${warehouselevel}&property=${property}&enrelationid=${item.enrelationid}">åˆ é™¤</a></td>	
 	    	</tr>
 		</c:forEach>
       </table>    

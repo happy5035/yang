@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -12,16 +11,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <head>
     
 <title>查看物资</title>
-<link href="<%=request.getContextPath()%>/style/gov_style_10.css" rel="stylesheet" type="text/css">
-<link href="/BDplatformWeb/style/gov_style_10.css" rel="stylesheet" type="text/css">   
-<script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
 <script type="text/javascript"> 
 
             $(document).ready(function(){          	
 		    $( "#goodsTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findGrade.action?goodsTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findGrade?goodsTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -34,13 +32,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </head>
   
  <body>
-<form id="GoodsForm" name="GoodsForm" method="post" theme="simple"  namespace="/" action="SearchGoods.action">
+<form id="GoodsForm" name="GoodsForm" method="post" theme="simple"  namespace="/" action="SearchGoods">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
 					<td width="100%" class="f3">物资管理>>按条件查询物资</td>
@@ -58,26 +56,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				<tr class="tr2">
 					<td  class="tr1" align="right">物资名称:</td>
-					<td><input type="text" name="goodsName" value=${goodsname}></td>
+					<td><input type="text" name="goodsname" value=${goodsname}></td>
 					<td  class="tr1" align="right">物资编号:</td>
-					<td><input type="text" name="goodsNo" value=${goodsno}></td>
+					<td><input type="text" name="goodsno" value=${goodsno}></td>
 					<td  class="tr1" align="right">*物资类型:</td>									
 					<td>
-					<select id="goodsTypeName" name="goodsTypeName">
-                        <c:forEach var="item" items="${goodsTypeName}">
-							<option value="${item}" <c:if test="${item eq goodsType.goodsTypeName}">selected</c:if>>${item}</option>
+					<select id="goodsTypeName" name="goodstypename">
+                        <c:forEach var="item" items="${goodstypename}">
+							<option value="${item}" <c:if test="${item eq goodstype.goodstypename}">selected</c:if>>${item}</option>
 						</c:forEach>
      				</select>										
-					<select id="goodsTypeId" name="goodsTypeId">
-						<c:forEach var="item" items="${goodsTypelist}">
-							<option value="${item.goodsTypeId}" <c:if test="${item.goodsTypeId eq goodsType.goodsTypeId}">selected</c:if>>${item.grade}</option>
+					<select id="goodsTypeId" name="goodstypeid">
+						<c:forEach var="item" items="${goodstypelist}">
+							<option value="${item.goodstypeid}" <c:if test="${item.goodstypeid eq goodstype.goodstypeid}">selected</c:if>>${item.grade}</option>
 						</c:forEach>
 					</select>
 				    </td>		
 				</tr>
 			<tr class="tr10">
     	  			<td align="center" colspan="6">
-	   					<input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_search.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;					
+	   					<input type=image src="/lee/static/images/pub/lzoa_pub_search.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;					
 	  				</td>
   				</tr>
 			</table>
@@ -89,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
 					<td width="100%" class="f3">物资管理>>查看所有物资</td>
@@ -124,17 +122,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
        <c:forEach var="item" items="${Pagelist}" varStatus="status">
         	<tr class="tr2" align="center">
-	        	<td>${item.goodsName}</td>
-	        	<td>${item.goodsNo}</td>
-	        	<td>${item.goodsType.grade}${item.goodsType.goodsTypeName}</td>	        	
-	        	<td>${item.mainUse}</td>
-	        	<td>${item.measureUnit}</td>
-	        	<td>${item.guaranteePeriod}</td>	        	
+	        	<td>${item.goodsname}</td>
+	        	<td>${item.goodsno}</td>
+	        	<td>${goodstype.grade}${goodstype.goodstypename}</td>	        	
+	        	<td>${item.mainuse}</td>
+	        	<td>${item.measureunit}</td>
+	        	<td>${item.guaranteeperiod}</td>	        	
 	        	<td>${item.specification}</td>
 	        	<td>${item.size}</td>
 	        	<td>${item.note}</td>                
-	    		<td><a href="EditGoods.action?goodsId=${item.goodsId}">修改</a></td>
-	    		<td><a href="DeleteGoods.action?goodsId=${item.goodsId}&goodsName=${goodsName}&goodsNo=${goodsNo}&goodsTypeId=${goodsTypeId}">删除</a></td>	
+	    		<td><a href="EditGoods?goodsid=${item.goodsid}">修改</a></td>
+	    		<td><a href="deletegoods?goodsid=${item.goodsid}&goodsname=${goodsname}&goodsno=${goodsno}&goodstypeid=${goodstypeid}">删除</a></td>	
 	    	</tr>
 		</c:forEach>
       </table>    

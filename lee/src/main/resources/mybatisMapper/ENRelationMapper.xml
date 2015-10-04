@@ -106,6 +106,74 @@
       </if>
     </if>
   </select>
+  <select id="selectByWareHouseParmas" resultMap="BaseResultMap" parameterType="map">
+   select en.enrelationid, em.* ,no.*,t.emertypename  
+     from enrelation en ,emergency em ,nodes no ,emertype t ,warehouse w
+	<where>
+	 en.nodeid=no.nodeid 
+    and en.emerid=em.emerid
+     and em.emertypeid=t.emertypeid 
+    and no.nodetype='W'
+    and w.wnodeid=no.nodeid
+	<if test="nodeid != null" >
+      and  en.nodeid like #{nodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="emerid != null" >
+       and en.emerid like #{emerid,jdbcType=VARCHAR}
+      </if>
+      <if test="warehouseno != null" >
+       and warehouseno like #{warehouseno,jdbcType=VARCHAR}
+      </if>
+      <if test="warehousename != null" >
+       and  warehousename like #{warehousename,jdbcType=VARCHAR}
+      </if>
+      <if test="warehouselevel != null" >
+       and warehouselevel like #{warehouselevel,jdbcType=VARCHAR}
+      </if>
+      <if test="property != null" >
+       and property like #{property,jdbcType=VARCHAR}
+      </if>
+	</where>
+   <if test="sortName != null" >
+      order by ${sortName}
+      <if test="sortOrder != null" >
+        ${sortOrder}
+      </if>
+    </if>
+    <if test="pageSize != null and startNum != null" >
+      limit #{pageSize} offset #{startNum}
+    </if>
+  </select>
+  
+  <select id="selectCountByWareHouseParams" resultType="int" parameterType="map">
+  select   count(*)  from enrelation en ,emergency em ,nodes no ,emertype t ,warehouse w
+	<where>
+	 en.nodeid=no.nodeid 
+    and en.emerid=em.emerid
+     and em.emertypeid=t.emertypeid 
+    and no.nodetype='W'
+    and w.wnodeid=no.nodeid
+	<if test="nodeid != null" >
+      and  en.nodeid like #{nodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="emerid != null" >
+       and en.emerid like #{emerid,jdbcType=VARCHAR}
+      </if>
+      <if test="warehouseno != null" >
+       and warehouseno like #{warehouseno,jdbcType=VARCHAR}
+      </if>
+      <if test="warehousename != null" >
+       and  warehousename like #{warehousename,jdbcType=VARCHAR}
+      </if>
+      <if test="warehouselevel != null" >
+       and warehouselevel like #{warehouselevel,jdbcType=VARCHAR}
+      </if>
+      <if test="property != null" >
+       and property like #{property,jdbcType=VARCHAR}
+      </if>
+	</where>
+  </select>
+  
   <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
     select en.enrelationid, em.* ,no.*,t.emertypename  
      from enrelation en ,emergency em ,nodes no ,emertype t ,disasternode d

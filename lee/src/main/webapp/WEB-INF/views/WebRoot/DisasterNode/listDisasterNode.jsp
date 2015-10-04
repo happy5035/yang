@@ -12,7 +12,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 <title>查看灾害点</title>
 <link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
-<link href="/BDplatformWeb/style/gov_style_10.css" rel="stylesheet" type="text/css">   
    <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
 <script type="text/javascript"> 
 
@@ -141,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<td>${item.nodes.latitude}</td>
 	        	<td>${item.nodes.address}</td>
 	        	<td>${item.nodes.notes}</td>                  
-	    		<td><a href="EditDisasterNode.?nodeId=${item.nodes.nodeid}&enrelationId=${item.enrelationid}">修改</a></td>
+	    		<td><a href="EditDisasterNode?nodeId=${item.nodes.nodeid}&enrelationId=${item.enrelationid}">修改</a></td>
 	    		<td><a href="DeleteDisasterNode?nodeid=${item.nodes.nodeid}&disastername=${disastername}&disasterno=${disasterno}&emerid=${emerId}&disasterLevel=${disasterlevel}&principal=${principal}&enrelationid=${item.enrelationid}">删除</a></td>	
 	    	</tr>
 		</c:forEach>

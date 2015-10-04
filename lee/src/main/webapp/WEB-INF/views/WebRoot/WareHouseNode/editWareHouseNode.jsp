@@ -1,8 +1,7 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK" %>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,8 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<script language="javascript" type="text/javascript" src="http://localhost:8080/expressWeb/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script> 
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
 <script type="text/javascript">
 function cbt_res()
 {
@@ -23,7 +21,7 @@ $(document).ready(function(){
         	$( "#areaid" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findArea.action?areaid="+$(this).val()+"&amt=" + Math.random(),
+		    	url: "findArea?areaid="+$(this).val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -31,7 +29,7 @@ $(document).ready(function(){
 		    	}});
 		     $.ajax({
 		    	type: "POST",
-		    	url: "findStreet.action?streetid="+$("#streetid").val()+"&amt=" + Math.random(),
+		    	url: "findStreet?streetid="+$("#streetid").val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -41,7 +39,7 @@ $(document).ready(function(){
 		    $( "#streetid" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findStreet.action?streetid="+$(this).val()+"&amt=" + Math.random(),
+		    	url: "findStreet?streetid="+$(this).val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -54,7 +52,7 @@ $(document).ready(function(){
 		    $( "#emerTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findEmergency.action?emerTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findEmergency?emerTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -65,7 +63,7 @@ $(document).ready(function(){
      
      function OpenWindow(){ 
 
-	window.open("getAllArea.action?showinfoFlag=4"); 	
+	window.open("getAllArea?showinfoFlag=4"); 	
 	} 
 	function setValue(lngValue,latValue)   
 	{ 
@@ -76,7 +74,7 @@ $(document).ready(function(){
   <head>
     <base href="<%=basePath%>">
     
-    <title>ĞŞ¸Ä²Ö¿âµãĞÅÏ¢</title>
+    <title>ä¿®æ”¹ä»“åº“ç‚¹ä¿¡æ¯</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -96,10 +94,10 @@ $(document).ready(function(){
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">²Ö¿âµãĞÅÏ¢¹ÜÀí>>ĞŞ¸Ä²Ö¿âµãÏêÏ¸ĞÅÏ¢</td>
+					<td width="100%" class="f3">ä»“åº“ç‚¹ä¿¡æ¯ç®¡ç†>>ä¿®æ”¹ä»“åº“ç‚¹è¯¦ç»†ä¿¡æ¯</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -112,117 +110,115 @@ $(document).ready(function(){
 		<td align="center" class="tr4"> 
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">			
 			<tr class="tr2">
-				<td  class="tr1" align="right">²Ö¿âµãÃû³Æ:</td>
-				<td><input type="text" name="wareHouseName" value="${wareHouse.wareHouseName}"></td>
-				<td  class="tr1" align="right">²Ö¿âµã±àÂë:</td>
-				<td><input type="text" name="wareHouseNo" value="${wareHouse.wareHouseNo}"></td>	
+				<td  class="tr1" align="right">ä»“åº“ç‚¹åç§°:</td>
+				<td><input type="text" name="warehousename" value="${wareHouse.warehousename}"></td>
+				<td  class="tr1" align="right">ä»“åº“ç‚¹ç¼–ç :</td>
+				<td><input type="text" name="warehouseno" value="${wareHouse.warehouseno}"></td>	
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼şÀàĞÍ:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶ç±»å‹:</td>
 					<td>
-					<select id="emerTypeName" name="emerTypeName">
-						<c:forEach var="item" items="${emerTypeName}">
-							<option value="${item}" <c:if test="${item eq emergency.emerType.emerTypeName}">selected</c:if>>${item}</option>
+					<select id="emerTypeName" name="emertypename">
+						<c:forEach var="item" items="${emertypename}">
+							<option value="${item}" <c:if test="${item eq emertype.emertypename}">selected</c:if>>${item}</option>
 						</c:forEach>
 					</select>
 					</td>
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼ş:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶:</td>
 					<td>
-					<select id="emerId" name="emerId">
+					<select id="emerId" name="emerid">
 						<c:forEach var="item" items="${emergencylist}">
-							<option value="${item.emerId}" <c:if test="${item.emerId eq emergency.emerId}">selected</c:if>>${item.emerName}</option>
+							<option value="${item.emerid}" <c:if test="${item.emerid eq emergency.emerid}">selected</c:if>>${item.emername}</option>
 						</c:forEach>
 					</select>
                     </td>	
 				</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*²Ö¿âµãµÈ¼¶:</td>
+					<td  class="tr1" align="right">*ä»“åº“ç‚¹ç­‰çº§:</td>
 					<td>
-					   <input type="radio" name="wareHouseLevel" value="P" <c:if test="${fn:contains(wareHouse.wareHouseLevel, 'P')}">checked</c:if>>Ê¡
-					   <input type="radio" name="wareHouseLevel" value="C" <c:if test="${fn:contains(wareHouse.wareHouseLevel, 'C')}">checked</c:if>>ÊĞ 
-					   <input type="radio" name="wareHouseLevel" value="D" <c:if test="${fn:contains(wareHouse.wareHouseLevel, 'D')}">checked</c:if>>ÏØ/Çø					
+					   <input type="radio" name="warehouselevel" value="P" <c:if test="${fn:contains(wareHouse.warehouselevel, 'P')}">checked</c:if>>çœ
+					   <input type="radio" name="warehouselevel" value="C" <c:if test="${fn:contains(wareHouse.warehouselevel, 'C')}">checked</c:if>>å¸‚ 
+					   <input type="radio" name="warehouselevel" value="D" <c:if test="${fn:contains(wareHouse.warehouselevel, 'D')}">checked</c:if>>å¿/åŒº					
 					</td>
-                    <td  class="tr1" align="right">*²Ö¿âĞÔÖÊ:</td>
+                    <td  class="tr1" align="right">*ä»“åº“æ€§è´¨:</td>
 					<td>
-					   <input type="radio" name="property" value="C" <c:if test="${fn:contains(wareHouse.property, 'C')}">checked</c:if>>¹úÓĞ
-					   <input type="radio" name="property" value="L" <c:if test="${fn:contains(wareHouse.property, 'L')}">checked</c:if>>µØ·½ËùÓĞ
-					   <input type="radio" name="property" value="S" <c:if test="${fn:contains(wareHouse.property, 'S')}">checked</c:if>>¸öÈË 
+					   <input type="radio" name="property" value="C" <c:if test="${fn:contains(wareHouse.property, 'C')}">checked</c:if>>å›½æœ‰
+					   <input type="radio" name="property" value="L" <c:if test="${fn:contains(wareHouse.property, 'L')}">checked</c:if>>åœ°æ–¹æ‰€æœ‰
+					   <input type="radio" name="property" value="S" <c:if test="${fn:contains(wareHouse.property, 'S')}">checked</c:if>>ä¸ªäºº 
 					</td>		
 				</tr>
 				<tr class="tr2">
-			        <td  class="tr1" align="right">*ËùÔÚµØÇø:</td>
+			        <td  class="tr1" align="right">*æ‰€åœ¨åœ°åŒº:</td>
 					<td >
 						<select id="areaid"  name="areaid"  >
 							<c:forEach var="item" items="${areas}">
-								<option value="${item.areaId}" <c:if test="${item.areaId eq area.areaId}">selected</c:if>>${item.areaName}</option>
+								<option value="${item.areaid}" <c:if test="${item.areaid eq area.areaid}">selected</c:if>>${item.areaname}</option>
 							</c:forEach>
 						</select>
 						<select   id="streetid" name="streetid" style="width:100;"  >
-							<!--	<option value="${street.areaId}">${street.areaName}</option>    -->
 							<c:forEach var="item" items="${streetlist}">
-								<option value="${item.areaId}" <c:if test="${item.areaId eq street.areaId}">selected</c:if>>${item.areaName}</option>
+								<option value="${item.areaid}" <c:if test="${item.areaid eq street.areaid}">selected</c:if>>${item.areaname}</option>
 							</c:forEach>
 						</select>
 					 	<select name="roadid" id="roadid" style="width:100;" > 
-						<!--  		<option value="${road.areaId}">${road.areaName}</option>   -->
 						<c:forEach var="item" items="${roadlist}">
-							<option value ="${item.areaId}" <c:if test="${item.areaId eq road.areaId}">selected</c:if>>${item.areaName}</option>	
+							<option value ="${item.areaid}" <c:if test="${item.areaid eq road.areaid}">selected</c:if>>${item.areaname}</option>	
 						</c:forEach> 
 						</select>
 				</td>
-					<td  class="tr1" align="right">ÏêÏ¸µØÖ·:</td>
-					<td><input type="text" name="address" value="${wareHouse.nodes.address}"></td>				
+					<td  class="tr1" align="right">è¯¦ç»†åœ°å€:</td>
+					<td><input type="text" name="address" value="${nodes.address}"></td>				
 			<tr class="tr2">
-				<td  class="tr1" align="right">X×ø±ê:</td>
-				<td><input type="text" id="longitude" value="${wareHouse.nodes.longitude}" onclick="OpenWindow()" name="longitude" >  
+				<td  class="tr1" align="right">Xåæ ‡:</td>
+				<td><input type="text" id="longitude" value="${nodes.longitude}" onclick="OpenWindow()" name="longitude" >  
 				</td>
-				<td  class="tr1" align="right">Y×ø±ê:</td>
-				<td><input type="text" id="latitude" value="${wareHouse.nodes.latitude}" onclick="OpenWindow()"  name="latitude" >        
+				<td  class="tr1" align="right">Yåæ ‡:</td>
+				<td><input type="text" id="latitude" value="${nodes.latitude}" onclick="OpenWindow()"  name="latitude" >        
 				</td>
 			</tr>	
 			<tr class="tr2">
-					<td  class="tr1" align="right">*²Ö¿â¹æÄ£:</td>
+					<td  class="tr1" align="right">*ä»“åº“è§„æ¨¡:</td>
 					<td><input type="text" name="dimensions" value="${wareHouse.dimensions}"></td>
-					<td  class="tr1" align="right">*²Ö¿âÈİÁ¿:</td>
+					<td  class="tr1" align="right">*ä»“åº“å®¹é‡:</td>
 					<td><input type="text" name="capacity" value="${wareHouse.capacity}"></td>				
 				</tr>
 				<tr class="tr2">
-					<td  class="tr1" align="right">*Á¥Êô²¿ÃÅ:</td>
+					<td  class="tr1" align="right">*éš¶å±éƒ¨é—¨:</td>
 					<td><input type="text" name="belong" value="${wareHouse.belong}"></td>
-					<td  class="tr1" align="right">*²Ö¿â¹ÜÀíÔ±:</td>
+					<td  class="tr1" align="right">*ä»“åº“ç®¡ç†å‘˜:</td>
 					<td><input type="text" name="administrator" value="${wareHouse.administrator}"></td>				
 				</tr>
 				<tr class="tr2">
-					<td  class="tr1" align="right">*·¨ÈË:</td>
+					<td  class="tr1" align="right">*æ³•äºº:</td>
 					<td><input type="text" name="legalman" value="${wareHouse.legalman}"></td>
-					<td  class="tr1" align="right">*·¨ÈËÁªÏµ·½Ê½:</td>
-					<td><input type="text" name="legalmanPhone" value="${wareHouse.legalmanPhone}"></td>				
+					<td  class="tr1" align="right">*æ³•äººè”ç³»æ–¹å¼:</td>
+					<td><input type="text" name="legalmanphone" value="${wareHouse.legalmanphone}"></td>				
 				</tr>
 				<tr class="tr2">
-					<td  class="tr1" align="right">*ÁªÏµÈË:</td>
+					<td  class="tr1" align="right">*è”ç³»äºº:</td>
 					<td><input type="text" name="linkman" value="${wareHouse.linkman}"></td>
-					<td  class="tr1" align="right">*ÁªÏµÈËµç»°:</td>
-					<td><input type="text" name="linkmanPhone" value="${wareHouse.linkmanPhone}"></td>				
+					<td  class="tr1" align="right">*è”ç³»äººç”µè¯:</td>
+					<td><input type="text" name="linkmanphone" value="${wareHouse.linkmanphone}"></td>				
 				</tr>		
 			<tr class="tr2">
-                    <td  class="tr1" align="right">ÁªÏµµç»°:</td>
+                    <td  class="tr1" align="right">è”ç³»ç”µè¯:</td>
 					<td><input type="text" name="phone" value="${wareHouse.phone}""></td>
-					<td  class="tr1" align="right" >±¸×¢:</td>
+					<td  class="tr1" align="right" >å¤‡æ³¨:</td>
 					<td><input type="text" name="note" value="${wareHouse.note}"></td>				
 				</tr>
 				<tr class="tr10">
     	  			<td align="center" colspan="4">
-	   					<input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;		
-						<input type="image" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">
-	   					<a href="javascript:history.back(-1);"><img border="0" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_back.gif"/></a>           
+	   					<input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;		
+						<input type="image" src="/lee/static/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">
+	   					<a href="javascript:history.back(-1);"><img border="0" src="/lee/static/images/pub/lzoa_pub_back.gif"/></a>           
 	  				</td>
   				</tr>
 			</table>
 		</td>
     </tr>
 </table>
-<input type="hidden" name="wnodeId" id="wnodeId" value="${wareHouse.wnodeId}"/> 
-<input type="hidden" name="enrelationId" id="enrelationId" value="${enrelationId}"/> 
+<input type="hidden" name="wnodeid" id="wnodeId" value="${wareHouse.wnodeid}"/> 
+<input type="hidden" name="enrelationid" id="enrelationId" value="${enrelationid}"/> 
 </form>  
    
    

@@ -16,7 +16,6 @@ public class ENRelation implements Serializable {
     private Emergency emergency;
 	private Nodes nodes;
 	private EmerType emertype;
-	
     public EmerType getEmertype() {
 		return emertype;
 	}

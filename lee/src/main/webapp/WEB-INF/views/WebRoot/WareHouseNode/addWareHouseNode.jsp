@@ -1,6 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,20 +10,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>Ìí¼Ó²Ö¿âµã</title>    
+    <title>æ·»åŠ ä»“åº“ç‚¹</title>    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
      <script type="text/javascript"> 
  
                $(document).ready(function(){  
         	$( "#areaid" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findArea.action?areaid="+$(this).val()+"&amt=" + Math.random(),
+		    	url: "findArea?areaid="+$(this).val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	}});
 		     $.ajax({
 		    	type: "POST",
-		    	url: "findStreet.action?streetid="+$("#streetid").val()+"&amt=" + Math.random(),
+		    	url: "findStreet?streetid="+$("#streetid").val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $( "#streetid" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findStreet.action?streetid="+$(this).val()+"&amt=" + Math.random(),
+		    	url: "findStreet?streetid="+$(this).val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $( "#emerTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findEmergency.action?emerTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findEmergency?emerTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 function cbt_local()
 {
 if(document.forms[0].logiccabinetno.value =='')
-{alert("Âß¼­¹ñ±àºÅ²»ÄÜÎª¿Õ");document.forms[0].logiccabinetno.focus(); return false;}
+{alert("é€»è¾‘æŸœç¼–å·ä¸èƒ½ä¸ºç©º");document.forms[0].logiccabinetno.focus(); return false;}
 }
 function cbt_res()
 {
@@ -77,7 +77,7 @@ function cbt_res()
 }
 function OpenWindow(){ 
 
-	window.open("getAllArea.action?showinfoFlag=4&emerId="+document.getElementById("emerId").value); 	
+	window.open("getAllArea?showinfoFlag=4&emerId="+document.getElementById("emerId").value); 	
 	} 
 	function setValue(lngValue,latValue)   
 	{ 
@@ -87,22 +87,21 @@ function OpenWindow(){
 		var checkflag = "false";
 
 </script>
-
-     <script type="text/javascript" src="<%=path %>/js/My97DatePicker/WdatePicker.js"></script>  
+<script type="text/javascript" src="<c:url value="/static/js/js/My97DatePicker/WdatePicker.js"/>"></script>
 
   </head>
   
   <body>
-<form id="WareHouseNodeForm" method="post"  name="WareHouseNodeForm" action="saveWareHouse.action">
+<form id="WareHouseNodeForm" method="post"  name="WareHouseNodeForm" action="saveWareHouse">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">²Ö¿âµãĞÅÏ¢¹ÜÀí&gt;&gt;Ìí¼Ó²Ö¿âµã</td>
+					<td width="100%" class="f3">ä»“åº“ç‚¹ä¿¡æ¯ç®¡ç†&gt;&gt;æ·»åŠ ä»“åº“ç‚¹</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -115,102 +114,100 @@ function OpenWindow(){
 		<td align="center" class="tr4"> 
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">
 			<tr class="tr2">
-					<td  class="tr1" align="right" >*²Ö¿âµãÃû³Æ:</td>
-					<td><input type="text" name="wareHouseName" ></td>	
-					<td  class="tr1" align="right" >*²Ö¿âµã±àÂë:</td>
-					<td><input type="text" name="wareHouseNo" ></td>				
+					<td  class="tr1" align="right" >*ä»“åº“ç‚¹åç§°:</td>
+					<td><input type="text" name="warehousename" ></td>	
+					<td  class="tr1" align="right" >*ä»“åº“ç‚¹ç¼–ç :</td>
+					<td><input type="text" name="warehouseno" ></td>				
 				</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼şÀàĞÍ:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶ç±»å‹:</td>
 					<td>
-					<select id="emerTypeName" name="emerTypeName">
-						<c:forEach var="item" items="${emerTypeName}">
+					<select id="emerTypeName" name="emertypename">
+						<c:forEach var="item" items="${emertypename}">
 							<option value="${item}">${item}</option>
 						</c:forEach>
 					</select>
 					</td>
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼ş:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶:</td>
 					<td>
-					<select id="emerId" name="emerId">
+					<select id="emerId" name="emerid">
 						<c:forEach var="item" items="${emergencylist}">
-							<option value="${item.emerId}">${item.emerName}</option>
+							<option value="${item.emerid}">${item.emername}</option>
 						</c:forEach>
 					</select>
                     </td>				
 				</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*²Ö¿âµãµÈ¼¶:</td>
-					<td><input type="radio" name="wareHouseLevel" value="P">Ê¡<input type="radio" name="wareHouseLevel" value="C">ÊĞ <input type="radio" name="wareHouseLevel" value="D">ÏØ/Çø </td>
-				    <td  class="tr1" align="right">*²Ö¿âĞÔÖÊ:</td>
-					<td><input type="radio" name="property" value="C">¹úÓĞ<input type="radio" name="property" value="L">µØ·½ËùÓĞ <input type="radio" name="property" value="S">¸öÈË </td>
+					<td  class="tr1" align="right">*ä»“åº“ç‚¹ç­‰çº§:</td>
+					<td><input type="radio" name="warehouselevel" value="P">çœ<input type="radio" name="warehouselevel" value="C">å¸‚ <input type="radio" name="warehouselevel" value="D">å¿/åŒº </td>
+				    <td  class="tr1" align="right">*ä»“åº“æ€§è´¨:</td>
+					<td><input type="radio" name="property" value="C">å›½æœ‰<input type="radio" name="property" value="L">åœ°æ–¹æ‰€æœ‰ <input type="radio" name="property" value="S">ä¸ªäºº </td>
 				</tr>
 				<tr class="tr2">
-					<td  class="tr1" align="right">*²Ö¿â¹æÄ£:</td>
+					<td  class="tr1" align="right">*ä»“åº“è§„æ¨¡:</td>
 					<td><input type="text" name="dimensions" ></td>
-					<td  class="tr1" align="right">*²Ö¿âÈİÁ¿:</td>
+					<td  class="tr1" align="right">*ä»“åº“å®¹é‡:</td>
 					<td><input type="text" name="capacity" ></td>				
 				</tr>
 				<tr class="tr2">
-					<td  class="tr1" align="right">*Á¥Êô²¿ÃÅ:</td>
+					<td  class="tr1" align="right">*éš¶å±éƒ¨é—¨:</td>
 					<td><input type="text" name="belong" ></td>
-					<td  class="tr1" align="right">*²Ö¿â¹ÜÀíÔ±:</td>
+					<td  class="tr1" align="right">*ä»“åº“ç®¡ç†å‘˜:</td>
 					<td><input type="text" name="administrator" ></td>				
 				</tr>
 				<tr class="tr2">
-					<td  class="tr1" align="right">*·¨ÈË:</td>
+					<td  class="tr1" align="right">*æ³•äºº:</td>
 					<td><input type="text" name="legalman" ></td>
-					<td  class="tr1" align="right">*·¨ÈËÁªÏµ·½Ê½:</td>
-					<td><input type="text" name="legalmanPhone" ></td>				
+					<td  class="tr1" align="right">*æ³•äººè”ç³»æ–¹å¼:</td>
+					<td><input type="text" name="legalmanphone" ></td>				
 				</tr>
 				<tr class="tr2">
-					<td  class="tr1" align="right">*ÁªÏµÈË:</td>
+					<td  class="tr1" align="right">*è”ç³»äºº:</td>
 					<td><input type="text" name="linkman" ></td>
-					<td  class="tr1" align="right">*ÁªÏµÈËµç»°:</td>
+					<td  class="tr1" align="right">*è”ç³»äººç”µè¯:</td>
 					<td><input type="text" name="linkmanPhone" ></td>				
 				</tr>
 			<tr class="tr2">
-				<td  class="tr1" align="right">X×ø±ê:</td>
+				<td  class="tr1" align="right">Xåæ ‡:</td>
 				<td><input type="text" id="longitude" onclick="OpenWindow()" name="longitude" >  
 				</td>
-				<td  class="tr1" align="right">Y×ø±ê:</td>
+				<td  class="tr1" align="right">Yåæ ‡:</td>
 				<td><input type="text" id="latitude" onclick="OpenWindow()"  name="latitude" >        
 				</td>
 			</tr>
 			<tr class="tr2">
-			        <td  class="tr1" align="right">*ËùÔÚµØÇø:</td>
+			        <td  class="tr1" align="right">*æ‰€åœ¨åœ°åŒº:</td>
 					<td >
 						<select id="areaid"  name="areaid"  >
 							<c:forEach var="item" items="${areas}">
-								<option value="${item.areaId}">${item.areaName}</option>
+								<option value="${item.areaid}">${item.areaname}</option>
 							</c:forEach>
 						</select>
 						<select   id="streetid" name="streetid" style="width:100;"  >
-							<!--	<option value="${street.areaId}">${street.areaName}</option>    -->
 							<c:forEach var="item" items="${streetlist}">
-								<option value="${item.areaId}">${item.areaName}</option>
+								<option value="${item.areaid}">${item.areaname}</option>
 							</c:forEach>
 						</select>
 					 	<select name="roadid" id="roadid" style="width:100;" > 
-						<!--  		<option value="${road.areaId}">${road.areaName}</option>   -->
 						<c:forEach var="item" items="${roadlist}">
-							<option value ="${item.areaId}">${item.areaName}</option>	
+							<option value ="${item.areaid}">${item.areaname}</option>	
 						</c:forEach> 
 						</select>
 				</td>
-					<td  class="tr1" align="right">ÏêÏ¸µØÖ·:</td>
+					<td  class="tr1" align="right">è¯¦ç»†åœ°å€:</td>
 					<td><input type="text" name="address" ></td>
 					</tr>
 			<tr class="tr2">
-			        <td  class="tr1" align="right">*ÁªÏµµç»°:</td>
+			        <td  class="tr1" align="right">*è”ç³»ç”µè¯:</td>
 					<td><input type="text" name="phone" ></td>
-					<td  class="tr1" align="right">±¸×¢:</td>
+					<td  class="tr1" align="right">å¤‡æ³¨:</td>
 					<td><input type="text" name="note" ></td>
 					</tr>
 			<tr class="tr10">
     	  			<td align="center" colspan="4">
     	  				 &nbsp;&nbsp;
-    	  				 <input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
-                         <input type="image" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">	   					
+    	  				 <input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
+                         <input type="image" src="/lee/static/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">	   					
 	  				</td>
   			</tr>
 			</table>

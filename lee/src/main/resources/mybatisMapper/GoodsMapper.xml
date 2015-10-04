@@ -154,6 +154,8 @@
     select
     <include refid="Base_Column_List" />
     from goods
+    
+    
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -165,6 +167,35 @@
     select
     <include refid="Base_Column_List" />
     from goods
+    <where>
+    <if test="goodsname != null" >
+       and goodsname like #{goodsname,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsno != null" >
+       and goodsno like #{goodsno,jdbcType=VARCHAR}
+      </if>
+      <if test="mainuse != null" >
+       and mainuse like #{mainuse,jdbcType=VARCHAR}
+      </if>
+      <if test="measureunit != null" >
+       and measureunit like #{measureunit,jdbcType=VARCHAR}
+      </if>
+      <if test="guaranteeperiod != null" >
+       and guaranteeperiod like #{guaranteeperiod,jdbcType=VARCHAR}
+      </if>
+      <if test="specification != null" >
+       and specification like #{specification,jdbcType=VARCHAR}
+      </if>
+      <if test="size != null" >
+       and size like #{size,jdbcType=VARCHAR}
+      </if>
+      <if test="goodstypeid != null" >
+       and goodstypeid like #{goodstypeid,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -177,5 +208,34 @@
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
     select count(*) from goods
+    <where>
+    <if test="goodsname != null" >
+       and goodsname like #{goodsname,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsno != null" >
+       and goodsno like #{goodsno,jdbcType=VARCHAR}
+      </if>
+      <if test="mainuse != null" >
+       and mainuse like #{mainuse,jdbcType=VARCHAR}
+      </if>
+      <if test="measureunit != null" >
+       and measureunit like #{measureunit,jdbcType=VARCHAR}
+      </if>
+      <if test="guaranteeperiod != null" >
+       and guaranteeperiod like #{guaranteeperiod,jdbcType=VARCHAR}
+      </if>
+      <if test="specification != null" >
+       and specification like #{specification,jdbcType=VARCHAR}
+      </if>
+      <if test="size != null" >
+       and size like #{size,jdbcType=VARCHAR}
+      </if>
+      <if test="goodstypeid != null" >
+       and goodstypeid like #{goodstypeid,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and note like #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>

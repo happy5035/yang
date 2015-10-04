@@ -21,10 +21,10 @@ import com.yuan.lee.entity.WareHouse;
 import com.yuan.lee.service.box.disaster.DisasterNodesService;
 import com.yuan.lee.service.box.disaster.ENrelationService;
 import com.yuan.lee.service.box.disaster.NodesService;
-import com.yuan.lee.service.box.disaster.WareHouseService;
 import com.yuan.lee.service.box.emer.EmerTypeService;
 import com.yuan.lee.service.box.emer.EmergencyService;
 import com.yuan.lee.service.box.emer.UeRelationService;
+import com.yuan.lee.service.box.warehouse.WareHouseService;
 import com.yuan.lee.util.Identities;
 
 @Controller
@@ -36,7 +36,7 @@ public class QuickCreatController {
 	@Autowired
 	DisasterNodesService disasterNodesService;
 	@Autowired
-	WareHouseService wareHouseService;
+	WareHouseService wareHouseServcie;
 	@Autowired
 	ENrelationService enRelationService;
 	@Autowired

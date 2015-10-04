@@ -34,6 +34,13 @@ import com.yuan.lee.service.box.emer.EmerTypeService;
 import com.yuan.lee.service.box.emer.EmergencyService;
 import com.yuan.lee.util.Identities;
 
+/** 
+* @ClassName: DisasterNodeController 
+* @Description: 灾害点控制器
+* @author yjw 10291095_xjtu_edu_com 
+* @date 2015年10月4日 下午3:46:36 
+*  
+*/
 @Controller
 public class DisasterNodeController {
 	@Autowired
@@ -60,6 +67,14 @@ public class DisasterNodeController {
 	@Autowired
 	HttpServletResponse response;
 	
+	/** 
+	* @Title: gotoAddDisaster 
+	* @Description: TODO
+	* @param modelmap
+	* @param area
+	* @param nodeId
+	* @return String    返回类型    
+	*/
 	@RequestMapping("/gotoAddDisaster")
 	public String gotoAddDisaster(ModelMap modelmap,Area area,String nodeId){
 		Map<String, Object> params=new HashMap<String, Object>();
@@ -186,21 +201,25 @@ public class DisasterNodeController {
 			String listStrng="No Option";
 			modelmap.put("emergencylist", listStrng);
 		}
-		modelmap.put("emerTypeName", emertypenames);
+		modelmap.put("emertypename", emertypenames);
 		return "WebRoot/DisasterNode/listDisasterNode";
 	}
 	
-	/**
-	 * @param modelmap
-	 * @param page
-	 * @param disasterName
-	 * @param disasterNo
-	 * @param principal
-	 * @param disasterLevel
-	 * @param emerId
-	 * @return
-	 * @throws IOException 
-	 */
+	
+	/** 
+	* @Title: SearchDisasterNode 
+	* @Description: 搜索灾害点
+	* @param modelmap
+	* @param page
+	* @param disasterName
+	* @param disasterNo
+	* @param principal
+	* @param disasterLevel
+	* @param emerId
+	* @param emerTypeName
+	* @return
+	* @throws IOException String    返回类型    
+	*/
 	@RequestMapping("/SearchDisasterNode")
 	public String SearchDisasterNode(ModelMap modelmap,String page,String disasterName,
 			String disasterNo,String principal,String disasterLevel,String  emerId,String emerTypeName) throws IOException{
@@ -300,11 +319,117 @@ public class DisasterNodeController {
 		
 		return "WebRoot/DisasterNode/listDisasterNode";
 	}
+	
+	/** 
+	* @Title: DeleteDisasterNode 
+	* @Description:		 删除灾害点
+	* @param modelmap
+	* @return String    返回类型    
+	*/
 	@RequestMapping("/DeleteDisasterNode")
-	public String DeleteDisasterNode(ModelMap modelmap){
-		return "ok"; 
+	public String DeleteDisasterNode(ModelMap modelmap,Emergency emergency,ENRelation enRelation,DisasterNode disasterNode,Nodes node){
+		int resault=0;
+		disasterNode.setDnodeid(node.getNodeid());
+		resault=enRelationService.deleteByPrimaryKey(enRelation.getEnrelationid());
+		resault*=disasterNodesService.deleteByPrimaryKey(disasterNode.getDnodeid());
+		resault*=nodesService.deleteByPrimaryKey(node.getNodeid());
+		if(resault >0)
+			return "redirect:GotoSearchDisasterNode";
+		else
+			return "WebRoot/DisasterNode/addfailed";
 	}
 	
+	/** 
+	* @Title: EditDisasterNode 
+	* @Description: 编辑灾害点
+	* @param modelmap
+	* @return String    返回类型    
+	*/
+	@RequestMapping("/EditDisasterNode")
+	public String EditDisasterNode(ModelMap modelmap,String nodeId,String enrelationId){
+		String id=nodeId;
+		String enrelaitonid=enrelationId;
+		Users user=(Users)request.getSession().getAttribute("user");
+		String userid=user.getUserid();
+		DisasterNode diastserNode=disasterNodesService.selectByPrimaryKey(id);
+		ENRelation enRelaiton=enRelationService.selectByPrimaryKey(enrelaitonid);
+		Emergency emergency=emergencyService.selectByPrimaryKey(enRelaiton.getEmerid());
+		Nodes node=nodesService.selectByPrimaryKey(id);
+		modelmap.put("disasterNode", diastserNode );
+		modelmap.put("emergency", emergency );
+		modelmap.put("enrelationid",  enrelaitonid);
+		modelmap.put("nodes",  node);
+		
+		//获取灾害类型名称
+		List<String> emerTypeNames=emerTypeService.selectAllEmerTypeNames();
+		//获取用户权限下的灾害类型对应的灾害
+		Map<String, Object> params=new HashMap<String, Object>();
+		params.put("emertypename", emergency.getEmertype().getEmertypename());
+		params.put("userid", userid );
+		List<Emergency> emergencyList=emergencyService.selectByEmerTypeName(params);
+		modelmap.put("emerTypeName", emerTypeNames );
+		modelmap.put("emergencylist",  emergencyList);
+		
+		//区域处理
+		String areaid=node.getAreaid();
+		if(areaid !=null)
+		{
+			Area area3=areaService.selectByPrimaryKey(areaid);
+			params.put("parareaid", area3.getParareaid());
+			List<Area> roadList=areaService.findByParams(params);
+			Area area2=areaService.selectByPrimaryKey(area3.getParareaid());
+			params.put("parareaid", area2.getParareaid());
+			List<Area> streetList=areaService.findByParams(params);
+			Area area1=areaService.selectByPrimaryKey(area2.getParareaid());
+			params.put("parareaid", area1.getParareaid());
+			List<Area> areas=areaService.findByParams(params);
+			modelmap.put("road", area3 ); //下面几行是该灾害点所在区、市、省；所有省、市、区
+			modelmap.put("street", area2 );
+			modelmap.put("area", area1 );
+			modelmap.put("areas", areas );
+			modelmap.put("roadlist", roadList );
+			modelmap.put("streetlist", streetList );
+		}
+		
+		return "WebRoot/DisasterNode/editDisasterNode"; 
+	}
+	
+	/** 
+	* @Title: UpdateDisasterNode 
+	* @Description: 更新灾害点
+	* @param modelmap
+	* @param emerTypeName
+	* @param emerId
+	* @param disasterLevel
+	* @param node
+	* @param roadid
+	* @param disastername
+	* @param note
+	* @param disasterNode
+	* @return String    返回类型    
+	*/
+	@RequestMapping("/UpdateDisasterNode")
+	public String UpdateDisasterNode(ModelMap modelmap,String emerTypeName,String dnodeid ,String emerId ,
+			String disasterLevel,Nodes node
+			,String roadid,String disastername,String note,DisasterNode disasterNode,String enrelationid){
+		int resault=0;
+		node.setNodeid(dnodeid);
+		node.setAreaid(roadid);
+		node.setNodename(disastername);
+		node.setNodetype("D");
+		node.setNotes(note);
+		resault= nodesService.updateByPrimaryKeySelective(node);
+		disasterNode.setDisasterlevel(disasterLevel);
+		resault*= disasterNodesService.updateByPrimaryKeySelective(disasterNode);
+		enRelaion.setEnrelationid(enrelationid);
+		enRelaion.setEmerid(emerId);
+		enRelaion.setNodeid(dnodeid);
+		resault*= enRelationService.updateByPrimaryKeySelective(enRelaion);
+		if(resault >0)
+			return "redirect:GotoSearchDisasterNode";
+		else
+			return "WebRoot/DisasterNode/addfailed";
+	}
 	@RequestMapping("/DetailDisasterNode")
 	public String DetailDisasterNode(ModelMap modelmap,String dnodeId){
 		DisasterNode disasterNode=disasterNodesService.selectByPrimaryKey(dnodeId);

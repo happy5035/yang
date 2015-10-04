@@ -1,7 +1,7 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"
+	contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,18 +11,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>Ìí¼ÓÎï×Ê</title>    
+    <title>æ·»åŠ ç‰©èµ„</title>    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
      <script type="text/javascript"> 
 function cbt_local()
 {
 if(document.forms[0].goodsName.value =='')
-{alert("Îï×ÊÃû³Æ²»ÄÜÎª¿Õ");document.forms[0].logiccabinetno.focus(); return false;}
+{alert("ç‰©èµ„åç§°ä¸èƒ½ä¸ºç©º");document.forms[0].logiccabinetno.focus(); return false;}
 }
 function cbt_res()
 {
@@ -34,7 +34,7 @@ function cbt_res()
 		    $( "#goodsTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findGrade.action?goodsTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findGrade?goodsTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -45,21 +45,21 @@ function cbt_res()
 
 </script>
 
-     <script type="text/javascript" src="<%=path %>/js/My97DatePicker/WdatePicker.js"></script>  
+<script type="text/javascript" src="<c:url value="/static/js/js/My97DatePicker/WdatePicker.js"/>"></script>  
 
   </head>
   
   <body>
-<form id="GoodsForm" method="post"  name="GoodsForm" action="saveGoods.action">
+<form id="GoodsForm" method="post"  name="GoodsForm" action="saveGoods">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">Îï×Ê¹ÜÀí&gt;&gt;Ìí¼ÓÎï×Ê</td>
+					<td width="100%" class="f3">ç‰©èµ„ç®¡ç†&gt;&gt;æ·»åŠ ç‰©èµ„</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -72,50 +72,57 @@ function cbt_res()
 		<td align="center" class="tr4"> 
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">
 			<tr class="tr2">
-				<td  class="tr1" align="right">*Îï×ÊÃû³Æ:</td>
-				<td><input type="text" name="goodsName" ></td>	
-				<td  class="tr1" align="right">*Îï×Ê±àÂë:</td>
-				<td><input type="text" name="goodsNo" ></td>	
+				<td  class="tr1" align="right">*ç‰©èµ„åç§°:</td>
+				<td><input type="text" name="goodsname" ></td>	
+				<td  class="tr1" align="right">*ç‰©èµ„ç¼–ç :</td>
+				<td><input type="text" name="goodsno" ></td>	
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*Îï×ÊÀàĞÍ:</td>									
+					<td  class="tr1" align="right">*ç‰©èµ„ç±»å‹:</td>									
 					<td>
-					<select id="goodsTypeName" name="goodsTypeName">
-						<c:forEach var="item" items="${goodsTypeName}">
+					<select id="goodsTypeName" name="goodstypename">
+						<c:forEach var="item" items="${goodstypename}">
 							<option value="${item}">${item}</option>
 						</c:forEach>
 					</select>
-					<select id="goodsTypeId" name="goodsTypeId">
-						<c:forEach var="item" items="${goodsTypelist}">
-							<option value="${item.goodsTypeId}">${item.grade}</option>
+					<select id="goodsTypeId" name="goodstypeid">
+						<c:forEach var="item" items="${goodstypelist}">
+							<option value="${item.goodstypeid}">${item.grade}</option>
 						</c:forEach>
 					</select>
 				    </td>		
-					<td  class="tr1" align="right" >*¼ÆÁ¿µ¥Î»:</td>
-					<td><s:select name="measureUnit" list="%{#{'Ç§¿Ë':'Ç§¿Ë','¶¥':'¶¥','Ïä':'Ïä','ÆäËü':'ÆäËü'}}" value="Ç§¿Ë" theme="simple"/><font color=red>  *</font></td>			
+					<td  class="tr1" align="right" >*è®¡é‡å•ä½:</td>
+					<td>
+					<select name="measureunit">
+					<c:forEach var="item" items="${unitlist}">
+						<option value="${item}">${item}</option>
+					</c:forEach>
+					</select>
+					<font color=red>  
+					*</font></td>			
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*³ß´ç´óĞ¡:</td>
+					<td  class="tr1" align="right">*å°ºå¯¸å¤§å°:</td>
 					<td><input type="text" name="size" ></td>
-					<td  class="tr1" align="right">*¹æ¸ñ:</td>
+					<td  class="tr1" align="right">*è§„æ ¼:</td>
 					<td><input type="text" name="specification" ></td>				
 				</tr>
 			<tr class="tr2">
-                    <td  class="tr1" align="right">±£ÖÊÆÚ:</td>
-					<td><input type="text" name="guaranteePeriod" ></td>
-					<td  class="tr1" align="right" >Ö÷ÒªÓÃÍ¾:</td>
-					<td><input type="text" name="mainUse" ></td>				
+                    <td  class="tr1" align="right">ä¿è´¨æœŸ:</td>
+					<td><input type="text" name="guaranteeperiod" ></td>
+					<td  class="tr1" align="right" >ä¸»è¦ç”¨é€”:</td>
+					<td><input type="text" name="mainuse" ></td>				
 				</tr>
 				<tr class="tr2">
-					<td  class="tr1" align="right">*±¸×¢:</td>
+					<td  class="tr1" align="right">*å¤‡æ³¨:</td>
 					<td><input type="text" name="note" ></td>				
 				</tr>
 			<tr class="tr10">
     	  			<td align="center" colspan="4">
     	  				 &nbsp;&nbsp;
-    	  				 <input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
-                         <input type="image" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">
-	   					<a href="javascript:history.back(-1);"><img border="0" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_back.gif"/></a> 
+    	  				 <input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
+                         <input type="image" src="/lee/static/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">
+	   					<a href="javascript:history.back(-1);"><img border="0" src="/lee/static/images/pub/lzoa_pub_back.gif"/></a> 
 	  				</td>
   			</tr>
 			</table>

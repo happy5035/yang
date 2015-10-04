@@ -23,8 +23,8 @@
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
-    from emergency
+    *
+    from emergency e left join emertype t on e.emertypeid=t.emertypeid
     where emerid = #{emerid,jdbcType=VARCHAR}
   </select>
   <select id="selectByUserid" resultMap="BaseResultMap" parameterType="java.lang.String">
