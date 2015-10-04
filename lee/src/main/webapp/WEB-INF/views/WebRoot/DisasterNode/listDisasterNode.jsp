@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 					<select id="emerTypeName" name="emerTypeName">
 						<c:forEach var="item" items="${emerTypeName}">
-							<option value="${item}" >${item}</option>
+							<option value="${item}"  <c:if test="${item eq emerType.emertypename}">selected</c:if>>${item}</option>
 						</c:forEach>
 					</select>
 					</td>
@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 					<select id="emerId" name="emerId">
 						<c:forEach var="item" items="${emergencylist}">
-							<option value="${item.emerid}" >${item.emername}</option>
+							<option value="${item.emerid}"  <c:if test="${item.emerid eq emergency.emerid}">selected</c:if>>${item.emername}</option>
 						</c:forEach>
 					</select>
                     </td>	
@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<td>${item.nodes.address}</td>
 	        	<td>${item.nodes.notes}</td>                  
 	    		<td><a href="EditDisasterNode.?nodeId=${item.nodes.nodeid}&enrelationId=${item.enrelationid}">修改</a></td>
-	    		<td><a href="DeleteDisasterNode?nodeId=${item.nodes.nodeid}&disasterName=${disastername}&disasterNo=${disasterNo}&emerId=${emerId}&disasterLevel=${disasterLevel}&principal=${principal}&enrelationId=${item.enrelationid}">删除</a></td>	
+	    		<td><a href="DeleteDisasterNode?nodeid=${item.nodes.nodeid}&disastername=${disastername}&disasterno=${disasterno}&emerid=${emerId}&disasterLevel=${disasterlevel}&principal=${principal}&enrelationid=${item.enrelationid}">删除</a></td>	
 	    	</tr>
 		</c:forEach>
       </table>    

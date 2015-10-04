@@ -1,5 +1,5 @@
-<%@ page language="java" pageEncoding="GBK"
-	contentType="text/html; charset=GBK"%>
+<%@ page language="java" pageEncoding="utf-8"
+	contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript">
 
@@ -14,18 +14,18 @@ function goToPage(){
 	var page=document.getElementById("go");
 	var rule = /^[0-9]+$/;
 	if(!rule.test(page.value)){
-		alert("ÇëÊäÈëÓĞĞ§µÄÒ³Âë!");
+		alert("è¯·è¾“å…¥æœ‰æ•ˆçš„é¡µç !");
 		page.focus();
 		return;
 	}
 	var pageCount = ${pageBean.totalpage };
 	if(page.value>pageCount){
-		alert("ÊäÈëµÄÒ³Âë¹ı´ó!");
+		alert("è¾“å…¥çš„é¡µç è¿‡å¤§!");
 		page.focus();
 		return;
 	}
 	if(page.value<1){
-		alert("ÊäÈëµÄÒ³Âë±ØĞë´óÓÚ0!");
+		alert("è¾“å…¥çš„é¡µç å¿…é¡»å¤§äº0!");
 		page.focus();
 		return;
 	}
@@ -33,37 +33,37 @@ function goToPage(){
 }
 </script>
 <c:if test="${pageBean.hasFirst}">
-	<a href="#" onclick="submitUrl('${pageBean.first }')">Ê×Ò³</a>
+	<a href="#" onclick="submitUrl('${pageBean.first }')">é¦–é¡µ</a>
 </c:if>
 <c:if test="${!pageBean.hasFirst}">
-	Ê×Ò³
+	é¦–é¡µ
 </c:if>
 <c:if test="${pageBean.hasPreview}">
-	<a href="#" onclick="submitUrl('${pageBean.preview }')">ÉÏÒ»Ò³</a>
+	<a href="#" onclick="submitUrl('${pageBean.preview }')">ä¸Šä¸€é¡µ</a>
 </c:if>
 <c:if test="${!pageBean.hasPreview}">
-	ÉÏÒ»Ò³
+	ä¸Šä¸€é¡µ
 
 
 </c:if>
 <c:if test="${pageBean.hasNext}">
-	<a href="#" onclick="submitUrl('${pageBean.next }')">ÏÂÒ»Ò³</a>
+	<a href="#" onclick="submitUrl('${pageBean.next }')">ä¸‹ä¸€é¡µ</a>
 </c:if>
 <c:if test="${!pageBean.hasNext}">
-	ÏÂÒ»Ò³
+	ä¸‹ä¸€é¡µ
 
 
 </c:if>
 <c:if test="${pageBean.hasEnd}">
-	<a href="#" onclick="submitUrl('${pageBean.end }')">Î´Ò³</a>
+	<a href="#" onclick="submitUrl('${pageBean.end }')">æœªé¡µ</a>
 </c:if>
 <c:if test="${!pageBean.hasEnd}">
-	Î´Ò³
+	æœªé¡µ
 </c:if>
-µ½µÚ<input type="text" id="go" size="4" maxlength="5" style="width: 20px" value="${pageBean.current}" />Ò³
+åˆ°ç¬¬<input type="text" id="go" size="4" maxlength="5" style="width: 20px" value="${pageBean.current}" />é¡µ
 
 
 <input type="button" class="btn7" value="GO" onclick="goToPage();" />
-¹²${pageBean.totalpage }Ò³&nbsp;&nbsp;${pageBean.pagecount }Ìõ/Ò³&nbsp;&nbsp;¹²${pageBean.total}Ìõ
+å…±${pageBean.totalpage }é¡µ&nbsp;&nbsp;${pageBean.pagecount }æ¡/é¡µ&nbsp;&nbsp;å…±${pageBean.total}æ¡
 
 

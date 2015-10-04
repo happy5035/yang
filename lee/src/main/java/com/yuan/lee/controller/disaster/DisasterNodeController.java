@@ -51,7 +51,8 @@ public class DisasterNodeController {
 	
 	@Autowired
 	ENRelation enRelaion;
-	
+	@Autowired
+	EmerType emertype;
 	
 	
 	@Autowired
@@ -202,11 +203,34 @@ public class DisasterNodeController {
 	 */
 	@RequestMapping("/SearchDisasterNode")
 	public String SearchDisasterNode(ModelMap modelmap,String page,String disasterName,
-			String disasterNo,String principal,String disasterLevel,String  emerId) throws IOException{
+			String disasterNo,String principal,String disasterLevel,String  emerId,String emerTypeName) throws IOException{
 		Users user=(Users)request.getSession().getAttribute("user");
 		String userid=user.getUserid();
 		StringBuffer url=new StringBuffer();
 	    url.append(request.getContextPath()+"/SearchDisasterNode?method=SearchDisasterNode");
+	    
+	    List<EmerType> list= emerTypeService.selectAll();
+		List<String>emertypenames=new ArrayList<String>();
+		List<EmerType> emerTypelist=new ArrayList<EmerType>();
+		for (EmerType emerType : list) {
+			if(!emertypenames.contains(emerType.getEmertypename()) ){
+				emertypenames.add(emerType.getEmertypename());
+				emerTypelist.add(emerType);
+			}
+		}
+		Map<String, Object> params1=new HashMap<String, Object>();
+		params1.put("userid", userid);
+		params1.put("emertypename", emerTypeName);
+		List<Emergency> emergencylist=emergencyService.selectByEmerTypeName(params1);
+		if(emertypenames.size() >0)
+		{
+			modelmap.put("emergencylist", emergencylist);
+		}else {
+			String listStrng="No Option";
+			modelmap.put("emergencylist", listStrng);
+		}
+		modelmap.put("emerTypeName", emertypenames);
+		
 	    
 	    int current=1;
 		if (page != null && !page.trim().equals("")) {
@@ -259,13 +283,57 @@ public class DisasterNodeController {
 		    modelmap.put("emergency", emergency);
 			
 		    List<ENRelation> enRelationlist=enRelationService.findByParams(params);
+		    if(enRelationlist.size()>0 && enRelationlist !=null)
+		    {
+		    	ENRelation enrelation= enRelationlist.get(0);
+			    EmerType et=enrelation.getEmertype();
+			    modelmap.put("emerType", et);
+		    }else{
+		    	emertype.setEmertypename(emerTypeName);
+			    modelmap.put("emerType", emertype);
+		    }
 		    int num=enRelationService.findByParamsCount(params);
 			PageBean PageBean=new PageBean(current,pageSize,num,enRelationlist); 
 			PageBean.setUrl(url.toString());
 			modelmap.put("pageBean", PageBean);
 			modelmap.put("Pagelist", PageBean.getList());
 		
-		return "forward:GotoSearchDisasterNode";
+		return "WebRoot/DisasterNode/listDisasterNode";
+	}
+	@RequestMapping("/DeleteDisasterNode")
+	public String DeleteDisasterNode(ModelMap modelmap){
+		return "ok"; 
+	}
+	
+	@RequestMapping("/DetailDisasterNode")
+	public String DetailDisasterNode(ModelMap modelmap,String dnodeId){
+		DisasterNode disasterNode=disasterNodesService.selectByPrimaryKey(dnodeId);
+		modelmap.put("disasterNode", disasterNode);
+		
+		
+		Nodes node=nodesService.selectByPrimaryKey(dnodeId);
+		String areaid=node.getAreaid();
+		Map<String, Object> params=new  HashMap<String, Object>();
+		if(areaid !=null)
+		{
+			Area area3=areaService.selectByPrimaryKey(areaid);
+			params.put("parareaid", area3.getParareaid());
+			List<Area> roadList=areaService.findByParams(params);
+			Area area2=areaService.selectByPrimaryKey(area3.getParareaid());
+			params.put("parareaid", area2.getParareaid());
+			List<Area> streetList=areaService.findByParams(params);
+			Area area1=areaService.selectByPrimaryKey(area2.getParareaid());
+			params.put("parareaid", area1.getParareaid());
+			List<Area> areas=areaService.findByParams(params);
+			modelmap.put("road", area3 ); //下面几行是该灾害点所在区、市、省；所有省、市、区
+			modelmap.put("street", area2 );
+			modelmap.put("area", area1 );
+			modelmap.put("areas", areas );
+			modelmap.put("roadlist", roadList );
+			modelmap.put("streetlist", streetList );
+		}
+		
+		return "WebRoot/DisasterNode/detailDisasterNode";
 	}
 	
 	
