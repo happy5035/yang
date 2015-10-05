@@ -1,8 +1,7 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK" %>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,8 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<script language="javascript" type="text/javascript" src="http://localhost:8080/expressWeb/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script> 
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
 <script type="text/javascript">
 function cbt_res()
 {
@@ -23,7 +21,7 @@ $(document).ready(function(){
 		    $( "#goodsTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findGrade.action?goodsTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findGrade?goodsTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -35,7 +33,7 @@ $(document).ready(function(){
   <head>
     <base href="<%=basePath%>">
     
-    <title>ĞŞ¸ÄÎï×ÊĞÅÏ¢</title>
+    <title>ä¿®æ”¹ç‰©èµ„ä¿¡æ¯</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -55,10 +53,10 @@ $(document).ready(function(){
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">Îï×Ê¹ÜÀí>>ĞŞ¸ÄÎï×ÊĞÅÏ¢</td>
+					<td width="100%" class="f3">ç‰©èµ„ç®¡ç†>>ä¿®æ”¹ç‰©èµ„ä¿¡æ¯</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -71,62 +69,62 @@ $(document).ready(function(){
 		<td align="center" class="tr4"> 
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">			
 			<tr class="tr2">
-				<td  class="tr1" align="right">*Îï×ÊÃû³Æ:</td>
-				<td><input type="text" name="goodsName" value="${goods.goodsName}"></td>
-				<td  class="tr1" align="right">*Îï×Ê±àÂë:</td>
-				<td><input type="text" name="goodsNo" value="${goods.goodsNo}"></td>	
+				<td  class="tr1" align="right">*ç‰©èµ„åç§°:</td>
+				<td><input type="text" name="goodsname" value="${goods.goodsname}"></td>
+				<td  class="tr1" align="right">*ç‰©èµ„ç¼–ç :</td>
+				<td><input type="text" name="goodsno" value="${goods.goodsno}"></td>	
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*Îï×ÊÀàĞÍ:</td>									
+					<td  class="tr1" align="right">*ç‰©èµ„ç±»å‹:</td>									
 					<td>
-					<select id="goodsTypeName" name="goodsTypeName">
-                        <c:forEach var="item" items="${goodsTypeNames}">
-							<option value="${item}" <c:if test="${item eq goods.goodsType.goodsTypeName}">selected</c:if>>${item}</option>
+					<select id="goodsTypeName" name="goodstypename">
+                        <c:forEach var="item" items="${goodstypename}">
+							<option value="${item}" <c:if test="${item eq goodstype.goodstypename}">selected</c:if>>${item}</option>
 						</c:forEach>
      				</select>										
-					<select id="goodsTypeId" name="goodsTypeId">
-						<c:forEach var="item" items="${goodsTypelist}">
-							<option value="${item.goodsTypeId}" <c:if test="${item.goodsTypeId eq goods.goodsType.goodsTypeId}">selected</c:if>>${item.grade}</option>
+					<select id="goodsTypeId" name="goodstypeid">
+						<c:forEach var="item" items="${goodstypelist}">
+							<option value="${item.goodstypeid}" <c:if test="${item.goodstypeid eq goodstype.goodstypeid}">selected</c:if>>${item.grade}</option>
 						</c:forEach>
 					</select>
 				    </td>		
-					<td  class="tr1" align="right" >*¼ÆÁ¿µ¥Î»:</td>
+					<td  class="tr1" align="right" >*è®¡é‡å•ä½:</td>
 					<td><select name="measureUnit">
-					        <option value="Ç§¿Ë" ${selectState0}>Ç§¿Ë</option>
-							<option value="¶¥" ${selectState1}>¶¥</option>
-							<option value="Ïä" ${selectState2}>Ïä</option>
-							<option value="ÆäËü" ${selectState3}>ÆäËü</option>		
+					        <option value="åƒå…‹" ${selectstate0}>åƒå…‹</option>
+							<option value="é¡¶" ${selectstate1}>é¡¶</option>
+							<option value="ç®±" ${selectstate2}>ç®±</option>
+							<option value="å…¶å®ƒ" ${selectstate3}>å…¶å®ƒ</option>		
 						</select>
 					</td>			
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*³ß´ç´óĞ¡:</td>
+					<td  class="tr1" align="right">*å°ºå¯¸å¤§å°:</td>
 					<td><input type="text" name="size" value="${goods.size}"></td>
-					<td  class="tr1" align="right">*¹æ¸ñ:</td>
+					<td  class="tr1" align="right">*è§„æ ¼:</td>
 					<td><input type="text" name="specification" value="${goods.specification}"></td>				
 				</tr>
 			<tr class="tr2">
-                    <td  class="tr1" align="right">±£ÖÊÆÚ:</td>
-					<td><input type="text" name="guaranteePeriod" value="${goods.guaranteePeriod}"></td>
-					<td  class="tr1" align="right" >Ö÷ÒªÓÃÍ¾:</td>
-					<td><input type="text" name="mainUse" value="${goods.mainUse}"></td>				
+                    <td  class="tr1" align="right">ä¿è´¨æœŸ:</td>
+					<td><input type="text" name="guaranteeperiod" value="${goods.guaranteeperiod}"></td>
+					<td  class="tr1" align="right" >ä¸»è¦ç”¨é€”:</td>
+					<td><input type="text" name="mainuse" value="${goods.mainuse}"></td>				
 				</tr>
 				<tr class="tr2">
-					<td  class="tr1" align="right">*±¸×¢:</td>
+					<td  class="tr1" align="right">*å¤‡æ³¨:</td>
 					<td><input type="text" name="note" value="${goods.note}"></td>				
 				</tr>
 				<tr class="tr10">
     	  			<td align="center" colspan="4">
-	   					<input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;		
-						<input type="image" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">
-	   					<a href="javascript:history.back(-1);"><img border="0" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_back.gif"/></a>         
+	   					<input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;		
+						<input type="image" src="/lee/static/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">
+	   					<a href="javascript:history.back(-1);"><img border="0" src="/lee/static/images/pub/lzoa_pub_back.gif"/></a>         
 	  				</td>
   				</tr>
 			</table>
 		</td>
     </tr>
 </table>
-<input type="hidden" name="goodsId" id="goodsId" value="${goods.goodsId}"/> 
+<input type="hidden" name="goodsid" id="goodsId" value="${goods.goodsid}"/> 
 </form>  
    
    

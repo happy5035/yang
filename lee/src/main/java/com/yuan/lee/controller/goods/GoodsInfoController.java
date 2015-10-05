@@ -160,6 +160,48 @@ public class GoodsInfoController {
 		
 				return "WebRoot/Goods/listGoods";
 	}
+	@RequestMapping("/EditGoods")
+	public String EditGoods(ModelMap modelmap,String goodsid){
+		List<String> unitlist=new ArrayList<String>();
+		unitlist.add("千克");
+		unitlist.add("顶");
+		unitlist.add("箱");
+		unitlist.add("其它");
+		modelmap.put("unitlist", unitlist);
+		List<String> goodstypenames=goodsTypeService.findAllGoodsTypeName();
+		String goodstypename=goodstypenames.get(0); 
+		List<GoodsType> goodstypelist=goodsTypeService.findBygoodsTypename(goodstypename);
+		modelmap.put("goodstypename", goodstypenames );
+		modelmap.put("goodstypelist", goodstypelist );
+		
+		//通过id查找物资
+		
+		Goods goods=goodsService.selectByPrimaryKey(goodsid);
+		GoodsType goodstype=goodsTypeService.selectByPrimaryKey(goods.getGoodstypeid());
+		modelmap.put("goods", goods);
+		modelmap.put("goodstype", goodstype);
+		
+		return "WebRoot/Goods/editGoods";
+	}
+
+	@RequestMapping("/UpdateGoods")
+	public String UpdateGoods(ModelMap modelmap,Goods goods,String goodstypeid){
+		int resault=goodsService.updateByPrimaryKeySelective(goods);
+		GoodsType goodsType=goodsTypeService.selectByPrimaryKey(goodstypeid);
+		modelmap.put("goodstypeid", goodstypeid);
+		modelmap.put("goodstypename",goodsType.getGoodstypename());
+		if(resault >0)
+			return "forward:SearchGoods";
+		else{
+			modelmap.put("goodsid", goods.getGoodsid());
+			return "forward:EditGoods";
+		}
+	}
+	
+	@RequestMapping("/deletegoods")
+	public String deletegoods(ModelMap modelmap){
+		return "redirect:GotoSearchGoods";
+	}
 	
 	@ResponseBody
 	@RequestMapping("/findGrade")
