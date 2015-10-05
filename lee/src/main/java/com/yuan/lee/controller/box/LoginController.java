@@ -122,6 +122,12 @@ public class LoginController {
 		return "forward:home";
 	}
 	
+	@RequestMapping("/loginOut")
+	public String loginOut(HttpSession session ){
+		session.invalidate();
+		return "redirect:login";
+	}
+	
 	@RequestMapping("/home")
 	public String home(){
 		return "WebRoot/frameset";

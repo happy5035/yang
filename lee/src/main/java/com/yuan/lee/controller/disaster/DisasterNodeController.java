@@ -468,10 +468,12 @@ public class DisasterNodeController {
 		emerTypeName=URLDecoder.decode(emerTypeName, "UTF-8");
 		Users user=(Users)request.getSession().getAttribute("user");
 		String userid=user.getUserid();
+		String usertype=user.getUsertype();
 		String cSelect="";
 		Map<String, Object> params=new HashMap<String, Object>();
 		params.put("userid", userid);
 		params.put("emertypename", emerTypeName);
+		params.put("usertype", usertype);
 		List<Emergency> emergencylist=emergencyService.selectByEmerTypeName(params);
 		if (emergencylist != null && emergencylist.size() > 0) {
 			for (int i = 0; i < emergencylist.size(); i++) {

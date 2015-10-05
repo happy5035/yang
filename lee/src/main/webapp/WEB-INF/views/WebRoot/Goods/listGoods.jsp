@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<tr class="tr2" align="center">
 	        	<td>${item.goodsname}</td>
 	        	<td>${item.goodsno}</td>
-	        	<td>${goodstype.grade}${goodstype.goodstypename}</td>	        	
+	        	<td>${item.goodstype.grade}${item.goodstype.goodstypename}</td>	        	
 	        	<td>${item.mainuse}</td>
 	        	<td>${item.measureunit}</td>
 	        	<td>${item.guaranteeperiod}</td>	        	

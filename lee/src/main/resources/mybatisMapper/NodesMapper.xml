@@ -20,6 +20,16 @@
     from nodes
     where nodeid = #{nodeid,jdbcType=VARCHAR}
   </select>
+  <select id="selectByUserid" resultMap="BaseResultMap" parameterType="java.lang.String">
+ 	 select * from nodes n where n.nodeid in
+ 	(select e.nodeid from enrelation e where e.emerid in 
+ 	(select u.emerid from uerelation u where u.userid=#{userid,jdbcType=VARCHAR}))
+  </select>
+  <select id="selectByEmerid" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from nodes n where n.nodeid in
+ 	(select e.nodeid from enrelation e where e.emerid =#{emerid,jdbcType=VARCHAR} )
+  
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from nodes
     where nodeid = #{nodeid,jdbcType=VARCHAR}

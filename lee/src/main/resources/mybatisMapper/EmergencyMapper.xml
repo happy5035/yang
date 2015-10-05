@@ -186,7 +186,7 @@
       and  e.emertypeid like #{emertypeid,jdbcType=VARCHAR}
       </if>
       and e.emertypeid=et.emertypeid
-      <if test="usertype != null and user != '' "  >
+      <if test="usertype != null and usertype != '' "  >
       and e.emerid in (select u.emerid from uerelation u where u.userid =#{userid ,jdbcType=VARCHAR} )
       </if>
     </where>

@@ -61,8 +61,13 @@
 	
 	<!-- 定义无需Controller的url<->view直接映射 -->
 	<mvc:view-controller path="/" view-name="index"/>
-	
-	
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.yuan.lee.intercepor.HanderInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
     
 	 <!--支持 Shiro对Controller的方法级AOP安全控制  begin 

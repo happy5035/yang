@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -12,9 +11,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <head>
     
 <title>查看物资与节点供需关系</title>
-<link href="<%=request.getContextPath()%>/style/gov_style_10.css" rel="stylesheet" type="text/css">
-<link href="/BDplatformWeb/style/gov_style_10.css" rel="stylesheet" type="text/css">   
-<script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
 <script type="text/javascript"> 
 function cbt_res()
 {
@@ -25,13 +23,13 @@ function cbt_res()
  </head>
   
  <body>
-<form id="GoodsRelForm" name="GoodsRel" method="post" theme="simple"  namespace="/" action="SearchGoodsRel.action">
+<form id="GoodsRelForm" name="GoodsRel" method="post" theme="simple"  namespace="/" action="SearchGoodsRel">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
 					<td width="100%" class="f3">物资与节点供需关系管理&gt;&gt;查询物资与节点供需关系</td>
@@ -50,19 +48,19 @@ function cbt_res()
 				<tr class="tr2">
 					<td  class="tr1" align="right">*节点名称:</td>
 				<td>
-				<select id="nodeId" name="nodeId">
+				<select id="nodeId" name="nodeid">
 				        <option value="">全部节点</option> 
-						<c:forEach var="item" items="${nodellist}">
-							<option value="${item.nodeId}" <c:if test="${item.nodeId eq nodeId}">selected</c:if>>${item.nodeName}</option>
+						<c:forEach var="item" items="${nodeslist}">
+							<option value="${item.nodeid}" <c:if test="${item.nodeid eq nodeid}">selected</c:if>>${item.nodename}</option>
 						</c:forEach>
 				</select>	
 				</td>	
 				<td  class="tr1" align="right">*物资名称:</td>
 				<td>
-				<select id="goodsId" name="goodsId">
+				<select id="goodsId" name="goodsid">
 				        <option value="">所有物资</option>
 						<c:forEach var="item" items="${goodslist}">
-							<option value="${item.goodsId}" <c:if test="${item.goodsId eq goodsId}">selected</c:if>>${item.goodsName}</option>
+							<option value="${item.goodsid}" <c:if test="${item.goodsid eq goodsid}">selected</c:if>>${item.goodsname}</option>
 						</c:forEach>
 				</select>	
 				<td  class="tr1" align="right">*供应或需求:</td>									
@@ -71,7 +69,7 @@ function cbt_res()
 				</tr>
 			<tr class="tr10">
     	  			<td align="center" colspan="6">
-	   					<input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_search.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;								
+	   					<input type=image src="/lee/static/images/pub/lzoa_pub_search.gif" width="67" height="19" style="cursor:hand;border:0px" ; return false;">&nbsp;&nbsp;								
 	  				</td>
   				</tr>
 			</table>
@@ -83,7 +81,7 @@ function cbt_res()
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
 					<td width="100%" class="f3">物资与节点供需关系管理>>查看物资与节点供需关系</td>
@@ -117,24 +115,24 @@ function cbt_res()
 
        <c:forEach var="item" items="${Pagelist}" varStatus="status">
         	<tr class="tr2" align="center">
-        	    <td>${item.nodes.nodeName}</td>
-        	    <td>${item.goods.goodsName}</td>
+        	    <td>${item.nodes.nodename}</td>
+        	    <td>${item.goods.goodsname}</td>
         	    <td>
         	    <c:if test="${fn:contains(item.priority, '1')}">优先考虑</c:if>
 	        	<c:if test="${fn:contains(item.priority, '2')}">一般</c:if>
 	        	<c:if test="${fn:contains(item.priority, '3')}">最后考虑</c:if>
                 </td>
 	        	<td>
-	        	<c:if test="${fn:contains(item.demandNum, '+')}">可供应</c:if>
-	        	<c:if test="${fn:contains(item.demandNum, '-')}">需求</c:if>
+	        	<c:if test="${fn:contains(item.demandnum, '+')}">可供应</c:if>
+	        	<c:if test="${fn:contains(item.demandnum, '-')}">需求</c:if>
 	        	</td>
-	        	<td>${fn:substring(item.demandNum, 1, fn:length(item.demandNum) )}${item.goods.measureUnit}</td>
-	        	<td>${item.goods.goodsType.grade}${item.goods.goodsType.goodsTypeName}</td>	        		        	      	
+	        	<td>${fn:substring(item.demandnum, 1, fn:length(item.demandnum) )}${item.goods.measureunit}</td>
+	        	<td>${item.goods.goodstype.grade}${item.goods.goodstype.goodstypename}</td>	        		        	      	
 	        	<td>${item.goods.specification}</td>
 	        		  
 	        	<td>${item.note}</td>                
-	    		<td><a href="EditGoodsRel.action?goodsReId=${item.goodsReId}">修改</a></td>
-	    		<td><a href="DeleteGoodsRel.action?goodsReId=${item.goodsReId}&nodeId=${nodeId}&goodsId=${goodsId}&type=${type}">删除</a></td>	
+	    		<td><a href="EditGoodsRel?goodsReid=${item.goodsreid}">修改</a></td>
+	    		<td><a href="DeleteGoodsRel?goodsReid=${item.goodsreid}&nodeid=${nodeid}&goodsid=${goodsid}&type=${type}">删除</a></td>	
 	    	</tr>
 		</c:forEach>
       </table>    

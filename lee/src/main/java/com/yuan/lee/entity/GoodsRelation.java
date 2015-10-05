@@ -21,8 +21,29 @@ public class GoodsRelation implements Serializable {
     private String note;
 
     private String nodeid;
+    
+    private Goods goods;
+    
+    private Nodes nodes;
+    
+    
+    public Goods getGoods() {
+		return goods;
+	}
 
-    private static final long serialVersionUID = 1L;
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
+
+	public Nodes getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(Nodes nodes) {
+		this.nodes = nodes;
+	}
+
+	private static final long serialVersionUID = 1L;
 
     public String getGoodsreid() {
         return goodsreid;

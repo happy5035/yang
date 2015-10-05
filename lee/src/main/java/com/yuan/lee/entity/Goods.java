@@ -24,8 +24,20 @@ public class Goods implements Serializable {
     private String goodstypeid;
 
     private String note;
+    
+    private GoodsType goodstype;
+    
+    
 
-    private static final long serialVersionUID = 1L;
+    public GoodsType getGoodstype() {
+		return goodstype;
+	}
+
+	public void setGoodstype(GoodsType goodstype) {
+		this.goodstype = goodstype;
+	}
+
+	private static final long serialVersionUID = 1L;
 
     public String getGoodsid() {
         return goodsid;

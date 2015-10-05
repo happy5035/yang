@@ -149,9 +149,13 @@ public class GoodsInfoController {
 			    	modelmap.put("goodstypeid", goodstypeid);
 			    	url.append("&goodstypeid="+goodstypeid);
 			    }
-			    GoodsType goodstype=goodsTypeService.selectByPrimaryKey(goodstypeid);
-			    modelmap.put("goodstype", goodstype);
 			    List<Goods> goodslist=goodsService.findByParams(params);
+			    for (int i = 0; i < goodslist.size(); i++) {
+			    	Goods g=goodslist.get(i);
+			    	GoodsType goodstypeN=goodsTypeService.selectByPrimaryKey(g.getGoodstypeid());
+			    	g.setGoodstype(goodstypeN);
+			    	goodslist.set(i, g);
+			    }
 			    int num=goodsService.findByParamsCount(params);
 				PageBean PageBean=new PageBean(current,pageSize,num,goodslist); 
 				PageBean.setUrl(url.toString());
@@ -160,6 +164,13 @@ public class GoodsInfoController {
 		
 				return "WebRoot/Goods/listGoods";
 	}
+	/** 
+	* @Title: EditGoods 
+	* @Description: 编辑物资
+	* @param modelmap
+	* @param goodsid
+	* @return String    返回类型    
+	*/
 	@RequestMapping("/EditGoods")
 	public String EditGoods(ModelMap modelmap,String goodsid){
 		List<String> unitlist=new ArrayList<String>();
@@ -184,6 +195,14 @@ public class GoodsInfoController {
 		return "WebRoot/Goods/editGoods";
 	}
 
+	/** 
+	* @Title: UpdateGoods 
+	* @Description: 更新物资
+	* @param modelmap
+	* @param goods
+	* @param goodstypeid
+	* @return String    返回类型    
+	*/
 	@RequestMapping("/UpdateGoods")
 	public String UpdateGoods(ModelMap modelmap,Goods goods,String goodstypeid){
 		int resault=goodsService.updateByPrimaryKeySelective(goods);
@@ -198,6 +217,12 @@ public class GoodsInfoController {
 		}
 	}
 	
+	/** 
+	* @Title: deletegoods 
+	* @Description: 删除物资
+	* @param modelmap
+	* @return String    返回类型    
+	*/
 	@RequestMapping("/deletegoods")
 	public String deletegoods(ModelMap modelmap){
 		return "redirect:GotoSearchGoods";

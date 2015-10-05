@@ -20,7 +20,19 @@ public class EmergencyService extends BaseService<Emergency> {
 		}
 		
 		public List<Emergency> selectByEmerTypeName(Map<String, Object> params){
-			return emergencyMapper.selectByEmerTypeName(params);
+			String usertype=(String)params.get("usertype");
+			String userid=(String)params.get("userid");
+			if(usertype != null && usertype.length()> 0)
+			{
+				if(usertype.equals("1")){
+					if(userid !=null)
+						params.remove("userid");
+					return emergencyMapper.selectByEmerTypeName(params);
+				}
+				else 
+					return emergencyMapper.selectByEmerTypeName(params);
+			}
+			else return null;
 		}
 	
 }

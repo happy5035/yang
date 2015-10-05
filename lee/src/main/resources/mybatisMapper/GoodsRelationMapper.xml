@@ -10,13 +10,42 @@
     <result column="goodsid" property="goodsid" jdbcType="VARCHAR" />
     <result column="note" property="note" jdbcType="VARCHAR" />
     <result column="nodeid" property="nodeid" jdbcType="VARCHAR" />
+    <association property="nodes" javaType="com.yuan.lee.entity.Nodes">
+	    <id column="nodeid" property="nodeid" jdbcType="VARCHAR" />
+	    <result column="nodename" property="nodename" jdbcType="VARCHAR" />
+	    <result column="nodetype" property="nodetype" jdbcType="VARCHAR" />
+	    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+	    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+	    <result column="address" property="address" jdbcType="VARCHAR" />
+	    <result column="areaid" property="areaid" jdbcType="VARCHAR" />
+	    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    </association>
+    <association property="goods" javaType="com.yuan.lee.entity.Goods">
+    	<id column="goodsid" property="goodsid" jdbcType="VARCHAR" />
+	    <result column="goodsname" property="goodsname" jdbcType="VARCHAR" />
+	    <result column="goodsno" property="goodsno" jdbcType="VARCHAR" />
+	    <result column="mainuse" property="mainuse" jdbcType="VARCHAR" />
+	    <result column="measureunit" property="measureunit" jdbcType="VARCHAR" />
+	    <result column="guaranteeperiod" property="guaranteeperiod" jdbcType="VARCHAR" />
+	    <result column="specification" property="specification" jdbcType="VARCHAR" />
+	    <result column="size" property="size" jdbcType="VARCHAR" />
+	    <result column="goodstypeid" property="goodstypeid" jdbcType="VARCHAR" />
+	    <result column="note" property="note" jdbcType="VARCHAR" />
+	    <association property="goodstype" javaType="com.yuan.lee.entity.GoodsType">
+	    <id column="goodstypeid" property="goodstypeid" jdbcType="VARCHAR" />
+		    <result column="goodstypeno" property="goodstypeno" jdbcType="VARCHAR" />
+		    <result column="goodstypename" property="goodstypename" jdbcType="VARCHAR" />
+		    <result column="grade" property="grade" jdbcType="VARCHAR" />
+		    <result column="goodstypedescribe" property="goodstypedescribe" jdbcType="VARCHAR" />
+		    <result column="note" property="note" jdbcType="VARCHAR" />
+	    </association>
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
     goodsreid, Time, saveornot, demandnum, priority, goodsid, note, nodeid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
+    select  *
     from goodsrelation
     where goodsreid = #{goodsreid,jdbcType=VARCHAR}
   </select>
@@ -137,9 +166,40 @@
     </if>
   </select>
   <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
-    select
-    <include refid="Base_Column_List" />
-    from goodsrelation
+    select * from goodsrelation gr ,goods gd ,nodes nd ,goodstype gt
+     <where>
+      and	gr.goodsid=gd.goodsid
+      and 	gr.nodeid=nd.nodeid
+      and 	gt.goodstypeid=gd.goodstypeid
+      <if test="userid !=null and userid != ''">
+	      <if test="usertype !=null and usertype == '0'">
+	       and gr.nodeid in
+	      (select e.nodeid from enrelation e where e.emerid in 
+	      (select u.emerid from uerelation u where u.userId=#{userid,jdbcType=VARCHAR}))
+	      </if>
+      </if>
+    <if test="time != null" >
+       and gr.Time like #{time,jdbcType=DATE}
+      </if>
+      <if test="saveornot != null" >
+       and gr.saveornot like #{saveornot,jdbcType=VARCHAR}
+      </if>
+      <if test="demandnum != null" >
+       and gr.demandnum like #{demandnum,jdbcType=VARCHAR}
+      </if>
+      <if test="priority != null" >
+       and gr.priority like #{priority,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsid != null" >
+       and gr.goodsid like #{goodsid,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and gr.note like #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="nodeid != null" >
+       and gr.nodeid like #{nodeid,jdbcType=VARCHAR}
+      </if>
+    </where>
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -151,6 +211,39 @@
     </if>
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
-    select count(*) from goodsrelation
+    select count(*) from goodsrelation gr ,goods gd ,nodes nd ,goodstype gt
+     <where>
+      and	gr.goodsid=gd.goodsid
+      and 	gr.nodeid=nd.nodeid
+      and 	gt.goodstypeid=gd.goodstypeid
+      <if test="userid !=null and userid != ''">
+	      <if test="usertype !=null and usertype == '0'">
+	       and gr.nodeid in
+	      (select e.nodeid from enrelation e where e.emerid in 
+	      (select u.emerid from uerelation u where u.userId=#{userid,jdbcType=VARCHAR}))
+	      </if>
+      </if>
+    <if test="time != null" >
+       and gr.Time like #{time,jdbcType=DATE}
+      </if>
+      <if test="saveornot != null" >
+       and gr.saveornot like #{saveornot,jdbcType=VARCHAR}
+      </if>
+      <if test="demandnum != null" >
+       and gr.demandnum like #{demandnum,jdbcType=VARCHAR}
+      </if>
+      <if test="priority != null" >
+       and gr.priority like #{priority,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsid != null" >
+       and gr.goodsid like #{goodsid,jdbcType=VARCHAR}
+      </if>
+      <if test="note != null" >
+       and gr.note like #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="nodeid != null" >
+       and gr.nodeid like #{nodeid,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>
