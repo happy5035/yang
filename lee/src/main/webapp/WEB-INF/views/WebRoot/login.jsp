@@ -101,7 +101,9 @@
 
 		});	
 	});
-		
+	if(window!=top){
+	 top.location.href=location.href;
+	}
 	function gotoAddUser(){
 		document.getElementById("logform").action = "addUser";
 		document.getElementById("logform").submit();

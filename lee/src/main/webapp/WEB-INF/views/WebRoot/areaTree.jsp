@@ -1,6 +1,5 @@
-4<%@ page language="java" import="java.util.*" pageEncoding="gbk"%>
+4<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>ÇøÓòµØÍ¼</title>
+    <title>åŒºåŸŸåœ°å›¾</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -19,28 +18,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/style/zTreeStyle.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/static/style/zTreeStyle.css" />" rel="stylesheet" type="text/css">
 	<style type="text/css">
 		 
 		#saDiv{ float:left; width:10%; height:800px;}
 		#bMapDiv{ float:right; width:86%; height:800px;} 
 	</style>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.4.4.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.ztree.core-3.4.js"></script><!--
+	<script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.4.4.min.js" />"></script>
+	<script type="text/javascript" src="<c:url value="/static/js/js/jquery.ztree.core-3.4.js" />"></script><!--
 	 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
-	--><script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4fa4bb8fca02bdcbe06bb07be3a75fcc"></script>
+	--><script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=aDZxlhKjfz0jBzjDhmae8iCn"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/DistanceTool/1.2/src/DistanceTool_min.js"></script>
 <script type="text/javascript" charset="gbk"  src="http://api.map.baidu.com/library/MarkerTool/1.2/src/MarkerTool_min.js" ></script>   
-<!--¼ÓÔØÊó±ê»æÖÆ¹¤¾ß-->
+<!--åŠ è½½é¼ æ ‡ç»˜åˆ¶å·¥å…·-->
 <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
 <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
 	<SCRIPT type="text/javascript">
-		//zTreeÉèÖÃ
+		//zTreeè®¾ç½®
 		var disastername;
 		var dnodeId;
 		var setting = {
-			treeId: "areaTree", //ÉèÖÃtreeµÄid
+			treeId: "areaTree", //è®¾ç½®treeçš„id
 			treeObj: null,
 			
 			data: {
@@ -85,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			updateNodes(false);
 			nodeList = zTree.getNodesByParamFuzzy("areaName", value);
 			updateNodes(true);
-			zTree.expandAll(true);//Õ¹¿ªÈ«²¿½Úµã
+			zTree.expandAll(true);//å±•å¼€å…¨éƒ¨èŠ‚ç‚¹
 
 		}
 		function updateNodes(highlight) {
@@ -112,9 +111,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			.bind("input", searchNode);
 			
 		});		
-		//µã»÷tree
+		//ç‚¹å‡»tree
 		function zTreeOnClick(event, treeId, treeNode) {
-		    map.clearOverlays();//Çå³ıµØÍ¼ÉÏËùÓĞ¸²¸ÇÎï£¨±ê×¢£©
+		    map.clearOverlays();//æ¸…é™¤åœ°å›¾ä¸Šæ‰€æœ‰è¦†ç›–ç‰©ï¼ˆæ ‡æ³¨ï¼‰
 		     getAllNodeCup();
              getAllEdge();
 		    var zarealevel = parseInt(treeNode.areaLevel);
@@ -132,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    
 		    	map.centerAndZoom(treeNode.getParentNode().getParentNode().areaName);	
 				var myGeo = new BMap.Geocoder();
-				// ½«µØÖ·½âÎö½á¹ûÏÔÊ¾ÔÚµØÍ¼ÉÏ,²¢µ÷ÕûµØÍ¼ÊÓÒ°
+				// å°†åœ°å€è§£æç»“æœæ˜¾ç¤ºåœ¨åœ°å›¾ä¸Š,å¹¶è°ƒæ•´åœ°å›¾è§†é‡
 				myGeo.getPoint(treeNode.getParentNode().getParentNode().areaName+treeNode.getParentNode().areaName+zareaname, function(point){
 				  if (point) {
 				    map.centerAndZoom(point, 15);
@@ -143,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    }
 		}; 
 		
-		//Ê×Ò³¸Õ½øÀ´µÄÊ±ºò£¬»ñµÃËùÓĞ½ÚµãĞÅÏ¢£¬½øĞĞ±ê¼Ç
+		//é¦–é¡µåˆšè¿›æ¥çš„æ—¶å€™ï¼Œè·å¾—æ‰€æœ‰èŠ‚ç‚¹ä¿¡æ¯ï¼Œè¿›è¡Œæ ‡è®°
 		function getAllNodeCup(){
 			$.ajax({
 				type: "post",
@@ -151,13 +150,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				async: true,
 				success: function(data){
 				   $.each(data,function(idx,item){   				   
-					    addMarker(item);//½«±ê×¢µãÌí¼ÓÔÚµØÍ¼ÉÏ
+					    addMarker(item);//å°†æ ‡æ³¨ç‚¹æ·»åŠ åœ¨åœ°å›¾ä¸Š
 					})					
 				}			
 			});
 		}
 		
-		//Ê×Ò³¸Õ½øÀ´µÄÊ±ºò£¬»ñµÃËùÓĞÁ¬½Ó±ßĞÅÏ¢£¬½øĞĞÏÔÊ¾
+		//é¦–é¡µåˆšè¿›æ¥çš„æ—¶å€™ï¼Œè·å¾—æ‰€æœ‰è¿æ¥è¾¹ä¿¡æ¯ï¼Œè¿›è¡Œæ˜¾ç¤º
 		function getAllEdge(){
 			$.ajax({
 				type: "post",
@@ -165,12 +164,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				async: true,
 				success: function(data){
 				   $.each(data,function(idx,item){   				   
-					    addEdge(item);//½«±ßÌí¼ÓÔÚµØÍ¼ÉÏ
+					    addEdge(item);//å°†è¾¹æ·»åŠ åœ¨åœ°å›¾ä¸Š
 					})					
 				}			
 			});
 		}
-		//»ñµÃÔÖº¦µãĞÅÏ¢
+		//è·å¾—ç¾å®³ç‚¹ä¿¡æ¯
 		function getNodeCup(treeNode){
 			$.ajax({
 				type: "post",
@@ -178,49 +177,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				async: true,
 				success: function(data){
 				   $.each(data,function(idx,item){   				   
-					    addMarker(item);//½«±ê×¢µãÌí¼ÓÔÚµØÍ¼ÉÏ
+					    addMarker(item);//å°†æ ‡æ³¨ç‚¹æ·»åŠ åœ¨åœ°å›¾ä¸Š
 					})
 					
 				}			
 			});
 		}
-		//ÔÚµØÍ¼ÉÏÌí¼Ó±ê×¢
+		//åœ¨åœ°å›¾ä¸Šæ·»åŠ æ ‡æ³¨
 		function addMarker(item){
-		  var point = new BMap.Point(item.axisx, item.axisy);//´´½¨±ê×¢µã
+		  var point = new BMap.Point(item.axisx, item.axisy);//åˆ›å»ºæ ‡æ³¨ç‚¹
 		  var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {  
-                        offset: new BMap.Size(10, 25), // Ö¸¶¨¶¨Î»Î»ÖÃ   
-                        imageOffset: new BMap.Size(0, 0 - 10 * 25) // ÉèÖÃÍ¼Æ¬Æ«ÒÆ   
+                        offset: new BMap.Size(10, 25), // æŒ‡å®šå®šä½ä½ç½®   
+                        imageOffset: new BMap.Size(0, 0 - 10 * 25) // è®¾ç½®å›¾ç‰‡åç§»   
                     });
          // var myIcon = new BMap.Icon("<%=request.getContextPath()%>/picture/save.png", new BMap.Size(23, 25), {  
-                      //  offset: new BMap.Size(10, 25), // Ö¸¶¨¶¨Î»Î»ÖÃ   
-                    //    imageOffset: new BMap.Size(0, 0 - 10 * 25) // ÉèÖÃÍ¼Æ¬Æ«ÒÆ   
+                      //  offset: new BMap.Size(10, 25), // æŒ‡å®šå®šä½ä½ç½®   
+                    //    imageOffset: new BMap.Size(0, 0 - 10 * 25) // è®¾ç½®å›¾ç‰‡åç§»   
                    // });
-                    //×Ô¶¨Òå±ê×¢--by ÑîÀö          
+                    //è‡ªå®šä¹‰æ ‡æ³¨--by æ¨ä¸½          
 		  var sContent;
 		  if(item.type=='D'){ sContent =
 			"<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+item.nodename+"</h4>" + 
 			"<img style='float:right;margin:4px' id='imgDemo' src='picture/psb1.jpg' width='119' height='84'/>"+
 			"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:0em'>"+item.installaddress+"</p>" +
-			"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:0em'><b>"+"Îï×ÊĞèÇó£º"+"</b></p>" + 
-			"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:0em'>"+"Ê³Æ·£º20t<br>"+"Ò©Æ·£º10t<br>"+"´¿¾»Ë®£º300Ïä"+"</p>" + 
+			"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:0em'><b>"+"ç‰©èµ„éœ€æ±‚ï¼š"+"</b></p>" + 
+			"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:0em'>"+"é£Ÿå“ï¼š20t<br>"+"è¯å“ï¼š10t<br>"+"çº¯å‡€æ°´ï¼š300ç®±"+"</p>" + 
 			"</div>";}
 			else if(item.type=='W'){ sContent =
 			"<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+item.nodename+"</h4>" + 
 			"<img style='float:right;margin:4px' id='imgDemo' src='picture/psb.jpg' width='119' height='84'/>"+
 			"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:0em'>"+item.installaddress+"</p>" + 
-			"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:0em'><b>"+"<br>Îï×Ê´æ´¢£º"+"</b></p>" + 
-			"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:0em'>"+"Éú»îÓÃÆ·£º1000t &nbsp;&nbsp;"+"Ê³Æ·£º500t<br>"+"Ò©Æ·£º500t &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"´¿¾»Ë®£º2000Ïä"+"</p>" + 
+			"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:0em'><b>"+"<br>ç‰©èµ„å­˜å‚¨ï¼š"+"</b></p>" + 
+			"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:0em'>"+"ç”Ÿæ´»ç”¨å“ï¼š1000t &nbsp;&nbsp;"+"é£Ÿå“ï¼š500t<br>"+"è¯å“ï¼š500t &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"çº¯å‡€æ°´ï¼š2000ç®±"+"</p>" + 
 			"</div>";}
 		 
-		  var infoWindow = new BMap.InfoWindow(sContent);  // ´´½¨ĞÅÏ¢´°¿Ú¶ÔÏó
+		  var infoWindow = new BMap.InfoWindow(sContent);  // åˆ›å»ºä¿¡æ¯çª—å£å¯¹è±¡
 		  var marker;
 		  //var marker = new BMap.Marker(point);
 		  if(item.type=='D'){marker = new BMap.Marker(point);}
-		  else if(item.type=='W') {marker = new BMap.Marker(point, {icon: myIcon});}   //´´½¨±ê×¢
-		  marker.setTitle(item.nodename);//ÉèÖÃ±ê×¢µÄ±êÌâ£¬µ±Êó±êÒÆÖÁ±ê×¢ÉÏÊ±ÏÔÊ¾´Ë±êÌâ;
-		  marker.addEventListener("click", function(){ // Ìí¼ÓÊÂ¼ş¼àÌıº¯Êı     
-		   this.openInfoWindow(infoWindow);//´ò¿ªĞÅÏ¢´°¿Ú
-		   //Í¼Æ¬¼ÓÔØÍê±ÏÖØ»æinfowindow
+		  else if(item.type=='W') {marker = new BMap.Marker(point, {icon: myIcon});}   //åˆ›å»ºæ ‡æ³¨
+		  marker.setTitle(item.nodename);//è®¾ç½®æ ‡æ³¨çš„æ ‡é¢˜ï¼Œå½“é¼ æ ‡ç§»è‡³æ ‡æ³¨ä¸Šæ—¶æ˜¾ç¤ºæ­¤æ ‡é¢˜;
+		  marker.addEventListener("click", function(){ // æ·»åŠ äº‹ä»¶ç›‘å¬å‡½æ•°     
+		   this.openInfoWindow(infoWindow);//æ‰“å¼€ä¿¡æ¯çª—å£
+		   //å›¾ç‰‡åŠ è½½å®Œæ¯•é‡ç»˜infowindow
 		   document.getElementById('imgDemo').onload = function (){
 		   infoWindow.redraw();
 			   }
@@ -229,25 +228,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   address = item.address;
 		   
 		   });
-		  map.addOverlay(marker);//½«±ê×¢Ìí¼Óµ½µØÍ¼		 
+		  map.addOverlay(marker);//å°†æ ‡æ³¨æ·»åŠ åˆ°åœ°å›¾		 
 		}
 		
-		//ÔÚµØÍ¼ÉÏÌí¼Ó±ß
+		//åœ¨åœ°å›¾ä¸Šæ·»åŠ è¾¹
 		function addEdge(item){
-		//alert("½øÀ´ÏÔÊ¾±ß");
-		//alert("½øÀ´ÏÔÊ¾±ß1"+item.axisx);
-		  //½«´«µİ»ØÀ´µÄÎ³¶È¡¢¾­¶ÈÖØĞÂ·Åµ½Êı×éÖĞ
+		//alert("è¿›æ¥æ˜¾ç¤ºè¾¹");
+		//alert("è¿›æ¥æ˜¾ç¤ºè¾¹1"+item.axisx);
+		  //å°†ä¼ é€’å›æ¥çš„çº¬åº¦ã€ç»åº¦é‡æ–°æ”¾åˆ°æ•°ç»„ä¸­
 		  var lngs=item.axisx.split(",");
 		  var lats=item.axisy.split(",");
-		   var edgeType = item.edgeType;//ÏÔÊ¾±ßÀàĞÍ--by ÑîÀö
-		  //alert("½øÀ´ÏÔÊ¾±ß2"+item.axisx);
-		 // alert("½øÀ´ÏÔÊ¾±ßÀàĞÍ1"+item.edgeType);
+		   var edgeType = item.edgeType;//æ˜¾ç¤ºè¾¹ç±»å‹--by æ¨ä¸½
+		  //alert("è¿›æ¥æ˜¾ç¤ºè¾¹2"+item.axisx);
+		 // alert("è¿›æ¥æ˜¾ç¤ºè¾¹ç±»å‹1"+item.edgeType);
 		  var points=[];	  
 		  for(var j=0;j<lngs.length;j++)
 		  {
-		     points[j] = new BMap.Point(lngs[j],lats[j]);//´´½¨µã
-		     //var marker = new BMap.Marker(points[j]);//´´½¨±ê×¢
-		     //map.addOverlay(marker);  //½«ÕÛÏßÌí¼Óµ½µØÍ¼
+		     points[j] = new BMap.Point(lngs[j],lats[j]);//åˆ›å»ºç‚¹
+		     //var marker = new BMap.Marker(points[j]);//åˆ›å»ºæ ‡æ³¨
+		     //map.addOverlay(marker);  //å°†æŠ˜çº¿æ·»åŠ åˆ°åœ°å›¾
 		     
 		  }	
 		 
@@ -256,49 +255,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  /*if(lngs.length<100){polyline = new BMap.Polyline(points,{strokeColor:"red", strokeWeight:2, strokeOpacity:1});}
 		  else polyline = new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:1});*/
 		  //var edge=[points[0],points[1],points[2],points[3]];
-		  // alert("½øÀ´ÏÔÊ¾±ßÀàĞÍ2"+item.edgeType);
+		  // alert("è¿›æ¥æ˜¾ç¤ºè¾¹ç±»å‹2"+item.edgeType);
 		  if(edgeType == 'H'){polyline = new BMap.Polyline(points,{strokeColor:"GREEN", strokeWeight:1.7, strokeOpacity:1});}
 		else  if(edgeType == 'R'){polyline = new BMap.Polyline(points,{strokeColor:"#cc00ff", strokeWeight:1.7, strokeOpacity:1});}
 		else  if(edgeType == 'A'){polyline = new BMap.Polyline(points,{strokeColor:"#3366FF", strokeWeight:1.7, strokeOpacity:1});}
 		   // else  polyline = new BMap.Polyline(points,{strokeColor:"green", strokeWeight:2, strokeOpacity:1});
-		 //  alert("½øÀ´ÏÔÊ¾±ßÀàĞÍ3"+item.edgeType);
+		 //  alert("è¿›æ¥æ˜¾ç¤ºè¾¹ç±»å‹3"+item.edgeType);
 		
-		  //²»Í¬ÀàĞÍµÄ±ßÏÔÊ¾²»Í¬µÄÑÕÉ«--by ÑîÀö
-		  map.addOverlay(polyline);  //½«ÕÛÏßÌí¼Óµ½µØÍ¼
-		  //alert("½øÀ´ÏÔÊ¾±ß4"+points);		 
+		  //ä¸åŒç±»å‹çš„è¾¹æ˜¾ç¤ºä¸åŒçš„é¢œè‰²--by æ¨ä¸½
+		  map.addOverlay(polyline);  //å°†æŠ˜çº¿æ·»åŠ åˆ°åœ°å›¾
+		  //alert("è¿›æ¥æ˜¾ç¤ºè¾¹4"+points);		 
 		}
 		
 		
 		function showInfo(e){
 			var showinfoFlag = $("#showinfoFlag").val();
 			if(showinfoFlag == "1"){
-				if(confirm("¸Ã×ø±êÎª"+e.point.lng+ ", " + e.point.lat+"¡£ÊÇ·ñ½«ÔÖº¦µãÌí¼ÓÖÁ´Ë£¿")){
+				if(confirm("è¯¥åæ ‡ä¸º"+e.point.lng+ ", " + e.point.lat+"ã€‚æ˜¯å¦å°†ç¾å®³ç‚¹æ·»åŠ è‡³æ­¤ï¼Ÿ")){
 					opener.setValue(e.point.lng, e.point.lat); 
 					window.close(); 				
 				}
 			}
-			//·µ»Øµ½¸ÃÒ³Ãæ±»µ÷ÓÃµÄµØ·½addEdge.jsp£¬²¢·µ»Øflag="2"
+			//è¿”å›åˆ°è¯¥é¡µé¢è¢«è°ƒç”¨çš„åœ°æ–¹addEdge.jspï¼Œå¹¶è¿”å›flag="2"
             if(showinfoFlag == "2"){
-				if(confirm("ÄúÑ¡ÔñµÄÆğµãÊÇ'"+nodename+"'¡£ÊÇ·ñ½«´Ë´¦ÉèÖÃÎªÏßÂ·Æğµã£¿")){
+				if(confirm("æ‚¨é€‰æ‹©çš„èµ·ç‚¹æ˜¯'"+nodename+"'ã€‚æ˜¯å¦å°†æ­¤å¤„è®¾ç½®ä¸ºçº¿è·¯èµ·ç‚¹ï¼Ÿ")){
 					opener.setValue(nodeId,nodename,flag="2",e.point.lng,e.point.lat); 
 					window.close(); 				
 				}
 			}
-			//·µ»Øµ½¸ÃÒ³Ãæ±»µ÷ÓÃµÄµØ·½addEdge.jsp£¬²¢·µ»Øflag="2"
+			//è¿”å›åˆ°è¯¥é¡µé¢è¢«è°ƒç”¨çš„åœ°æ–¹addEdge.jspï¼Œå¹¶è¿”å›flag="2"
 			if(showinfoFlag == "3"){
-				if(confirm("ÄúÑ¡ÔñµÄÖÕµãÊÇ'"+nodename+"'¡£ÊÇ·ñ½«´Ë´¦ÉèÖÃÎªÏßÂ·ÖÕµã£¿")){
+				if(confirm("æ‚¨é€‰æ‹©çš„ç»ˆç‚¹æ˜¯'"+nodename+"'ã€‚æ˜¯å¦å°†æ­¤å¤„è®¾ç½®ä¸ºçº¿è·¯ç»ˆç‚¹ï¼Ÿ")){
 					opener.setValue(nodeId,nodename,flag="3",e.point.lng,e.point.lat); 
 					window.close(); 				
 				}
 			}
-			//·µ»Øµ½¸ÃÒ³Ãæ±»µ÷ÓÃµÄµØ·½addWareHouse.jsp
+			//è¿”å›åˆ°è¯¥é¡µé¢è¢«è°ƒç”¨çš„åœ°æ–¹addWareHouse.jsp
 			if(showinfoFlag == "4"){
-				if(confirm("¸Ã×ø±êÎª"+e.point.lng+ ", " + e.point.lat+"¡£ÊÇ·ñ½«²Ö¿âµãÌí¼ÓÖÁ´Ë£¿")){
+				if(confirm("è¯¥åæ ‡ä¸º"+e.point.lng+ ", " + e.point.lat+"ã€‚æ˜¯å¦å°†ä»“åº“ç‚¹æ·»åŠ è‡³æ­¤ï¼Ÿ")){
 					opener.setValue(e.point.lng, e.point.lat);  
 					window.close(); 				
 				}
 			}
-			//ÏÔÊ¾ÇúÏß
+			//æ˜¾ç¤ºæ›²çº¿
 			if(showinfoFlag == "5"){
 		    var originLng = window.opener.document.getElementById('originLng').value;
 		    var originLat = window.opener.document.getElementById('originLat').value;
@@ -310,16 +309,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             var polyline; 
 			var origin=new BMap.Point(originLng,originLat);
 			var terminal=new BMap.Point(terminalLng,terminalLat);			    
-			var driving = new BMap.DrivingRoute(map); //¼İ³µÊµÀı
-			// alert("ËÑË÷¼İ³µÂ·Ïß1");   
+			var driving = new BMap.DrivingRoute(map); //é©¾è½¦å®ä¾‹
+			// alert("æœç´¢é©¾è½¦è·¯çº¿1");   
             driving.search(origin, terminal);  
-           // alert("ËÑË÷¼İ³µÂ·Ïß2");           
+           // alert("æœç´¢é©¾è½¦è·¯çº¿2");           
  
-            //²éÑ¯¹ı³Ì         
+            //æŸ¥è¯¢è¿‡ç¨‹         
             driving.setSearchCompleteCallback(function(){
-            if (driving.getStatus() != BMAP_STATUS_SUCCESS){alert("ÕâÁ½µã¼äÃ»ÓĞÖ±½Ó¿Éµ½´ïÂ·Ïß");}
-            if (driving.getStatus() == BMAP_STATUS_SUCCESS){alert("ÕâÁ½µã¼äÓĞÖ±½Ó¿Éµ½´ïÂ·Ïß");
-            pts = driving.getResults().getPlan(0).getRoute(0).getPath(); //Í¨¹ı¼İ³µÊµÀı£¬»ñµÃÒ»ÏµÁĞµãµÄÊı×é
+            if (driving.getStatus() != BMAP_STATUS_SUCCESS){alert("è¿™ä¸¤ç‚¹é—´æ²¡æœ‰ç›´æ¥å¯åˆ°è¾¾è·¯çº¿");}
+            if (driving.getStatus() == BMAP_STATUS_SUCCESS){alert("è¿™ä¸¤ç‚¹é—´æœ‰ç›´æ¥å¯åˆ°è¾¾è·¯çº¿");
+            pts = driving.getResults().getPlan(0).getRoute(0).getPath(); //é€šè¿‡é©¾è½¦å®ä¾‹ï¼Œè·å¾—ä¸€ç³»åˆ—ç‚¹çš„æ•°ç»„
             polyline = new BMap.Polyline(pts); 
             map.addOverlay(polyline); 
             for(var j=0;j<pts.length;j++)
@@ -328,12 +327,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             axisy[j]=pts[j].lat;
             }                              
             }        
-            })//²éÑ¯²¢ÏÔÊ¾½áÊø          
+            })//æŸ¥è¯¢å¹¶æ˜¾ç¤ºç»“æŸ          
             
             setTimeout(function(){
-            //Ìí¼ÓÁ¬½Ó±ßµÄÊ±ºòaddEdge.jsp£¬ÉèÖÃ²ÎÊıÎªflag == "5"	
-             //alert("ËÑË÷¼İ³µÂ·Ïß3");   
-   			if(confirm("ÊÇ·ñ±£´æÇúÏß²¢ÍË³ö£¿")){   
+            //æ·»åŠ è¿æ¥è¾¹çš„æ—¶å€™addEdge.jspï¼Œè®¾ç½®å‚æ•°ä¸ºflag == "5"	
+             //alert("æœç´¢é©¾è½¦è·¯çº¿3");   
+   			if(confirm("æ˜¯å¦ä¿å­˜æ›²çº¿å¹¶é€€å‡ºï¼Ÿ")){   
 					opener.setValue(axisx,axisy,flag="5","","");  
 					window.close(); 				
 				}	    
@@ -342,7 +341,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 
 		}
-		//µ¥³µ¶¯Ì¬ÑİÊ¾		
+		//å•è½¦åŠ¨æ€æ¼”ç¤º		
 function onetrsport(){
 
      $.ajax({
@@ -351,86 +350,86 @@ function onetrsport(){
 				async: true,
 				success: function(data){
 				   $.each(data,function(idx,item){   				   
-					    cartoonStart(item);//¿ªÊ¼¶¯»­
+					    cartoonStart(item);//å¼€å§‹åŠ¨ç”»
 					})					
 				}			
 			});
 }
 
-//ÔÚµØÍ¼ÉÏÏÔÊ¾µ¥¸ö³µÁ¾µÄ¶¯Ì¬ÔËĞĞ
+//åœ¨åœ°å›¾ä¸Šæ˜¾ç¤ºå•ä¸ªè½¦è¾†çš„åŠ¨æ€è¿è¡Œ
 		function cartoonStart(item){
-		//alert("½øÀ´cartoonStart"+item.axisx);
-		//alert("½øÀ´cartoonStart"+item.axisy);
-		//alert("½øÀ´cartoonStart--edgeType"+item.edgeType); 
-		  //½«´«µİ»ØÀ´µÄÎ³¶È¡¢¾­¶ÈÖØĞÂ·Åµ½Êı×éÖĞ
+		//alert("è¿›æ¥cartoonStart"+item.axisx);
+		//alert("è¿›æ¥cartoonStart"+item.axisy);
+		//alert("è¿›æ¥cartoonStart--edgeType"+item.edgeType); 
+		  //å°†ä¼ é€’å›æ¥çš„çº¬åº¦ã€ç»åº¦é‡æ–°æ”¾åˆ°æ•°ç»„ä¸­
 		  var lng=item.axisx.substring(0,item.axisx.length-1).split(",");
 		  var lat=item.axisy.substring(0,item.axisy.length-1).split(",");
-		 // alert("½øÀ´cartoonStart--edgeType11"); 
+		 // alert("è¿›æ¥cartoonStart--edgeType11"); 
 		var edgeType=item.edgeType.substring(0,item.edgeType.length-1).split(",");
 			var fnodename=item.fnodename.substring(0,item.fnodename.length-1).split(",");
 			var snodename=item.snodename.substring(0,item.snodename.length-1).split(",");
-		    //alert("½øÀ´cartoonStart--edgeType22"); 
-		  //ÏÔÊ¾±ßÀàĞÍ--by ÑîÀö
-		  //alert("½øÀ´cartoonStart--edgeType"+edgeType); 
+		    //alert("è¿›æ¥cartoonStart--edgeType22"); 
+		  //æ˜¾ç¤ºè¾¹ç±»å‹--by æ¨ä¸½
+		  //alert("è¿›æ¥cartoonStart--edgeType"+edgeType); 
 		  //var lng=item.axisx.split(",");
 		  //var lat=item.axisy.split(",");
 		  var point=[];	
-		 // alert("½øÀ´cartoonStart"+lng);  
+		 // alert("è¿›æ¥cartoonStart"+lng);  
 		  for(var j=0;j<lng.length;j++)
 		  {
-		     point[j] = new BMap.Point(lat[j],lng[j]);//´´½¨µã
+		     point[j] = new BMap.Point(lat[j],lng[j]);//åˆ›å»ºç‚¹
 	
 		     
 		  }		  
 		 /* var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {  
-                        offset: new BMap.Size(2, 10), // Ö¸¶¨¶¨Î»Î»ÖÃ   
-                        imageOffset: new BMap.Size(0, 0 - 10 * 10) // ÉèÖÃÍ¼Æ¬Æ«ÒÆ   
+                        offset: new BMap.Size(2, 10), // æŒ‡å®šå®šä½ä½ç½®   
+                        imageOffset: new BMap.Size(0, 0 - 10 * 10) // è®¾ç½®å›¾ç‰‡åç§»   
                     });
 		  */
 		  
 		var myIcon ;
 		if(edgeType=='H'){myIcon= new BMap.Icon("picture/truck2.jpg", new BMap.Size(43,30), { 
-		//Ğ¡³µÍ¼Æ¬
-         offset: new BMap.Size(100, 100), //Ïàµ±ÓÚCSS¾«Áé
-        imageOffset: new BMap.Size(0 , 0 - 10 * 10) //Í¼Æ¬µÄÆ«ÒÆÁ¿¡£ÎªÁËÊÇÍ¼Æ¬µ×²¿ÖĞĞÄ¶Ô×¼×ø±êµã¡£
+		//å°è½¦å›¾ç‰‡
+         offset: new BMap.Size(100, 100), //ç›¸å½“äºCSSç²¾çµ
+        imageOffset: new BMap.Size(0 , 0 - 10 * 10) //å›¾ç‰‡çš„åç§»é‡ã€‚ä¸ºäº†æ˜¯å›¾ç‰‡åº•éƒ¨ä¸­å¿ƒå¯¹å‡†åæ ‡ç‚¹ã€‚
          });}
          if(edgeType=='R'){myIcon= new BMap.Icon("picture/r1.jpg", new BMap.Size(43,30), { 
-		//Ğ¡³µÍ¼Æ¬
-         offset: new BMap.Size(100, 100), //Ïàµ±ÓÚCSS¾«Áé
-        imageOffset: new BMap.Size(0 , 0 - 10 * 10) //Í¼Æ¬µÄÆ«ÒÆÁ¿¡£ÎªÁËÊÇÍ¼Æ¬µ×²¿ÖĞĞÄ¶Ô×¼×ø±êµã¡£
+		//å°è½¦å›¾ç‰‡
+         offset: new BMap.Size(100, 100), //ç›¸å½“äºCSSç²¾çµ
+        imageOffset: new BMap.Size(0 , 0 - 10 * 10) //å›¾ç‰‡çš„åç§»é‡ã€‚ä¸ºäº†æ˜¯å›¾ç‰‡åº•éƒ¨ä¸­å¿ƒå¯¹å‡†åæ ‡ç‚¹ã€‚
          });}
           if(edgeType=='A'){myIcon= new BMap.Icon("picture/p1.jpg", new BMap.Size(43,30), { 
-		//Ğ¡³µÍ¼Æ¬
-         offset: new BMap.Size(100, 100), //Ïàµ±ÓÚCSS¾«Áé
-        imageOffset: new BMap.Size(0 , 0 - 10 * 10) //Í¼Æ¬µÄÆ«ÒÆÁ¿¡£ÎªÁËÊÇÍ¼Æ¬µ×²¿ÖĞĞÄ¶Ô×¼×ø±êµã¡£
+		//å°è½¦å›¾ç‰‡
+         offset: new BMap.Size(100, 100), //ç›¸å½“äºCSSç²¾çµ
+        imageOffset: new BMap.Size(0 , 0 - 10 * 10) //å›¾ç‰‡çš„åç§»é‡ã€‚ä¸ºäº†æ˜¯å›¾ç‰‡åº•éƒ¨ä¸­å¿ƒå¯¹å‡†åæ ‡ç‚¹ã€‚
          });}
-		//ÊµÏÖ¶¨Ê±³µÁ¾ÑİÊ¾
+		//å®ç°å®šæ—¶è½¦è¾†æ¼”ç¤º
 		var carMk = new BMap.Marker(point[0],{icon:myIcon});
 		var sContent;
 		  if(edgeType=='H'){ 
-		  //alert("½øÀ´¹«Â·--");
-		  sContent ="<h4 style='margin:0 0 10px 0;padding:0.2em 0'>"+"Æû³µ"+"</h4>" + 
+		  //alert("è¿›æ¥å…¬è·¯--");
+		  sContent ="<h4 style='margin:0 0 10px 0;padding:0.2em 0'>"+"æ±½è½¦"+"</h4>" + 
 			"<img style='float:right;margin:4px' id='imgDemo' src='picture/truckOigin.jpg' width='119' height='124'/>"+
-			"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>ËÙ¶È£º</b>80km/h<br><b>×°Ğ¶»õÊ±¼ä£º</b><br>2h<br><b>ÆğÊ¼½Úµã£º</b><br>"+item.fnodename+"<br><b>Ä¿±ê½Úµã£º</b><br>"+item.snodename+"<br><b>Ò©Æ·£º</b>2t<br>"+"<b>Ê³Æ·£º</b>3t"+"</p>" + 
+			"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>é€Ÿåº¦ï¼š</b>80km/h<br><b>è£…å¸è´§æ—¶é—´ï¼š</b><br>2h<br><b>èµ·å§‹èŠ‚ç‚¹ï¼š</b><br>"+item.fnodename+"<br><b>ç›®æ ‡èŠ‚ç‚¹ï¼š</b><br>"+item.snodename+"<br><b>è¯å“ï¼š</b>2t<br>"+"<b>é£Ÿå“ï¼š</b>3t"+"</p>" + 
 			"</div>";}
 			if(edgeType=='R'){
-			//alert("½øÀ´ÌúÂ·--");
-			sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+"»ğ³µ"+"</h4>" + 
+			//alert("è¿›æ¥é“è·¯--");
+			sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+"ç«è½¦"+"</h4>" + 
 			"<img style='float:right;margin:4px' id='imgDemo' src='picture/trainOigin.jpg' width='119' height='124'/>"+
-			"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>ËÙ¶È£º</b>60km/h<br><b>×°Ğ¶»õÊ±¼ä£º</b><br>5h<br><b>ÆğÊ¼½Úµã£º</b><br>"+item.fnodename+"<br><b>Ä¿±ê½Úµã£º</b><br>"+item.snodename+"<br><b>Ò©Æ·£º</b>5t<br>"+"<b>Ê³Æ·£º</b>10t<br>"+"<b>´¿¾»Ë®£º</b>15t "+"<b>Éú»îÓÃÆ·£º</b>10t"+"</p>" + 
+			"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>é€Ÿåº¦ï¼š</b>60km/h<br><b>è£…å¸è´§æ—¶é—´ï¼š</b><br>5h<br><b>èµ·å§‹èŠ‚ç‚¹ï¼š</b><br>"+item.fnodename+"<br><b>ç›®æ ‡èŠ‚ç‚¹ï¼š</b><br>"+item.snodename+"<br><b>è¯å“ï¼š</b>5t<br>"+"<b>é£Ÿå“ï¼š</b>10t<br>"+"<b>çº¯å‡€æ°´ï¼š</b>15t "+"<b>ç”Ÿæ´»ç”¨å“ï¼š</b>10t"+"</p>" + 
 			"</div>";}
 		 if(edgeType=='A'){ 
-		// alert("½øÀ´º½ÏßËÙ¶È--");
-		 sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+"·É»ú"+"</h4>" + 
+		// alert("è¿›æ¥èˆªçº¿é€Ÿåº¦--");
+		 sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+"é£æœº"+"</h4>" + 
 			"<img style='float:right;margin:4px' id='imgDemo' src='picture/planeOigin.jpg' width='119' height='124'/>"+
-			"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>ËÙ¶È£º</b>200km/h<br><b>×°Ğ¶»õÊ±¼ä£º</b><br>3h<br><b>ÆğÊ¼½Úµã£º</b><br>"+item.fnodename+"<br><b>Ä¿±ê½Úµã£º</b><br>"+item.snodename+"<br><b>Ò©Æ·£º</b>3t<br>"+"<b>Ê³Æ·£º</b>2t<br>"+"<b>´¿¾»Ë®£º</b>10t "+"</p>" + 
+			"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>é€Ÿåº¦ï¼š</b>200km/h<br><b>è£…å¸è´§æ—¶é—´ï¼š</b><br>3h<br><b>èµ·å§‹èŠ‚ç‚¹ï¼š</b><br>"+item.fnodename+"<br><b>ç›®æ ‡èŠ‚ç‚¹ï¼š</b><br>"+item.snodename+"<br><b>è¯å“ï¼š</b>3t<br>"+"<b>é£Ÿå“ï¼š</b>2t<br>"+"<b>çº¯å‡€æ°´ï¼š</b>10t "+"</p>" + 
 			"</div>";}
-		  var infoWindow = new BMap.InfoWindow(sContent);  // ´´½¨ĞÅÏ¢´°¿Ú¶ÔÏó
+		  var infoWindow = new BMap.InfoWindow(sContent);  // åˆ›å»ºä¿¡æ¯çª—å£å¯¹è±¡
 		 
 		// var marker = new BMap.Marker( point[j]);
-		carMk.addEventListener("click", function(){ // Ìí¼ÓÊÂ¼ş¼àÌıº¯Êı     
-		   this.openInfoWindow(infoWindow);//´ò¿ªĞÅÏ¢´°¿Ú
-		   //Í¼Æ¬¼ÓÔØÍê±ÏÖØ»æinfowindow
+		carMk.addEventListener("click", function(){ // æ·»åŠ äº‹ä»¶ç›‘å¬å‡½æ•°     
+		   this.openInfoWindow(infoWindow);//æ‰“å¼€ä¿¡æ¯çª—å£
+		   //å›¾ç‰‡åŠ è½½å®Œæ¯•é‡ç»˜infowindow
 		  document.getElementById('imgDemo').onload = function (){
 		   infoWindow.redraw();
 			  }
@@ -440,16 +439,16 @@ function onetrsport(){
 		
 			 
 		
-		//alert("½øÀ´cartoonStart£¬Í¼Æ¬¶¨Î»");
+		//alert("è¿›æ¥cartoonStartï¼Œå›¾ç‰‡å®šä½");
         map.addOverlay(carMk); 
-        //alert("½øÀ´cartoonStart£¬Í¼Æ¬¶¨Î»"+point[0].lng);             
+        //alert("è¿›æ¥cartoonStartï¼Œå›¾ç‰‡å®šä½"+point[0].lng);             
         var len =point.length;
        resetMkPoint(1,len,point,carMk)
 
     
     function resetMkPoint(i,len,point,carMk){       
         carMk.setPosition(point[i]);
-        //alert("½øÀ´resetMkPoint£¬¾­¶È"+points[i].lng+"Î³¶È"+points[i].lat);
+        //alert("è¿›æ¥resetMkPointï¼Œç»åº¦"+points[i].lng+"çº¬åº¦"+points[i].lat);
         if(i < len){
             setTimeout(function(){
                 i++;
@@ -461,7 +460,7 @@ function onetrsport(){
     
 }	
 		
-		//µ¥¸öµ÷¶È·½°¸
+		//å•ä¸ªè°ƒåº¦æ–¹æ¡ˆ
 		function oneScheme(){
 
      $.ajax({
@@ -470,7 +469,7 @@ function onetrsport(){
 				async: true,
 				success: function(data){
 				   $.each(data,function(idx,item){   				   
-					    cartoonStart(item);//¿ªÊ¼¶¯»­
+					    cartoonStart(item);//å¼€å§‹åŠ¨ç”»
 					})					
 				}			
 			});
@@ -485,7 +484,7 @@ $.ajax({
 		    	success: function(data){
 		    		$("#points").html(data);
 		    	}});
-		    	points=[];	//½«ÒÔÏÂÈı¸öÊı×éÇå¿Õ£¬ÒÔ·½±ã¼ÇÂ¼ÏÂÒ»¸öÕÛÏßµÄ×ø±ê²¢´¢´æ
+		    	points=[];	//å°†ä»¥ä¸‹ä¸‰ä¸ªæ•°ç»„æ¸…ç©ºï¼Œä»¥æ–¹ä¾¿è®°å½•ä¸‹ä¸€ä¸ªæŠ˜çº¿çš„åæ ‡å¹¶å‚¨å­˜
 		    	axisx=[];
 		    	axisy=[];   
 
@@ -503,10 +502,10 @@ $.ajax({
 		    <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
 		    cellspacing="0" cellpadding="0" height="27">
 		        <tr>
-		          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+		          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
 		          <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 		                <tr>
-							<td width="100%" class="f3">ÇøÓò¹ÜÀí>>ÇøÓòÕ¹¬F</td>
+							<td width="100%" class="f3">åŒºåŸŸç®¡ç†>>åŒºåŸŸå±•ç¾</td>
 		                </tr>
 		            </table></td>
 		          <td width="50%"></td>
@@ -517,11 +516,11 @@ $.ajax({
 	  	  <div id="saDiv">
 	  	  <div id="serarchDiv">
 	  	  
-	  	  <input type="button" value="¿ªÆô²âÁ¿¹¤¾ß" onclick="myDis.open()" />    
-          <input type="button" value="¹Ø±Õ²âÁ¿¹¤¾ß" onclick="myDis.close()" />
-          <input type="button" value="µ¥ÔËÊä¹¤¾ß¶¯»­ÑİÊ¾" onclick="onetrsport()" />
-          <input type="button" value="µ÷¶È·½°¸¶¯»­ÑİÊ¾" onclick="oneScheme()" />
-         <!--   <input type="button" value="»­Ïß½áÊø" onclick="areaclose()" />  -->
+	  	  <input type="button" value="å¼€å¯æµ‹é‡å·¥å…·" onclick="myDis.open()" />    
+          <input type="button" value="å…³é—­æµ‹é‡å·¥å…·" onclick="myDis.close()" />
+          <input type="button" value="å•è¿è¾“å·¥å…·åŠ¨ç”»æ¼”ç¤º" onclick="onetrsport()" />
+          <input type="button" value="è°ƒåº¦æ–¹æ¡ˆåŠ¨ç”»æ¼”ç¤º" onclick="oneScheme()" />
+         <!--   <input type="button" value="ç”»çº¿ç»“æŸ" onclick="areaclose()" />  -->
 		  <input id="txtSearch" name="txtSearch" type="text">
 	  	  </div>
 		  <div id="areaTreeDiv"  class="ztree"></div> 	
@@ -530,50 +529,50 @@ $.ajax({
 	</form>
   </body>
   <script type="text/javascript">	
-		var map = new BMap.Map("bMapDiv");                        // ´´½¨MapÊµÀı
-		map.centerAndZoom("ÖĞ¹ú", 6);     // ³õÊ¼»¯µØÍ¼,ÉèÖÃÖĞĞÄµã×ø±êºÍµØÍ¼¼¶±ğ
-		map.addControl(new BMap.NavigationControl());               // Ìí¼ÓÆ½ÒÆËõ·Å¿Ø¼ş
-		map.addControl(new BMap.ScaleControl());                    // Ìí¼Ó±ÈÀı³ß¿Ø¼ş
-		map.addControl(new BMap.OverviewMapControl());              //Ìí¼ÓËõÂÔµØÍ¼¿Ø¼ş
-		map.enableScrollWheelZoom();                            //ÆôÓÃ¹öÂÖ·Å´óËõĞ¡
-		//map.addControl(new BMap.MapTypeControl());          //Ìí¼ÓµØÍ¼ÀàĞÍ¿Ø¼ş
-		//map.setCurrentCity("Î÷°²");          // ÉèÖÃµØÍ¼ÏÔÊ¾µÄ³ÇÊĞ ´ËÏîÊÇ±ØĞëÉèÖÃµÄ
+		var map = new BMap.Map("bMapDiv");                        // åˆ›å»ºMapå®ä¾‹
+		map.centerAndZoom("ä¸­å›½", 6);     // åˆå§‹åŒ–åœ°å›¾,è®¾ç½®ä¸­å¿ƒç‚¹åæ ‡å’Œåœ°å›¾çº§åˆ«
+		map.addControl(new BMap.NavigationControl());               // æ·»åŠ å¹³ç§»ç¼©æ”¾æ§ä»¶
+		map.addControl(new BMap.ScaleControl());                    // æ·»åŠ æ¯”ä¾‹å°ºæ§ä»¶
+		map.addControl(new BMap.OverviewMapControl());              //æ·»åŠ ç¼©ç•¥åœ°å›¾æ§ä»¶
+		map.enableScrollWheelZoom();                            //å¯ç”¨æ»šè½®æ”¾å¤§ç¼©å°
+		//map.addControl(new BMap.MapTypeControl());          //æ·»åŠ åœ°å›¾ç±»å‹æ§ä»¶
+		//map.setCurrentCity("è¥¿å®‰");          // è®¾ç½®åœ°å›¾æ˜¾ç¤ºçš„åŸå¸‚ æ­¤é¡¹æ˜¯å¿…é¡»è®¾ç½®çš„
 		
 		
 		var  mapStyle ={ 
-        features: ["road","water"],//Òş²ØµØÍ¼ÉÏµÄpoi
-        style : "light"  //ÉèÖÃµØÍ¼·ç¸ñÎª¸ß¶ËºÚ
+        features: ["road","water"],//éšè—åœ°å›¾ä¸Šçš„poi
+        style : "light"  //è®¾ç½®åœ°å›¾é£æ ¼ä¸ºé«˜ç«¯é»‘
     }
 map.setMapStyle(mapStyle);
 		
 		map.addEventListener("click", showInfo);
 		
-		//²âÁ¿¾àÀëµÄ¹¤¾ß
+		//æµ‹é‡è·ç¦»çš„å·¥å…·
 		var myDis = new BMapLib.DistanceTool(map);
 		
 var e1,e2,j=0;
-var p = [];           //ÓÃÀ´´æ´¢ÕÛÏßµÄµã
-var points=[];     //ÓÃÓÚ´æ´¢ÕÛÏßÈÎÒâĞŞ¸ÄºóµÄ×ªÕÛ´¦µÄ¹Ø¼üµã
-var axisx=[];     //ÓÃÓÚ´æ´¢ÕÛÏßÈÎÒâĞŞ¸ÄºóµÄ×ªÕÛ´¦µÄ¹Ø¼üµãµÄ¾­¶È
-var axisy=[];     //ÓÃÓÚ´æ´¢ÕÛÏßÈÎÒâĞŞ¸ÄºóµÄ×ªÕÛ´¦µÄ¹Ø¼üµãµÄÎ³¶È
+var p = [];           //ç”¨æ¥å­˜å‚¨æŠ˜çº¿çš„ç‚¹
+var points=[];     //ç”¨äºå­˜å‚¨æŠ˜çº¿ä»»æ„ä¿®æ”¹åçš„è½¬æŠ˜å¤„çš„å…³é”®ç‚¹
+var axisx=[];     //ç”¨äºå­˜å‚¨æŠ˜çº¿ä»»æ„ä¿®æ”¹åçš„è½¬æŠ˜å¤„çš„å…³é”®ç‚¹çš„ç»åº¦
+var axisy=[];     //ç”¨äºå­˜å‚¨æŠ˜çº¿ä»»æ„ä¿®æ”¹åçš„è½¬æŠ˜å¤„çš„å…³é”®ç‚¹çš„çº¬åº¦
 var polyline;
 var overlays = [];	
 
 
 var overlaycomplete = function(e){
     overlays.push(e.overlay);
-    //alert("j1µÄÖµ"+overlays.length+e.overlay);
-    //alert("j2µÄÖµ"+overlays[overlays.length-1]+(overlays.length-1));
+    //alert("j1çš„å€¼"+overlays.length+e.overlay);
+    //alert("j2çš„å€¼"+overlays[overlays.length-1]+(overlays.length-1));
     overlays[overlays.length-1].enableEditing(); 
     points=overlays[overlays.length-1].getPath();
-    //alert("j3µÄÖµ"+points.length);
+    //alert("j3çš„å€¼"+points.length);
           for(var j=0;j<points.length;j++)
           {
           axisx[j]=points[j].lng;
           axisy[j]=points[j].lat;
           }
-          //alert("ÕÛÏßÉÏµÄµã"+axisx+"ÆäËû×ø±ê"+axisy);
-         /*×ö²âÊÔµÄÊ±ºò£¬²é¿´ÕÛÏßµÄµãÊÇ²»ÊÇ¿ÉÒÔ±£´æÊ±ÓÃµÄ£¬ÏÖÔÚ³ÌĞò²»ĞèÒª*/ 
+          //alert("æŠ˜çº¿ä¸Šçš„ç‚¹"+axisx+"å…¶ä»–åæ ‡"+axisy);
+         /*åšæµ‹è¯•çš„æ—¶å€™ï¼ŒæŸ¥çœ‹æŠ˜çº¿çš„ç‚¹æ˜¯ä¸æ˜¯å¯ä»¥ä¿å­˜æ—¶ç”¨çš„ï¼Œç°åœ¨ç¨‹åºä¸éœ€è¦*/ 
 		/*	$.ajax({
 				type: "post",
 				url: "savepolylinepoints?axisx="+axisx+"&axisy="+axisy+"&randomn="+Math.random(),
@@ -582,38 +581,38 @@ var overlaycomplete = function(e){
 		    	success: function(data){
 		    		$("#points").html(data);
 		    	}});   */
-		    	//Ìí¼ÓÁ¬½Ó±ßµÄÊ±ºòaddEdge.jsp£¬ÉèÖÃ²ÎÊıÎªflag="4"
+		    	//æ·»åŠ è¿æ¥è¾¹çš„æ—¶å€™addEdge.jspï¼Œè®¾ç½®å‚æ•°ä¸ºflag="4"
 		    	opener.setValue(axisx,axisy,flag="4","","");
 		    	window.close();
-		        //points=[];	//½«ÒÔÏÂÈı¸öÊı×éÇå¿Õ£¬ÒÔ·½±ã¼ÇÂ¼ÏÂÒ»¸öÕÛÏßµÄ×ø±ê²¢´¢´æ
+		        //points=[];	//å°†ä»¥ä¸‹ä¸‰ä¸ªæ•°ç»„æ¸…ç©ºï¼Œä»¥æ–¹ä¾¿è®°å½•ä¸‹ä¸€ä¸ªæŠ˜çº¿çš„åæ ‡å¹¶å‚¨å­˜
 		    	//axisx=[];
 		    	//axisy=[];       
     };
-//ÏßµÄÑùÊ½
+//çº¿çš„æ ·å¼
 var styleOptions = {
-        strokeColor:"red",    //±ßÏßÑÕÉ«¡£
-        fillColor:"red",      //Ìî³äÑÕÉ«¡£µ±²ÎÊıÎª¿ÕÊ±£¬Ô²ĞÎ½«Ã»ÓĞÌî³äĞ§¹û¡£
-        strokeWeight: 3,       //±ßÏßµÄ¿í¶È£¬ÒÔÏñËØÎªµ¥Î»¡£
-        strokeOpacity: 0.8,	   //±ßÏßÍ¸Ã÷¶È£¬È¡Öµ·¶Î§0 - 1¡£
-        fillOpacity: 0.6,      //Ìî³äµÄÍ¸Ã÷¶È£¬È¡Öµ·¶Î§0 - 1¡£
-        strokeStyle: 'solid' //±ßÏßµÄÑùÊ½£¬solid»òdashed¡£
+        strokeColor:"red",    //è¾¹çº¿é¢œè‰²ã€‚
+        fillColor:"red",      //å¡«å……é¢œè‰²ã€‚å½“å‚æ•°ä¸ºç©ºæ—¶ï¼Œåœ†å½¢å°†æ²¡æœ‰å¡«å……æ•ˆæœã€‚
+        strokeWeight: 3,       //è¾¹çº¿çš„å®½åº¦ï¼Œä»¥åƒç´ ä¸ºå•ä½ã€‚
+        strokeOpacity: 0.8,	   //è¾¹çº¿é€æ˜åº¦ï¼Œå–å€¼èŒƒå›´0 - 1ã€‚
+        fillOpacity: 0.6,      //å¡«å……çš„é€æ˜åº¦ï¼Œå–å€¼èŒƒå›´0 - 1ã€‚
+        strokeStyle: 'solid' //è¾¹çº¿çš„æ ·å¼ï¼Œsolidæˆ–dashedã€‚
     }
-//ÊµÀı»¯Êó±ê»æÖÆ¹¤¾ß
+//å®ä¾‹åŒ–é¼ æ ‡ç»˜åˆ¶å·¥å…·
     var myDrawingManagerObject = new BMapLib.DrawingManager(map, {
     isOpen: true, 
     drawingMode:BMAP_DRAWING_POLYLINE,
     enableDrawingTool: true,
     enableCalculate: false,
     drawingToolOptions: {
-        anchor: BMAP_ANCHOR_TOP_RIGHT,//Î»ÖÃ
-        offset: new BMap.Size(5, 5), //Æ«ÀëÖµ
-        scale: 0.8       //¹¤¾ßÀ¸Ëõ·Å±ÈÀı
+        anchor: BMAP_ANCHOR_TOP_RIGHT,//ä½ç½®
+        offset: new BMap.Size(5, 5), //åç¦»å€¼
+        scale: 0.8       //å·¥å…·æ ç¼©æ”¾æ¯”ä¾‹
     },
-    polylineOptions: styleOptions //ÏßµÄÑùÊ½
+    polylineOptions: styleOptions //çº¿çš„æ ·å¼
     });
 
    
-    //Ìí¼ÓÊó±ê»æÖÆ¹¤¾ß¼àÌıÊÂ¼ş£¬ÓÃÓÚ»ñÈ¡»æÖÆ½á¹û
+    //æ·»åŠ é¼ æ ‡ç»˜åˆ¶å·¥å…·ç›‘å¬äº‹ä»¶ï¼Œç”¨äºè·å–ç»˜åˆ¶ç»“æœ
     myDrawingManagerObject.addEventListener('overlaycomplete', overlaycomplete);
     //myDrawingManagerObject.addEventListener('polylinecomplete', polylinecomplete);
 </script>

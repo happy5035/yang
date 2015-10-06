@@ -461,6 +461,10 @@ public class DisasterNodeController {
 		return "WebRoot/DisasterNode/detailDisasterNode";
 	}
 	
+	@RequestMapping("/getAllArea")
+	public String getAllArea(ModelMap modelmap){
+		return "WebRoot/areaTree";
+	}
 	
 	@ResponseBody
 	@RequestMapping("/findEmergency")

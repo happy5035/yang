@@ -17,7 +17,7 @@ public class HanderInterceptor implements HandlerInterceptor{
 		// TODO Auto-generated method stub
 		 String url= request.getRequestURI();
 		 String  urlA="http://"+request.getServerName() + ":" +request.getServerPort();
-		 if(url.contains("login") || url.contains("VerifyCode")){
+		 if(url.contains("login") || url.contains("VerifyCode") || url.contains("css") ||url.contains("js")){
 			 return true;
 		 }
 		Users user=(Users)request.getSession().getAttribute("user");
@@ -28,12 +28,16 @@ public class HanderInterceptor implements HandlerInterceptor{
 		  PrintWriter out = response.getWriter();  
           StringBuilder builder = new StringBuilder();  
           builder.append("<script type=\"text/javascript\" charset=\"utf-8\">");  
-          builder.append("alert(\"Page has expired, please login again!\");");  
-          builder.append("window.top.location.href=\"");  
+          builder.append("alert(\" please login again!\");");  
+         /* builder.append("window.top.location.href=\"");   	
           builder.append(urlA);  //这里是http://ip:port/项目名
           builder.append("/lee/login\";</script>");  //这里是重新登录的页面url
+*/         
+          builder.append("window.open('login','_top');");
+          builder.append("</script>");
           out.print(builder.toString());  
           out.close();  
+		response.sendRedirect("login");
 		return false;
 	}
 
