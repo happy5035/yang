@@ -462,7 +462,11 @@ public class DisasterNodeController {
 	}
 	
 	@RequestMapping("/getAllArea")
-	public String getAllArea(ModelMap modelmap){
+	public String getAllArea(ModelMap modelmap,String showinfoFlag,String emerId){
+		if(showinfoFlag != null){
+			showinfoFlag.trim();
+		}
+		modelmap.put("showinfoFlag", showinfoFlag);
 		return "WebRoot/areaTree";
 	}
 	

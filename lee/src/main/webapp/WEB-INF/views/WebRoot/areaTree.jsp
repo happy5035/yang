@@ -1,4 +1,4 @@
-4<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
@@ -190,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         offset: new BMap.Size(10, 25), // 指定定位位置   
                         imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移   
                     });
-         // var myIcon = new BMap.Icon("<%=request.getContextPath()%>/picture/save.png", new BMap.Size(23, 25), {  
+         // var myIcon = new BMap.Icon("/lee/static/picture/save.png", new BMap.Size(23, 25), {  
                       //  offset: new BMap.Size(10, 25), // 指定定位位置   
                     //    imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移   
                    // });
@@ -543,8 +543,12 @@ $.ajax({
         features: ["road","water"],//隐藏地图上的poi
         style : "light"  //设置地图风格为高端黑
     }
-map.setMapStyle(mapStyle);
 		
+		map.setMapStyle(mapStyle);
+		function showInfo1(e){
+			var showinfoFlag = $("#showinfoFlag").val();
+			alert(e.point.lng + ", " +"flag:"+showinfoFlag+"--"+ e.point.lat);
+		}
 		map.addEventListener("click", showInfo);
 		
 		//测量距离的工具
