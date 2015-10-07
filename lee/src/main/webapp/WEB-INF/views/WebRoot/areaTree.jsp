@@ -548,17 +548,17 @@ var styleOptions = {
 	  */
 	  
 	var myIcon ;
-	if(edgeType=='H'){myIcon= new BMap.Icon("picture/truck2.jpg", new BMap.Size(43,30), { 
+	if(edgeType=='H'){myIcon= new BMap.Icon("/lee/static/picture/truck2.jpg", new BMap.Size(43,30), { 
 	//小车图片
      offset: new BMap.Size(100, 100), //相当于CSS精灵
     imageOffset: new BMap.Size(0 , 0 - 10 * 10) //图片的偏移量。为了是图片底部中心对准坐标点。
      });}
-     if(edgeType=='R'){myIcon= new BMap.Icon("picture/r1.jpg", new BMap.Size(43,30), { 
+     if(edgeType=='R'){myIcon= new BMap.Icon("/lee/static/picture/r1.jpg", new BMap.Size(43,30), { 
 	//小车图片
      offset: new BMap.Size(100, 100), //相当于CSS精灵
     imageOffset: new BMap.Size(0 , 0 - 10 * 10) //图片的偏移量。为了是图片底部中心对准坐标点。
      });}
-      if(edgeType=='A'){myIcon= new BMap.Icon("picture/p1.jpg", new BMap.Size(43,30), { 
+      if(edgeType=='A'){myIcon= new BMap.Icon("/lee/static/picture/p1.jpg", new BMap.Size(43,30), { 
 	//小车图片
      offset: new BMap.Size(100, 100), //相当于CSS精灵
     imageOffset: new BMap.Size(0 , 0 - 10 * 10) //图片的偏移量。为了是图片底部中心对准坐标点。
@@ -569,19 +569,19 @@ var styleOptions = {
 	  if(edgeType=='H'){ 
 	  //alert("进来公路--");
 	  sContent ="<h4 style='margin:0 0 10px 0;padding:0.2em 0'>"+"汽车"+"</h4>" + 
-		"<img style='float:right;margin:4px' id='imgDemo' src='picture/truckOigin.jpg' width='119' height='124'/>"+
+		"<img style='float:right;margin:4px' id='imgDemo' src='/lee/static/picture/truckOigin.jpg' width='119' height='124'/>"+
 		"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>速度：</b>80km/h<br><b>装卸货时间：</b><br>2h<br><b>起始节点：</b><br>"+item.fnodename+"<br><b>目标节点：</b><br>"+item.snodename+"<br><b>药品：</b>2t<br>"+"<b>食品：</b>3t"+"</p>" + 
 		"</div>";}
 		if(edgeType=='R'){
 		//alert("进来铁路--");
 		sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+"火车"+"</h4>" + 
-		"<img style='float:right;margin:4px' id='imgDemo' src='picture/trainOigin.jpg' width='119' height='124'/>"+
+		"<img style='float:right;margin:4px' id='imgDemo' src='/lee/static/picture/trainOigin.jpg' width='119' height='124'/>"+
 		"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>速度：</b>60km/h<br><b>装卸货时间：</b><br>5h<br><b>起始节点：</b><br>"+item.fnodename+"<br><b>目标节点：</b><br>"+item.snodename+"<br><b>药品：</b>5t<br>"+"<b>食品：</b>10t<br>"+"<b>纯净水：</b>15t "+"<b>生活用品：</b>10t"+"</p>" + 
 		"</div>";}
 	 if(edgeType=='A'){ 
 	// alert("进来航线速度--");
 	 sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+"飞机"+"</h4>" + 
-		"<img style='float:right;margin:4px' id='imgDemo' src='picture/planeOigin.jpg' width='119' height='124'/>"+
+		"<img style='float:right;margin:4px' id='imgDemo' src='/lee/static/picture/planeOigin.jpg' width='119' height='124'/>"+
 		"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>速度：</b>200km/h<br><b>装卸货时间：</b><br>3h<br><b>起始节点：</b><br>"+item.fnodename+"<br><b>目标节点：</b><br>"+item.snodename+"<br><b>药品：</b>3t<br>"+"<b>食品：</b>2t<br>"+"<b>纯净水：</b>10t "+"</p>" + 
 		"</div>";}
 	  var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象

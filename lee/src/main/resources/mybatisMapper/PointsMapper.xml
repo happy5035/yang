@@ -118,9 +118,22 @@
     </if>
   </select>
   <select id="findByParams" resultMap="BaseResultMap" parameterType="map" >
-    select
-    <include refid="Base_Column_List" />
-    from points
+    select * from points p,edge e  
+    <where>
+    and p.edgeid=e.edgeid 
+     <if test="edgeid != null" >
+      and  p.edgeid = #{edgeid,jdbcType=VARCHAR}
+      </if>
+      <if test="lat != null" >
+      and  p.lat = #{lat,jdbcType=VARCHAR}
+      </if>
+      <if test="lng != null" >
+      and  p.lng = #{lng,jdbcType=VARCHAR}
+      </if>
+      <if test="serialnum != null" >
+      and  p.serialnum = #{serialnum,jdbcType=INTEGER}
+      </if>
+    </where>
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -132,6 +145,21 @@
     </if>
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
-    select count(*) from points
+    select count(*) from points p,edge e where 
+   <where>
+    and p.edgeid=e.edgeid 
+     <if test="edgeid != null" >
+      and  p.edgeid = #{edgeid,jdbcType=VARCHAR}
+      </if>
+      <if test="lat != null" >
+      and  p.lat = #{lat,jdbcType=VARCHAR}
+      </if>
+      <if test="lng != null" >
+      and  p.lng = #{lng,jdbcType=VARCHAR}
+      </if>
+      <if test="serialnum != null" >
+      and  p.serialnum = #{serialnum,jdbcType=INTEGER}
+      </if>
+    </where>
   </select>
 </mapper>
