@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
 <%

@@ -105,6 +105,21 @@
     select
     <include refid="Base_Column_List" />
     from gene
+    <where>
+     <if test="transid != null" >
+       and transid = #{transid,jdbcType=VARCHAR}
+      </if>
+      <if test="schemeid != null" >
+       and schemeid = #{schemeid,jdbcType=VARCHAR}
+      </if>
+      <if test="tasksum != null" >
+       and tasksum = #{tasksum,jdbcType=INTEGER}
+      </if>
+      <if test="note != null" >
+       and note = #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
+   
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -117,5 +132,19 @@
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
     select count(*) from gene
+    <where>
+     <if test="transid != null" >
+       and transid = #{transid,jdbcType=VARCHAR}
+      </if>
+      <if test="schemeid != null" >
+       and schemeid = #{schemeid,jdbcType=VARCHAR}
+      </if>
+      <if test="tasksum != null" >
+       and tasksum = #{tasksum,jdbcType=INTEGER}
+      </if>
+      <if test="note != null" >
+       and note = #{note,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>

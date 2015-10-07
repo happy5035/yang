@@ -24,8 +24,20 @@ public class Edge implements Serializable {
     private String note;
 
     private static final long serialVersionUID = 1L;
+    
+    private Edge edge;
+    
+    
 
-    public String getEdgeid() {
+    public Edge getEdge() {
+		return edge;
+	}
+
+	public void setEdge(Edge edge) {
+		this.edge = edge;
+	}
+
+	public String getEdgeid() {
         return edgeid;
     }
 

@@ -1,6 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,18 +10,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>Ìí¼Ó±ß</title>    
+    <title>æ·»åŠ è¾¹</title>    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
      <script type="text/javascript"> 
 function cbt_local()
 {
 if(document.forms[0].logiccabinetno.value =='')
-{alert("Âß¼­¹ñ±àºÅ²»ÄÜÎª¿Õ");document.forms[0].logiccabinetno.focus(); return false;}
+{alert("é€»è¾‘æŸœç¼–å·ä¸èƒ½ä¸ºç©º");document.forms[0].logiccabinetno.focus(); return false;}
 }
 function cbt_res()
 {
@@ -29,34 +29,34 @@ function cbt_res()
 	return false;
 }
 function OpenWindow(){ 
-	window.open("getAllArea.action?showinfoFlag=2&emerId="+document.getElementById("emerId").value); 	
+	window.open("getAllArea?showinfoFlag=2&emerId="+document.getElementById("emerId").value); 	
 	}	
 	
 function OpenWindow2(){ 
-	window.open("getAllArea.action?showinfoFlag=3&emerId="+document.getElementById("emerId").value); 	
+	window.open("getAllArea?showinfoFlag=3&emerId="+document.getElementById("emerId").value); 	
 	} 
-//×Ó´°¿Ú¹Ø±Õºó£¬·µ»ØÖµµ½´Ë´¦£¬½ø¶øÉèÖÃÆğµã¡¢ÖÕµã	
+//å­çª—å£å…³é—­åï¼Œè¿”å›å€¼åˆ°æ­¤å¤„ï¼Œè¿›è€Œè®¾ç½®èµ·ç‚¹ã€ç»ˆç‚¹	
 function setValue(dnodeId,disastername,flag,lng,lat){ 
-        //Æğµã
+        //èµ·ç‚¹
 	if(flag == "2")
 	   {document.getElementById("origin").value = disastername; 
 	    document.getElementById("originid").value = dnodeId; 
 	    document.getElementById("originLng").value = lng; 
 	    document.getElementById("originLat").value = lat;
 	   }
-	   //ÖÕµã
+	   //ç»ˆç‚¹
 	if(flag == "3")
 	    {document.getElementById("terminal").value = disastername; 
 	     document.getElementById("terminalid").value = dnodeId;
 	     document.getElementById("terminalLng").value = lng; 
 	     document.getElementById("terminalLat").value = lat;
 	    }
-	    //»­ÕÛÏß
+	    //ç”»æŠ˜çº¿
 	if(flag == "4")
 	    {document.getElementById("axisx").value = dnodeId; 
 	     document.getElementById("axisy").value = disastername;
 	    }
-	    //»­ÇúÏß
+	    //ç”»æ›²çº¿
 	if(flag == "5")
 	    {document.getElementById("axisx").value = dnodeId; 
 	     document.getElementById("axisy").value = disastername;
@@ -64,20 +64,20 @@ function setValue(dnodeId,disastername,flag,lng,lat){
 	}  
 		var checkflag = "false";
 function drawline(){
-    window.open("getAllArea.action?emerId="+document.getElementById("emerId").value+"&edgeType="+document.getElementById("edgeType").value); 
+    window.open("getAllArea?emerId="+document.getElementById("emerId").value+"&edgeType="+document.getElementById("edgeType").value); 
 }
 
 function drawline1(){
      window.open("getAllArea.action?showinfoFlag=5&emerId="+document.getElementById("emerId").value+"&originLng="+document.getElementById("originLng").value+"&originLat="+document.getElementById("originLat").value+"&terminalLng="+document.getElementById("terminalLng").value+"&terminalLat="+document.getElementById("terminalLat").value); 
-     //alert("ÑéÖ¤Î³¶È");
-     //alert("ÑéÖ¤"+document.getElementById("axisx").value);
+     //alert("éªŒè¯çº¬åº¦");
+     //alert("éªŒè¯"+document.getElementById("axisx").value);
 }
 
 $(document).ready(function(){          	
 		    $( "#emerTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findEmergency.action?emerTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findEmergency?emerTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -87,21 +87,20 @@ $(document).ready(function(){
      });    
 </script>
 
-     <script type="text/javascript" src="<%=path %>/js/My97DatePicker/WdatePicker.js"></script>  
 
   </head>
   
   <body>
-<form id="EdgeForm" method="post"  name="EdgeForm" action="saveEdge.action">
+<form id="EdgeForm" method="post"  name="EdgeForm" action="saveEdge">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">Á¬½Ó±ß¹ÜÀí&gt;&gt;Ìí¼ÓÁ¬½Ó±ß</td>
+					<td width="100%" class="f3">è¿æ¥è¾¹ç®¡ç†&gt;&gt;æ·»åŠ è¿æ¥è¾¹</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -114,49 +113,49 @@ $(document).ready(function(){
 		<td align="center" class="tr4"> 
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">
 			<tr class="tr2">
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼şÀàĞÍ:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶ç±»å‹:</td>
 					<td>
 					<select id="emerTypeName" name="emerTypeName">
-						<c:forEach var="item" items="${emerTypeName}">
+						<c:forEach var="item" items="${emertypename}">
 							<option value="${item}">${item}</option>
 						</c:forEach>
 					</select>
 					</td>
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼ş:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶:</td>
 					<td>
 					<select id="emerId" name="emerId">
 						<c:forEach var="item" items="${emergencylist}">
-							<option value="${item.emerId}">${item.emerName}</option>
+							<option value="${item.emerid}">${item.emername}</option>
 						</c:forEach>
 					</select>
                     </td>				
 			</tr>
 			<tr class="tr2">
-				<td  class="tr1" align="right">Æğµã:</td>
+				<td  class="tr1" align="right">èµ·ç‚¹:</td>
 				<td><input type="text" id="origin" onclick="OpenWindow()" name="origin" ></td>
-				<td  class="tr1" align="right">ÖÕµã:</td>
+				<td  class="tr1" align="right">ç»ˆç‚¹:</td>
 				<td><input type="text" id="terminal" onclick="OpenWindow2()"  name="terminal" ></td>
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right" >*±ßÃû³Æ:</td>
-					<td><input type="text" name="edgeName" ></td>	
-					<td  class="tr1" align="right" >*±ß±àÂë:</td>
-					<td><input type="text" name="edgeNo" ></td>				
+					<td  class="tr1" align="right" >*è¾¹åç§°:</td>
+					<td><input type="text" name="edgename" ></td>	
+					<td  class="tr1" align="right" >*è¾¹ç¼–ç :</td>
+					<td><input type="text" name="edgeno" ></td>				
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*±ßµÄÀàĞÍ:</td>
-					<td><input type="radio" name="edgeType" id="edgeType" value="H">¹«Â· <input type="radio" name="edgeType" id="edgeType" value="R">ÌúÂ·<input type="radio" name="edgeType" id="edgeType" value="A">º½¿Õ</td>
-					<td  class="tr1" align="right">*³¤¶È:</td>
+					<td  class="tr1" align="right">*è¾¹çš„ç±»å‹:</td>
+					<td><input type="radio" name="edgetype" id="edgeType" value="H">å…¬è·¯ <input type="radio" name="edgetype" id="edgeType" value="R">é“è·¯<input type="radio" name="edgetype" id="edgeType" value="A">èˆªç©º</td>
+					<td  class="tr1" align="right">*é•¿åº¦:</td>
 					<td><input type="text" name="length" ></td>				
 				</tr>
 			<tr class="tr10">
     	  			<td align="center" colspan="4">
     	  				 &nbsp;&nbsp;
-    	  				 <input type=button value="²é¿´ÇúÏß" onclick="drawline1()">
-    	  				 <input type=button value="È¥»­ÕÛÏß" onclick="drawline()">
-    	  				 <input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
-                         <input type="image" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">
-	   					<a href="javascript:history.back(-1);"><img border="0" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_back.gif"/></a> 
+    	  				 <input type=button value="æŸ¥çœ‹æ›²çº¿" onclick="drawline1()">
+    	  				 <input type=button value="å»ç”»æŠ˜çº¿" onclick="drawline()">
+    	  				 <input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
+                         <input type="image" src="/lee/static/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">
+	   					<a href="javascript:history.back(-1);"><img border="0" src="/lee/static/images/pub/lzoa_pub_back.gif"/></a> 
 	  				</td>
   			</tr>
 			</table>
@@ -165,10 +164,10 @@ $(document).ready(function(){
 </table>
 <input type="hidden" id="originid" name="originid">
 <input type="hidden" id="terminalid"  name="terminalid" >
-<input type="hidden" id="originLng" name="originLng">
-<input type="hidden" id="originLat"  name="originLat" >
-<input type="hidden" id="terminalLng" name="terminalLng">
-<input type="hidden" id="terminalLat"  name="terminalLat" >
+<input type="hidden" id="originLng" name="originlng">
+<input type="hidden" id="originLat"  name="originlat" >
+<input type="hidden" id="terminalLng" name="terminallng">
+<input type="hidden" id="terminalLat"  name="terminallat" >
 <input type="hidden" id="axisx"  name="axisx" >
 <input type="hidden" id="axisy"  name="axisy" >
 </form> 

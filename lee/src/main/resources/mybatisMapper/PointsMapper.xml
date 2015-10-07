@@ -7,6 +7,17 @@
     <result column="lat" property="lat" jdbcType="VARCHAR" />
     <result column="lng" property="lng" jdbcType="VARCHAR" />
     <result column="serialnum" property="serialnum" jdbcType="INTEGER" />
+    <association property="edge" javaType="com.yuan.lee.entity.Edge">
+	    <id column="edgeid" property="edgeid" jdbcType="VARCHAR" />
+	    <result column="secondnodeid" property="secondnodeid" jdbcType="VARCHAR" />
+	    <result column="firstnodeid" property="firstnodeid" jdbcType="VARCHAR" />
+	    <result column="edgeno" property="edgeno" jdbcType="VARCHAR" />
+	    <result column="edgename" property="edgename" jdbcType="VARCHAR" />
+	    <result column="edgetype" property="edgetype" jdbcType="VARCHAR" />
+	    <result column="edgetypet" property="edgetypet" jdbcType="VARCHAR" />
+	    <result column="length" property="length" jdbcType="VARCHAR" />
+	    <result column="note" property="note" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
     pointsid, edgeid, lat, lng, serialnum
@@ -16,6 +27,11 @@
     <include refid="Base_Column_List" />
     from points
     where pointsid = #{pointsid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByEdgeId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  select * from points po,edge e where po.edgeid=#{edgeid,jdbcType=VARCHAR} 
+  and e.edgeid=po.edgeid 
+  order by po.serialnum
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from points

@@ -70,6 +70,6 @@ public class ConnectEdgeController {
 			modelmap.put("emergencylist", listStrng);
 		}
 		modelmap.put("emertypename", emertypenames);
-		return "WebRoot/Edge/searchDisaster";
+		return "WebRoot/Edge/addEdge";
 	}
 }

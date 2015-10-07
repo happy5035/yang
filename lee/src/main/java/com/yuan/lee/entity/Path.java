@@ -23,7 +23,17 @@ public class Path implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getPathid() {
+    private Edge edge;
+    
+    public Edge getEdge() {
+		return edge;
+	}
+
+	public void setEdge(Edge edge) {
+		this.edge = edge;
+	}
+
+	public String getPathid() {
         return pathid;
     }
 

@@ -176,6 +176,38 @@
     select
     <include refid="Base_Column_List" />
     from task
+    <where>
+    <if test="geneid != null" >
+       and geneid = #{geneid,jdbcType=VARCHAR}
+      </if>
+      <if test="taskserialnum != null" >
+      and  taskserialnum = #{taskserialnum,jdbcType=INTEGER}
+      </if>
+      <if test="firstnodeid != null" >
+       and firstnodeid = #{firstnodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="secondnodeid != null" >
+       and secondnodeid = #{secondnodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="starttime != null" >
+      and  starttime = #{starttime,jdbcType=DATE}
+      </if>
+      <if test="endtime != null" >
+       and endtime = #{endtime,jdbcType=DATE}
+      </if>
+      <if test="standardornot != null" >
+       and standardornot = #{standardornot,jdbcType=VARCHAR}
+      </if>
+      <if test="realcollocationid != null" >
+      and  realcollocationid = #{realcollocationid,jdbcType=VARCHAR}
+      </if>
+      <if test="scollocationplanid != null" >
+       and scollocationplanid = #{scollocationplanid,jdbcType=VARCHAR}
+      </if>
+      <if test="pathsum != null" >
+       and pathsum = #{pathsum,jdbcType=INTEGER}
+      </if>
+    </where>
     <if test="sortName != null" >
       order by ${sortName}
       <if test="sortOrder != null" >
@@ -188,5 +220,37 @@
   </select>
   <select id="findByParamsCount" resultType="int" parameterType="map" >
     select count(*) from task
+    <where>
+    <if test="geneid != null" >
+       and geneid = #{geneid,jdbcType=VARCHAR}
+      </if>
+      <if test="taskserialnum != null" >
+      and  taskserialnum = #{taskserialnum,jdbcType=INTEGER}
+      </if>
+      <if test="firstnodeid != null" >
+       and firstnodeid = #{firstnodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="secondnodeid != null" >
+       and secondnodeid = #{secondnodeid,jdbcType=VARCHAR}
+      </if>
+      <if test="starttime != null" >
+      and  starttime = #{starttime,jdbcType=DATE}
+      </if>
+      <if test="endtime != null" >
+       and endtime = #{endtime,jdbcType=DATE}
+      </if>
+      <if test="standardornot != null" >
+       and standardornot = #{standardornot,jdbcType=VARCHAR}
+      </if>
+      <if test="realcollocationid != null" >
+      and  realcollocationid = #{realcollocationid,jdbcType=VARCHAR}
+      </if>
+      <if test="scollocationplanid != null" >
+       and scollocationplanid = #{scollocationplanid,jdbcType=VARCHAR}
+      </if>
+      <if test="pathsum != null" >
+       and pathsum = #{pathsum,jdbcType=INTEGER}
+      </if>
+    </where>
   </select>
 </mapper>

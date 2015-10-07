@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--加载鼠标绘制工具-->
 <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
 <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
-	<SCRIPT type="text/javascript">
+	<script type="text/javascript">
 		//zTree设置
 		var disastername;
 		var dnodeId;
@@ -231,160 +231,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  map.addOverlay(marker);//将标注添加到地图		 
 		}
 		
-		//在地图上添加边
-		function addEdge(item){
-		//alert("进来显示边");
-		//alert("进来显示边1"+item.axisx);
-		  //将传递回来的纬度、经度重新放到数组中
-		  var lngs=item.axisx.split(",");
-		  var lats=item.axisy.split(",");
-		   var edgeType = item.edgeType;//显示边类型--by 杨丽
-		  //alert("进来显示边2"+item.axisx);
-		 // alert("进来显示边类型1"+item.edgeType);
-		  var points=[];	  
-		  for(var j=0;j<lngs.length;j++)
-		  {
-		     points[j] = new BMap.Point(lngs[j],lats[j]);//创建点
-		     //var marker = new BMap.Marker(points[j]);//创建标注
-		     //map.addOverlay(marker);  //将折线添加到地图
-		     
-		  }	
-		 
-		  
-		  var polyline;	  
-		  /*if(lngs.length<100){polyline = new BMap.Polyline(points,{strokeColor:"red", strokeWeight:2, strokeOpacity:1});}
-		  else polyline = new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:1});*/
-		  //var edge=[points[0],points[1],points[2],points[3]];
-		  // alert("进来显示边类型2"+item.edgeType);
-		  if(edgeType == 'H'){polyline = new BMap.Polyline(points,{strokeColor:"GREEN", strokeWeight:1.7, strokeOpacity:1});}
-		else  if(edgeType == 'R'){polyline = new BMap.Polyline(points,{strokeColor:"#cc00ff", strokeWeight:1.7, strokeOpacity:1});}
-		else  if(edgeType == 'A'){polyline = new BMap.Polyline(points,{strokeColor:"#3366FF", strokeWeight:1.7, strokeOpacity:1});}
-		   // else  polyline = new BMap.Polyline(points,{strokeColor:"green", strokeWeight:2, strokeOpacity:1});
-		 //  alert("进来显示边类型3"+item.edgeType);
-		
-		  //不同类型的边显示不同的颜色--by 杨丽
-		  map.addOverlay(polyline);  //将折线添加到地图
-		  //alert("进来显示边4"+points);		 
-		}
-		
-		//单车动态演示		
-function onetrsport(){
-
-     $.ajax({
-				type: "post",
-				url: "one_Trsportation?"+"&randomn="+Math.random(),
-				async: true,
-				success: function(data){
-				   $.each(data,function(idx,item){   				   
-					    cartoonStart(item);//开始动画
-					})					
-				}			
-			});
-}
-
-//在地图上显示单个车辆的动态运行
-		function cartoonStart(item){
-		//alert("进来cartoonStart"+item.axisx);
-		//alert("进来cartoonStart"+item.axisy);
-		//alert("进来cartoonStart--edgeType"+item.edgeType); 
-		  //将传递回来的纬度、经度重新放到数组中
-		  var lng=item.axisx.substring(0,item.axisx.length-1).split(",");
-		  var lat=item.axisy.substring(0,item.axisy.length-1).split(",");
-		 // alert("进来cartoonStart--edgeType11"); 
-		var edgeType=item.edgeType.substring(0,item.edgeType.length-1).split(",");
-			var fnodename=item.fnodename.substring(0,item.fnodename.length-1).split(",");
-			var snodename=item.snodename.substring(0,item.snodename.length-1).split(",");
-		    //alert("进来cartoonStart--edgeType22"); 
-		  //显示边类型--by 杨丽
-		  //alert("进来cartoonStart--edgeType"+edgeType); 
-		  //var lng=item.axisx.split(",");
-		  //var lat=item.axisy.split(",");
-		  var point=[];	
-		 // alert("进来cartoonStart"+lng);  
-		  for(var j=0;j<lng.length;j++)
-		  {
-		     point[j] = new BMap.Point(lat[j],lng[j]);//创建点
-	
-		     
-		  }		  
-		 /* var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {  
-                        offset: new BMap.Size(2, 10), // 指定定位位置   
-                        imageOffset: new BMap.Size(0, 0 - 10 * 10) // 设置图片偏移   
-                    });
-		  */
-		  
-		var myIcon ;
-		if(edgeType=='H'){myIcon= new BMap.Icon("picture/truck2.jpg", new BMap.Size(43,30), { 
-		//小车图片
-         offset: new BMap.Size(100, 100), //相当于CSS精灵
-        imageOffset: new BMap.Size(0 , 0 - 10 * 10) //图片的偏移量。为了是图片底部中心对准坐标点。
-         });}
-         if(edgeType=='R'){myIcon= new BMap.Icon("picture/r1.jpg", new BMap.Size(43,30), { 
-		//小车图片
-         offset: new BMap.Size(100, 100), //相当于CSS精灵
-        imageOffset: new BMap.Size(0 , 0 - 10 * 10) //图片的偏移量。为了是图片底部中心对准坐标点。
-         });}
-          if(edgeType=='A'){myIcon= new BMap.Icon("picture/p1.jpg", new BMap.Size(43,30), { 
-		//小车图片
-         offset: new BMap.Size(100, 100), //相当于CSS精灵
-        imageOffset: new BMap.Size(0 , 0 - 10 * 10) //图片的偏移量。为了是图片底部中心对准坐标点。
-         });}
-		//实现定时车辆演示
-		var carMk = new BMap.Marker(point[0],{icon:myIcon});
-		var sContent;
-		  if(edgeType=='H'){ 
-		  //alert("进来公路--");
-		  sContent ="<h4 style='margin:0 0 10px 0;padding:0.2em 0'>"+"汽车"+"</h4>" + 
-			"<img style='float:right;margin:4px' id='imgDemo' src='picture/truckOigin.jpg' width='119' height='124'/>"+
-			"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>速度：</b>80km/h<br><b>装卸货时间：</b><br>2h<br><b>起始节点：</b><br>"+item.fnodename+"<br><b>目标节点：</b><br>"+item.snodename+"<br><b>药品：</b>2t<br>"+"<b>食品：</b>3t"+"</p>" + 
-			"</div>";}
-			if(edgeType=='R'){
-			//alert("进来铁路--");
-			sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+"火车"+"</h4>" + 
-			"<img style='float:right;margin:4px' id='imgDemo' src='picture/trainOigin.jpg' width='119' height='124'/>"+
-			"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>速度：</b>60km/h<br><b>装卸货时间：</b><br>5h<br><b>起始节点：</b><br>"+item.fnodename+"<br><b>目标节点：</b><br>"+item.snodename+"<br><b>药品：</b>5t<br>"+"<b>食品：</b>10t<br>"+"<b>纯净水：</b>15t "+"<b>生活用品：</b>10t"+"</p>" + 
-			"</div>";}
-		 if(edgeType=='A'){ 
-		// alert("进来航线速度--");
-		 sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+"飞机"+"</h4>" + 
-			"<img style='float:right;margin:4px' id='imgDemo' src='picture/planeOigin.jpg' width='119' height='124'/>"+
-			"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>速度：</b>200km/h<br><b>装卸货时间：</b><br>3h<br><b>起始节点：</b><br>"+item.fnodename+"<br><b>目标节点：</b><br>"+item.snodename+"<br><b>药品：</b>3t<br>"+"<b>食品：</b>2t<br>"+"<b>纯净水：</b>10t "+"</p>" + 
-			"</div>";}
-		  var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-		 
-		// var marker = new BMap.Marker( point[j]);
-		carMk.addEventListener("click", function(){ // 添加事件监听函数     
-		   this.openInfoWindow(infoWindow);//打开信息窗口
-		   //图片加载完毕重绘infowindow
-		  document.getElementById('imgDemo').onload = function (){
-		   infoWindow.redraw();
-			  }
-		  
-		   
-		   });
-		
-			 
-		
-		//alert("进来cartoonStart，图片定位");
-        map.addOverlay(carMk); 
-        //alert("进来cartoonStart，图片定位"+point[0].lng);             
-        var len =point.length;
-       resetMkPoint(1,len,point,carMk)
-
-    
-    function resetMkPoint(i,len,point,carMk){       
-        carMk.setPosition(point[i]);
-        //alert("进来resetMkPoint，经度"+points[i].lng+"纬度"+points[i].lat);
-        if(i < len){
-            setTimeout(function(){
-                i++;
-                resetMkPoint(i,len,point,carMk);
-            },100);
-        }
-    }
-    
-    
-}	
+			
 		
 		//单个调度方案
 		function oneScheme(){
@@ -415,7 +262,7 @@ $.ajax({
 		    	axisy=[];   
 
 }*/		
-	</SCRIPT>
+	</script>
 	
 	
   </head>
@@ -476,7 +323,7 @@ $.ajax({
 			if(showinfoFlag == "1"){
 				if(confirm("该坐标为"+e.point.lng+ ", " + e.point.lat+"。是否将灾害点添加至此？")){
 					opener.setValue(e.point.lng, e.point.lat); 
-					window.close(); 				
+					 window.close(); 	 		
 				}
 			}
 			//返回到该页面被调用的地方addEdge.jsp，并返回flag="2"
@@ -559,33 +406,38 @@ var overlays = [];
 
 
 var overlaycomplete = function(e){
-    overlays.push(e.overlay);
-    //alert("j1的值"+overlays.length+e.overlay);
-    //alert("j2的值"+overlays[overlays.length-1]+(overlays.length-1));
-    overlays[overlays.length-1].enableEditing(); 
-    points=overlays[overlays.length-1].getPath();
-    //alert("j3的值"+points.length);
-          for(var j=0;j<points.length;j++)
-          {
-          axisx[j]=points[j].lng;
-          axisy[j]=points[j].lat;
-          }
-          //alert("折线上的点"+axisx+"其他坐标"+axisy);
-         /*做测试的时候，查看折线的点是不是可以保存时用的，现在程序不需要*/ 
-		/*	$.ajax({
-				type: "post",
-				url: "savepolylinepoints?axisx="+axisx+"&axisy="+axisy+"&randomn="+Math.random(),
-				cache: false,
-		    	async: false,
-		    	success: function(data){
-		    		$("#points").html(data);
-		    	}});   */
-		    	//添加连接边的时候addEdge.jsp，设置参数为flag="4"
-		    	opener.setValue(axisx,axisy,flag="4","","");
-		    	window.close();
-		        //points=[];	//将以下三个数组清空，以方便记录下一个折线的坐标并储存
-		    	//axisx=[];
-		    	//axisy=[];       
+	var showinfoFlag = $("#showinfoFlag").val();
+	if(showinfoFlag != "4" && showinfoFlag !="1"){
+		console.log("test overlay");
+	    overlays.push(e.overlay);
+	    //alert("j1的值"+overlays.length+e.overlay);
+	    //alert("j2的值"+overlays[overlays.length-1]+(overlays.length-1));
+	    overlays[overlays.length-1].enableEditing(); 
+	    points=overlays[overlays.length-1].getPath();
+	    //alert("j3的值"+points.length);
+	          for(var j=0;j<points.length;j++)
+	          {
+	          axisx[j]=points[j].lng;
+	          axisy[j]=points[j].lat;
+	          }
+	          //alert("折线上的点"+axisx+"其他坐标"+axisy);
+	         /*做测试的时候，查看折线的点是不是可以保存时用的，现在程序不需要*/ 
+			/*	$.ajax({
+					type: "post",
+					url: "savepolylinepoints?axisx="+axisx+"&axisy="+axisy+"&randomn="+Math.random(),
+					cache: false,
+			    	async: false,
+			    	success: function(data){
+			    		$("#points").html(data);
+			    	}});   */
+			    	//添加连接边的时候addEdge.jsp，设置参数为flag="4"
+			    	opener.setValue(axisx,axisy,flag="4","","");
+			    	window.close();
+			        //points=[];	//将以下三个数组清空，以方便记录下一个折线的坐标并储存
+			    	//axisx=[];
+			    	//axisy=[];  
+	}
+	     
     };
 //线的样式
 var styleOptions = {
@@ -598,8 +450,8 @@ var styleOptions = {
     }
 //实例化鼠标绘制工具
     var myDrawingManagerObject = new BMapLib.DrawingManager(map, {
-    isOpen: false, 
-    drawingMode:BMAP_DRAWING_POLYLINE,
+    isOpen: true, 
+    drawingMode:BMAP_DRAWING_MARKER ,
     enableDrawingTool: true,
     enableCalculate: false,
     drawingToolOptions: {
@@ -614,6 +466,159 @@ var styleOptions = {
     //添加鼠标绘制工具监听事件，用于获取绘制结果
     myDrawingManagerObject.addEventListener('overlaycomplete', overlaycomplete);
     //myDrawingManagerObject.addEventListener('polylinecomplete', polylinecomplete);
+    function onetrsport(){
+	console.log("Test onetrsport");
+     $.ajax({
+				type: "post",
+				url: "one_Trsportation?"+"&randomn="+Math.random(),
+				async: true,
+				success: function(data){
+				   $.each(data,function(idx,item){   				   
+					    cartoonStart(item);//开始动画
+					})					
+				}			
+			});
+}
+  //在地图上添加边
+	function addEdge(item){
+	//alert("进来显示边");
+	//alert("进来显示边1"+item.axisx);
+	  //将传递回来的纬度、经度重新放到数组中
+	  var lngs=item.axisx.split(",");
+	  var lats=item.axisy.split(",");
+	   var edgeType = item.edgeType;//显示边类型--by 杨丽
+	  //alert("进来显示边2"+item.axisx);
+	 // alert("进来显示边类型1"+item.edgeType);
+	  var points=[];	  
+	  for(var j=0;j<lngs.length;j++)
+	  {
+	     points[j] = new BMap.Point(lngs[j],lats[j]);//创建点
+	     //var marker = new BMap.Marker(points[j]);//创建标注
+	     //map.addOverlay(marker);  //将折线添加到地图
+	     
+	  }	
+	 
+	  
+	  var polyline;	  
+	  /*if(lngs.length<100){polyline = new BMap.Polyline(points,{strokeColor:"red", strokeWeight:2, strokeOpacity:1});}
+	  else polyline = new BMap.Polyline(points,{strokeColor:"blue", strokeWeight:2, strokeOpacity:1});*/
+	  //var edge=[points[0],points[1],points[2],points[3]];
+	  // alert("进来显示边类型2"+item.edgeType);
+	  if(edgeType == 'H'){polyline = new BMap.Polyline(points,{strokeColor:"GREEN", strokeWeight:1.7, strokeOpacity:1});}
+	else  if(edgeType == 'R'){polyline = new BMap.Polyline(points,{strokeColor:"#cc00ff", strokeWeight:1.7, strokeOpacity:1});}
+	else  if(edgeType == 'A'){polyline = new BMap.Polyline(points,{strokeColor:"#3366FF", strokeWeight:1.7, strokeOpacity:1});}
+	   // else  polyline = new BMap.Polyline(points,{strokeColor:"green", strokeWeight:2, strokeOpacity:1});
+	 //  alert("进来显示边类型3"+item.edgeType);
+	
+	  //不同类型的边显示不同的颜色--by 杨丽
+	  map.addOverlay(polyline);  //将折线添加到地图
+	  //alert("进来显示边4"+points);		 
+	}
+	
+	//单车动态演示		
+
+
+//在地图上显示单个车辆的动态运行
+	function cartoonStart(item){
+	//alert("进来cartoonStart"+item.axisx);
+	//alert("进来cartoonStart"+item.axisy);
+	//alert("进来cartoonStart--edgeType"+item.edgeType); 
+	  //将传递回来的纬度、经度重新放到数组中
+	  var lng=item.axisx.substring(0,item.axisx.length-1).split(",");
+	  var lat=item.axisy.substring(0,item.axisy.length-1).split(",");
+	 // alert("进来cartoonStart--edgeType11"); 
+		var edgeType=item.edgeType.substring(0,item.edgeType.length-1).split(",");
+		var fnodename=item.fnodename.substring(0,item.fnodename.length-1).split(",");
+		var snodename=item.snodename.substring(0,item.snodename.length-1).split(",");
+	    //alert("进来cartoonStart--edgeType22"); 
+	  //显示边类型--by 杨丽
+	  //alert("进来cartoonStart--edgeType"+edgeType); 
+	  //var lng=item.axisx.split(",");
+	  //var lat=item.axisy.split(",");
+	 	 var point=[];	
+	 // alert("进来cartoonStart"+lng);  
+	  for(var j=0;j<lng.length;j++)
+	  {
+	     point[j] = new BMap.Point(lat[j],lng[j]);//创建点
+	  }		  
+	 /* var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {  
+                    offset: new BMap.Size(2, 10), // 指定定位位置   
+                    imageOffset: new BMap.Size(0, 0 - 10 * 10) // 设置图片偏移   
+                });
+	  */
+	  
+	var myIcon ;
+	if(edgeType=='H'){myIcon= new BMap.Icon("picture/truck2.jpg", new BMap.Size(43,30), { 
+	//小车图片
+     offset: new BMap.Size(100, 100), //相当于CSS精灵
+    imageOffset: new BMap.Size(0 , 0 - 10 * 10) //图片的偏移量。为了是图片底部中心对准坐标点。
+     });}
+     if(edgeType=='R'){myIcon= new BMap.Icon("picture/r1.jpg", new BMap.Size(43,30), { 
+	//小车图片
+     offset: new BMap.Size(100, 100), //相当于CSS精灵
+    imageOffset: new BMap.Size(0 , 0 - 10 * 10) //图片的偏移量。为了是图片底部中心对准坐标点。
+     });}
+      if(edgeType=='A'){myIcon= new BMap.Icon("picture/p1.jpg", new BMap.Size(43,30), { 
+	//小车图片
+     offset: new BMap.Size(100, 100), //相当于CSS精灵
+    imageOffset: new BMap.Size(0 , 0 - 10 * 10) //图片的偏移量。为了是图片底部中心对准坐标点。
+     });}
+	//实现定时车辆演示
+	var carMk = new BMap.Marker(point[0],{icon:myIcon});
+	var sContent;
+	  if(edgeType=='H'){ 
+	  //alert("进来公路--");
+	  sContent ="<h4 style='margin:0 0 10px 0;padding:0.2em 0'>"+"汽车"+"</h4>" + 
+		"<img style='float:right;margin:4px' id='imgDemo' src='picture/truckOigin.jpg' width='119' height='124'/>"+
+		"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>速度：</b>80km/h<br><b>装卸货时间：</b><br>2h<br><b>起始节点：</b><br>"+item.fnodename+"<br><b>目标节点：</b><br>"+item.snodename+"<br><b>药品：</b>2t<br>"+"<b>食品：</b>3t"+"</p>" + 
+		"</div>";}
+		if(edgeType=='R'){
+		//alert("进来铁路--");
+		sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+"火车"+"</h4>" + 
+		"<img style='float:right;margin:4px' id='imgDemo' src='picture/trainOigin.jpg' width='119' height='124'/>"+
+		"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>速度：</b>60km/h<br><b>装卸货时间：</b><br>5h<br><b>起始节点：</b><br>"+item.fnodename+"<br><b>目标节点：</b><br>"+item.snodename+"<br><b>药品：</b>5t<br>"+"<b>食品：</b>10t<br>"+"<b>纯净水：</b>15t "+"<b>生活用品：</b>10t"+"</p>" + 
+		"</div>";}
+	 if(edgeType=='A'){ 
+	// alert("进来航线速度--");
+	 sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+"飞机"+"</h4>" + 
+		"<img style='float:right;margin:4px' id='imgDemo' src='picture/planeOigin.jpg' width='119' height='124'/>"+
+		"<p style='margin:0;line-height:1.5;font-size:5px;text-indent:0em'>"+"<b>速度：</b>200km/h<br><b>装卸货时间：</b><br>3h<br><b>起始节点：</b><br>"+item.fnodename+"<br><b>目标节点：</b><br>"+item.snodename+"<br><b>药品：</b>3t<br>"+"<b>食品：</b>2t<br>"+"<b>纯净水：</b>10t "+"</p>" + 
+		"</div>";}
+	  var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+	 
+	// var marker = new BMap.Marker( point[j]);
+	carMk.addEventListener("click", function(){ // 添加事件监听函数     
+	   this.openInfoWindow(infoWindow);//打开信息窗口
+	   //图片加载完毕重绘infowindow
+	  document.getElementById('imgDemo').onload = function (){
+	   infoWindow.redraw();
+		  }
+	  
+	   
+	   });
+	
+		 
+	
+	//alert("进来cartoonStart，图片定位");
+    map.addOverlay(carMk); 
+    //alert("进来cartoonStart，图片定位"+point[0].lng);             
+    var len =point.length;
+   resetMkPoint(1,len,point,carMk)
+
+
+function resetMkPoint(i,len,point,carMk){       
+    carMk.setPosition(point[i]);
+    //alert("进来resetMkPoint，经度"+points[i].lng+"纬度"+points[i].lat);
+    if(i < len){
+        setTimeout(function(){
+            i++;
+            resetMkPoint(i,len,point,carMk);
+        },100);
+    }
+}
+
+
+}
 </script>
 </html>
 
