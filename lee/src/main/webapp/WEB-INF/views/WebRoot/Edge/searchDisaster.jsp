@@ -1,6 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,18 +10,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>²é¿´ÔÖº¦ÊÂ¼şÇé¿ö</title>    
+    <title>æŸ¥çœ‹ç¾å®³äº‹ä»¶æƒ…å†µ</title>    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
      <script type="text/javascript"> 
 function cbt_local()
 {
 if(document.forms[0].logiccabinetno.value =='')
-{alert("Âß¼­¹ñ±àºÅ²»ÄÜÎª¿Õ");document.forms[0].logiccabinetno.focus(); return false;}
+{alert("é€»è¾‘æŸœç¼–å·ä¸èƒ½ä¸ºç©º");document.forms[0].logiccabinetno.focus(); return false;}
 }
 function cbt_res()
 {
@@ -34,16 +34,16 @@ function cbt_res()
 
 
 function drawline1(){
-     window.open("getAllArea.action?showinfoFlag=5&emerId="+document.getElementById("emerId").value+"&originLng="+document.getElementById("originLng").value+"&originLat="+document.getElementById("originLat").value+"&terminalLng="+document.getElementById("terminalLng").value+"&terminalLat="+document.getElementById("terminalLat").value); 
-   /*  alert("ÑéÖ¤Î³¶È");
-     alert("ÑéÖ¤"+document.getElementById("axisx").value);*/
+     window.open("getAllArea?showinfoFlag=5&emerId="+document.getElementById("emerId").value+"&originLng="+document.getElementById("originLng").value+"&originLat="+document.getElementById("originLat").value+"&terminalLng="+document.getElementById("terminalLng").value+"&terminalLat="+document.getElementById("terminalLat").value); 
+   /*  alert("éªŒè¯çº¬åº¦");
+     alert("éªŒè¯"+document.getElementById("axisx").value);*/
 }
 
 $(document).ready(function(){          	
 		    $( "#emerTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findEmergency.action?emerTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findEmergency?emerTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -64,10 +64,10 @@ $(document).ready(function(){
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">µ÷¶È·½°¸ĞÅÏ¢&gt;&gt;²é¿´ÔÖº¦Çé¿ö</td>
+					<td width="100%" class="f3">è°ƒåº¦æ–¹æ¡ˆä¿¡æ¯&gt;&gt;æŸ¥çœ‹ç¾å®³æƒ…å†µ</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -80,19 +80,19 @@ $(document).ready(function(){
 		<td align="center" class="tr4"> 
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">
 			<tr class="tr2">
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼şÀàĞÍ:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶ç±»å‹:</td>
 					<td>
-					<select id="emerTypeName" name="emerTypeName">
-						<c:forEach var="item" items="${emerTypeName}">
+					<select id="emerTypeName" name="emertypename">
+						<c:forEach var="item" items="${emertypename}">
 							<option value="${item}">${item}</option>
 						</c:forEach>
 					</select>
 					</td>
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼ş:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶:</td>
 					<td>
-					<select id="emerId" name="emerId">
+					<select id="emerId" name="emerid">
 						<c:forEach var="item" items="${emergencylist}">
-							<option value="${item.emerId}">${item.emerName}</option>
+							<option value="${item.emerid}">${item.emername}</option>
 						</c:forEach>
 					</select>
                     </td>				
@@ -101,7 +101,7 @@ $(document).ready(function(){
 			<tr class="tr10">
     	  			<td align="center" colspan="4">
     	  				 &nbsp;&nbsp;
-    	  				 <input type=button value="È¥²é¿´" onclick="drawline1()">
+    	  				 <input type=button value="å»æŸ¥çœ‹" onclick="drawline1()">
     	  				
     	  				
 	  				</td>
@@ -112,10 +112,10 @@ $(document).ready(function(){
 </table>
 <input type="hidden" id="originid" name="originid">
 <input type="hidden" id="terminalid"  name="terminalid" >
-<input type="hidden" id="originLng" name="originLng">
+<input type="hidden" id="originLng" name="originlng">
 <input type="hidden" id="originLat"  name="originLat" >
-<input type="hidden" id="terminalLng" name="terminalLng">
-<input type="hidden" id="terminalLat"  name="terminalLat" >
+<input type="hidden" id="terminalLng" name="terminallng">
+<input type="hidden" id="terminalLat"  name="terminallat" >
 <input type="hidden" id="axisx"  name="axisx" >
 <input type="hidden" id="axisy"  name="axisy" >
 </form> 

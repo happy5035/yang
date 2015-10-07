@@ -267,80 +267,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  //alert("进来显示边4"+points);		 
 		}
 		
-		
-		function showInfo(e){
-			var showinfoFlag = $("#showinfoFlag").val();
-			if(showinfoFlag == "1"){
-				if(confirm("该坐标为"+e.point.lng+ ", " + e.point.lat+"。是否将灾害点添加至此？")){
-					opener.setValue(e.point.lng, e.point.lat); 
-					window.close(); 				
-				}
-			}
-			//返回到该页面被调用的地方addEdge.jsp，并返回flag="2"
-            if(showinfoFlag == "2"){
-				if(confirm("您选择的起点是'"+nodename+"'。是否将此处设置为线路起点？")){
-					opener.setValue(nodeId,nodename,flag="2",e.point.lng,e.point.lat); 
-					window.close(); 				
-				}
-			}
-			//返回到该页面被调用的地方addEdge.jsp，并返回flag="2"
-			if(showinfoFlag == "3"){
-				if(confirm("您选择的终点是'"+nodename+"'。是否将此处设置为线路终点？")){
-					opener.setValue(nodeId,nodename,flag="3",e.point.lng,e.point.lat); 
-					window.close(); 				
-				}
-			}
-			//返回到该页面被调用的地方addWareHouse.jsp
-			if(showinfoFlag == "4"){
-				if(confirm("该坐标为"+e.point.lng+ ", " + e.point.lat+"。是否将仓库点添加至此？")){
-					opener.setValue(e.point.lng, e.point.lat);  
-					window.close(); 				
-				}
-			}
-			//显示曲线
-			if(showinfoFlag == "5"){
-		    var originLng = window.opener.document.getElementById('originLng').value;
-		    var originLat = window.opener.document.getElementById('originLat').value;
-		    var terminalLng = window.opener.document.getElementById('terminalLng').value;
-		    var terminalLat = window.opener.document.getElementById('terminalLat').value;
-			var axisx=[];    
-            var axisy=[];
-            var pts;
-            var polyline; 
-			var origin=new BMap.Point(originLng,originLat);
-			var terminal=new BMap.Point(terminalLng,terminalLat);			    
-			var driving = new BMap.DrivingRoute(map); //驾车实例
-			// alert("搜索驾车路线1");   
-            driving.search(origin, terminal);  
-           // alert("搜索驾车路线2");           
- 
-            //查询过程         
-            driving.setSearchCompleteCallback(function(){
-            if (driving.getStatus() != BMAP_STATUS_SUCCESS){alert("这两点间没有直接可到达路线");}
-            if (driving.getStatus() == BMAP_STATUS_SUCCESS){alert("这两点间有直接可到达路线");
-            pts = driving.getResults().getPlan(0).getRoute(0).getPath(); //通过驾车实例，获得一系列点的数组
-            polyline = new BMap.Polyline(pts); 
-            map.addOverlay(polyline); 
-            for(var j=0;j<pts.length;j++)
-            {
-            axisx[j]=pts[j].lng;
-            axisy[j]=pts[j].lat;
-            }                              
-            }        
-            })//查询并显示结束          
-            
-            setTimeout(function(){
-            //添加连接边的时候addEdge.jsp，设置参数为flag == "5"	
-             //alert("搜索驾车路线3");   
-   			if(confirm("是否保存曲线并退出？")){   
-					opener.setValue(axisx,axisy,flag="5","","");  
-					window.close(); 				
-				}	    
-            ;;},1000)
-   			
-			}
-
-		}
 		//单车动态演示		
 function onetrsport(){
 
@@ -533,7 +459,7 @@ $.ajax({
 		map.centerAndZoom("中国", 6);     // 初始化地图,设置中心点坐标和地图级别
 		map.addControl(new BMap.NavigationControl());               // 添加平移缩放控件
 		map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
-		map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
+		map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件 	
 		map.enableScrollWheelZoom();                            //启用滚轮放大缩小
 		//map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
 		//map.setCurrentCity("西安");          // 设置地图显示的城市 此项是必须设置的
@@ -547,9 +473,78 @@ $.ajax({
 		map.setMapStyle(mapStyle);
 		function showInfo1(e){
 			var showinfoFlag = $("#showinfoFlag").val();
-			alert(e.point.lng + ", " +"flag:"+showinfoFlag+"--"+ e.point.lat);
+			if(showinfoFlag == "1"){
+				if(confirm("该坐标为"+e.point.lng+ ", " + e.point.lat+"。是否将灾害点添加至此？")){
+					opener.setValue(e.point.lng, e.point.lat); 
+					window.close(); 				
+				}
+			}
+			//返回到该页面被调用的地方addEdge.jsp，并返回flag="2"
+            if(showinfoFlag == "2"){
+				if(confirm("您选择的起点是'"+nodename+"'。是否将此处设置为线路起点？")){
+					opener.setValue(nodeId,nodename,flag="2",e.point.lng,e.point.lat); 
+					window.close(); 				
+				}
+			}
+			//返回到该页面被调用的地方addEdge.jsp，并返回flag="2"
+			if(showinfoFlag == "3"){
+				if(confirm("您选择的终点是'"+nodename+"'。是否将此处设置为线路终点？")){
+					opener.setValue(nodeId,nodename,flag="3",e.point.lng,e.point.lat); 
+					window.close(); 				
+				}
+			}
+			//返回到该页面被调用的地方addWareHouse.jsp
+			if(showinfoFlag == "4"){
+				if(confirm("该坐标为"+e.point.lng+ ", " + e.point.lat+"。是否将仓库点添加至此？")){
+					opener.setValue(e.point.lng, e.point.lat);  
+					window.close(); 				
+				}
+			}
+			//显示曲线
+			if(showinfoFlag == "5"){
+			    var originLng = window.opener.document.getElementById('originLng').value;
+			    var originLat = window.opener.document.getElementById('originLat').value;
+			    var terminalLng = window.opener.document.getElementById('terminalLng').value;
+			    var terminalLat = window.opener.document.getElementById('terminalLat').value;
+				var axisx=[];    
+	            var axisy=[];
+	            var pts;
+	            var polyline; 
+				var origin=new BMap.Point(originLng,originLat);
+				var terminal=new BMap.Point(terminalLng,terminalLat);			    
+				var driving = new BMap.DrivingRoute(map); //驾车实例
+				// alert("搜索驾车路线1");   
+	            driving.search(origin, terminal);  
+	           // alert("搜索驾车路线2");           
+	 
+	            //查询过程         
+	            driving.setSearchCompleteCallback(function(){
+	            if (driving.getStatus() != BMAP_STATUS_SUCCESS)
+	            	{alert("这两点间没有直接可到达路线");}
+	            if (driving.getStatus() == BMAP_STATUS_SUCCESS)
+		            {alert("这两点间有直接可到达路线");
+			            pts = driving.getResults().getPlan(0).getRoute(0).getPath(); //通过驾车实例，获得一系列点的数组
+			            polyline = new BMap.Polyline(pts); 
+			            map.addOverlay(polyline); 
+			            for(var j=0;j<pts.length;j++)
+			            {
+				            axisx[j]=pts[j].lng;
+				            axisy[j]=pts[j].lat;
+			            }                              
+		            }        
+	            })//查询并显示结束
+	            setTimeout(function(){
+	                //添加连接边的时候addEdge.jsp，设置参数为flag == "5"	
+	                 //alert("搜索驾车路线3");   
+	       			if(confirm("是否保存曲线并退出？")){   
+	    					opener.setValue(axisx,axisy,flag="5","","");  
+	    					window.close(); 				
+	    				}	    
+	                ;;},1000)
+			}
 		}
-		map.addEventListener("click", showInfo);
+		
+		map.addEventListener("click", showInfo1);
 		
 		//测量距离的工具
 		var myDis = new BMapLib.DistanceTool(map);
@@ -603,7 +598,7 @@ var styleOptions = {
     }
 //实例化鼠标绘制工具
     var myDrawingManagerObject = new BMapLib.DrawingManager(map, {
-    isOpen: true, 
+    isOpen: false, 
     drawingMode:BMAP_DRAWING_POLYLINE,
     enableDrawingTool: true,
     enableCalculate: false,

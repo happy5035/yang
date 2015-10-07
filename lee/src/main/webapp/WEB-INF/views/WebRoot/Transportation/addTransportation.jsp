@@ -1,7 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/gov_style_10.css">
+<link href="<c:url value="/static/style/gov_style_10.css" />" rel="stylesheet" type="text/css">
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,18 +10,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>Ìí¼ÓÔËÊä¹¤¾ß</title>    
+    <title>æ·»åŠ è¿è¾“å·¥å…·</title>    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-     <script type="text/javascript" src="<%=path %>/js/jquery-1.8.0.js"></script>  
+   <script type="text/javascript" src="<c:url value="/static/js/js/jquery-1.8.0.js"/>"></script> 
      <script type="text/javascript"> 
 function cbt_local()
 {
 if(document.forms[0].goodsName.value =='')
-{alert("Îï×ÊÃû³Æ²»ÄÜÎª¿Õ");document.forms[0].logiccabinetno.focus(); return false;}
+{alert("ç‰©èµ„åç§°ä¸èƒ½ä¸ºç©º");document.forms[0].logiccabinetno.focus(); return false;}
 }
 function cbt_res()
 {
@@ -34,7 +33,7 @@ function cbt_res()
 		    $( "#transType" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findLoadWeight.action?transType="+encodeURI(encodeURI($(this).val())),
+		    	url: "findLoadWeight?transType="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -47,7 +46,7 @@ function cbt_res()
 		    $( "#emerTypeName" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findEmergency.action?emerTypeName="+encodeURI(encodeURI($(this).val())),
+		    	url: "findEmergency?emerTypeName="+encodeURI(encodeURI($(this).val())),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -55,7 +54,7 @@ function cbt_res()
 		    	}});		    
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findNodes.action?emerId="+$("#emerId").val()+"&amt=" + Math.random(),
+		    	url: "findNodes?emerId="+$("#emerId").val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -65,7 +64,7 @@ function cbt_res()
 		    $( "#emerId" ).change(function(){
 		    $.ajax({
 		    	type: "POST",
-		    	url: "findNodes.action?emerId="+$("#emerId").val()+"&amt=" + Math.random(),
+		    	url: "findNodes?emerId="+$("#emerId").val()+"&amt=" + Math.random(),
 		    	cache: false,
 		    	async: false,
 		    	success: function(data){
@@ -87,10 +86,10 @@ function cbt_res()
     <td width="100%" height="27" bgcolor="#E3EBFE"><table border="0" width="100%"
     cellspacing="0" cellpadding="0" height="27">
         <tr>
-          <td width="3%"><img src="<%=request.getContextPath()%>/images/desktop/icon-main-001.gif" width="29" height="27"></td>
+          <td width="3%"><img src="/lee/static/images/desktop/icon-main-001.gif" width="29" height="27"></td>
           <td width="47%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-					<td width="100%" class="f3">ÔËÊä¹¤¾ß¹ÜÀí&gt;&gt;Ìí¼ÓÔËÊä¹¤¾ß</td>
+					<td width="100%" class="f3">è¿è¾“å·¥å…·ç®¡ç†&gt;&gt;æ·»åŠ è¿è¾“å·¥å…·</td>
                 </tr>
             </table></td>
           <td width="50%"></td>
@@ -103,64 +102,71 @@ function cbt_res()
 		<td align="center" class="tr4"> 
 			<table border="0" cellpadding="3" cellspacing="1" class="table3">
 			<tr class="tr2">
-			    <td  class="tr1" align="right">*ÔËÊä¹¤¾ß³µÅÆºÅ:</td>
-				<td><input type="text" name="busNumber" ></td>	
-				<td  class="tr1" align="right">*ÔËÊä¹¤¾ßÀàĞÍ:</td>
+			    <td  class="tr1" align="right">*è¿è¾“å·¥å…·è½¦ç‰Œå·:</td>
+				<td><input type="text" name="busnumber" ></td>	
+				<td  class="tr1" align="right">*è¿è¾“å·¥å…·ç±»å‹:</td>
 				<td>
-				    <select id="transType" name="transType">
-						<c:forEach var="item" items="${transTypeName}">
+				    <select id="transType" name="transtype">
+						<c:forEach var="item" items="${transtypename}">
 							<option value="${item}">${item}</option>
 						</c:forEach>
 					</select>
-					<select id="tranModelId" name="tranModelId">
+					<select id="tranModelId" name="tranmodelid">
 						<c:forEach var="item" items="${tranModellist}">
-							<option value="${item.tranModelId}">${item.loadWeight}</option>
+							<option value="${item.tranmodelid}">${item.loadweight}</option>
 						</c:forEach>
 					</select>				    
 				</td>					
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*ÔËÊä¹¤¾ß±àÂë:</td>									
-					<td><input type="text" name="transNo" ></td>
-					<td  class="tr1" align="right" >*ÔËÊä¹¤¾ß×´Ì¬:</td>
-					<td><s:select name="state" list="%{#{'Õı³£':'Õı³£','Î¬ĞŞÖĞ':'Î¬ĞŞÖĞ','ÆäËü':'ÆäËü'}}" value="Õı³£" theme="simple"/><font color=red>  *</font></td>			
+					<td  class="tr1" align="right">*è¿è¾“å·¥å…·ç¼–ç :</td>									
+					<td><input type="text" name="transno" ></td>
+					<td  class="tr1" align="right" >*è¿è¾“å·¥å…·çŠ¶æ€:</td>
+					<td>
+						<select name="state">
+							<c:forEach var="item" items="${statelist}">
+								<option value="${item}">${item}</option>
+							</c:forEach>
+						</select>
+					<font color=red>  *</font>
+					</td>			
 			</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼şÀàĞÍ:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶ç±»å‹:</td>
 					<td>
-					<select id="emerTypeName" name="emerTypeName">
-						<c:forEach var="item" items="${emerTypeName}">
+					<select id="emerTypeName" name="emertypename">
+						<c:forEach var="item" items="${emertypename}">
 							<option value="${item}">${item}</option>
 						</c:forEach>
 					</select>
 					</td>
-					<td  class="tr1" align="right">*ËùÊôÔÖº¦ÊÂ¼ş:</td>
+					<td  class="tr1" align="right">*æ‰€å±ç¾å®³äº‹ä»¶:</td>
 					<td>
-					<select id="emerId" name="emerId">
+					<select id="emerId" name="emerid">
 						<c:forEach var="item" items="${emergencylist}">
-							<option value="${item.emerId}">${item.emerName}</option>
+							<option value="${item.emerid}">${item.emername}</option>
 						</c:forEach>
 					</select>
                     </td>				
 				</tr>
 			<tr class="tr2">
-					<td  class="tr1" align="right">*³õÊ¼Ëù´¦½Úµã:</td>
+					<td  class="tr1" align="right">*åˆå§‹æ‰€å¤„èŠ‚ç‚¹:</td>
 					<td>
-					<select id="nodeId" name="nodeId">
+					<select id="nodeId" name="nodeid">
 						<c:forEach var="item" items="${nodellist}">
-							<option value="${item.nodeId}">${item.nodeName}</option>
+							<option value="${item.nodeid}">${item.nodename}</option>
 						</c:forEach>
 					</select>		
 					</td>
-					<td  class="tr1" align="right">*±¸×¢:</td>
+					<td  class="tr1" align="right">*å¤‡æ³¨:</td>
 					<td><input type="text" name="note" ></td>				
 				</tr>			
 			<tr class="tr10">
     	  			<td align="center" colspan="4">
     	  				 &nbsp;&nbsp;
-    	  				 <input type=image src="<%=request.getContextPath()%>/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
-                         <input type="image" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">
-	   					<a href="javascript:history.back(-1);"><img border="0" src="<%=request.getContextPath()%>/images/pub/lzoa_pub_back.gif"/></a> 
+    	  				 <input type=image src="/lee/static/images/pub/lzoa_pub_save.gif" width="67" height="19" style="cursor:hand;border:0px" ;  onClick="return cbt_local();  return false;">
+                         <input type="image" src="/lee/static/images/pub/lzoa_pub_reset.gif" width="67" height="19" style="cursor:hand" onClick="return cbt_res();">
+	   					<a href="javascript:history.back(-1);"><img border="0" src="/lee/static/images/pub/lzoa_pub_back.gif"/></a> 
 	  				</td>
   			</tr>
 			</table>
