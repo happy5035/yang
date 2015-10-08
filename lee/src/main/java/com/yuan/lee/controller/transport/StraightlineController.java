@@ -384,6 +384,12 @@ public class StraightlineController {
     @ResponseBody
     @RequestMapping("/one_Trsportation")
    public List<EdgePoints>  one_Trsportation() throws Exception{ 
+    	 axisx="";    //方便下面调用，问题是什么时候清零？调试的时候解决这个问题
+    	 axisy="";  
+    	 edgeType="";//区分不同连接边，用于读取显示
+    	//String nodeid="";
+    	 fnodename="";//用于单次任务运输终点起点的记录
+    	 snodename="";//用于单次任务运输终点的记录
    	//原来最初的测试
    		//String transID="b40d925ad4da44aab621ac374d54a6b3";
    		//String schemeID="1";
